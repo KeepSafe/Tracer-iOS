@@ -18,7 +18,7 @@ import Foundation
 /// Note: this boxed type erasure design pattern comes from `AnyHashable`
 /// via https://github.com/apple/swift/blob/master/stdlib/public/core/AnyHashable.swift
 /// and avoids a lot of issues with using generic constraints at a protocol level.
-public struct AnyTraceEquatable {
+public struct AnyTraceEquatable: Equatable {
     public init<H: Equatable>(_ base: H) {
         _box = _ConcreteTraceEquatableBox(base)
     }
