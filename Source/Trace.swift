@@ -50,9 +50,29 @@ public struct Trace: Traceable {
         self.setupBeforeStartingTrace = setupBeforeStartingTrace
     }
     
+    /// The display name of the trace (e.g. `Sign up flow`)
     public let name: String
+    
+    /// Whether or not to enforce the emitted order of elements in `itemsToMatch`
     public let enforceOrder: Bool
+    
+    /// An array of `TraceItem`'s to match against during an active trace
     public let itemsToMatch: [TraceItem]
+    
+    /// An optional array of setup steps rendered as a numbered list (i.e. pass these in without numbers)
     public let setupSteps: [String]?
+    
+    /// Returns a numbered of list of the setup steps
+    public var setupStepsAsList: String? {
+        guard let setupSteps = setupSteps, setupSteps.isEmpty == false else { return nil }
+        var numberedList = "Setup steps:\n\n"
+        for (index, step) in setupSteps.enumerated() {
+            numberedList.append("    \(index). \(step)\n")
+        }
+        return numberedList
+    }
+    
+    /// An optional closure to execute arbitrary setup steps before the
+    /// trace is run such as setting up any application state
     public let setupBeforeStartingTrace: TracerSetupClosure?
 }

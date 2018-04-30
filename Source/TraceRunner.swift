@@ -23,9 +23,11 @@ internal final class TraceRunner {
     
     // MARK: - API
     
-    /// Starts listening to items being fired and appends them appropriately
-    /// into a `TraceResult` that can be displayed at the end of the trace.
+    /// Executes any setup steps, then starts listening to items being fired and appends them
+    /// appropriately into a `TraceResult` that can be displayed at the end of the trace.
     func start() {
+        trace.setupBeforeStartingTrace?()
+        
         listener = Tracer.itemFired.listen(wasFired: { [weak self] anyTraceEquatable in
             self?.result.handleFiring(of: anyTraceEquatable)
         })
@@ -41,10 +43,13 @@ internal final class TraceRunner {
         return result
     }
     
+    // MARK: - Internal Properties
+    
+    internal fileprivate(set) var result: TraceResult
+    
     // MARK: - Private Properties
     
     fileprivate var trace: Traceable
-    fileprivate var result: TraceResult
     fileprivate var listener: TraceSignalListener?
     
 }

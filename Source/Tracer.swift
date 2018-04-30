@@ -10,15 +10,6 @@ import Foundation
 
 public final class Tracer {
     
-    // MARK: - Signals
-    
-    /// A signal to fire when a trace item fires; you'd fire this when any item needs
-    /// to be logged or checked during a trace.
-    ///
-    /// E.g. if you were tracing analytics calls, you'd fire this for events and user property
-    ///      changes and it would log that and compare it to the current trace being run
-    public static let itemFired = TraceSignal<AnyTraceEquatable>()
-    
     // MARK: - Instantiation
     
     public init() {}
@@ -64,6 +55,22 @@ public final class Tracer {
         guard let result = currentTrace?.stop() else { return nil }
         currentTrace = nil
         return TraceReport(result: result)
+    }
+    
+    // MARK: - Signals
+    
+    /// A signal to fire when a trace item fires; you'd fire this when any item needs
+    /// to be logged or checked during a trace.
+    ///
+    /// E.g. if you were tracing analytics calls, you'd fire this for events and user property
+    ///      changes and it would log that and compare it to the current trace being run
+    public static let itemFired = TraceSignal<TraceItem>()
+    
+    /// A signal that is fired any time the current trace's overall state is changed, returning the state
+    ///
+    /// Note: this returns `nil` if no trace is active
+    public var stateChanged: TraceSignal<TraceState>? {
+        return currentTrace?.result.stateChanged
     }
     
     // MARK: - Private Properties
