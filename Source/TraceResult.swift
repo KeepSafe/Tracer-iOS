@@ -8,6 +8,8 @@
 
 import Foundation
 
+public typealias TraceItemStateDictionary = [TraceItem: TraceItemState]
+
 /// Collects and evaluates the results of the trace so they can be summarized later
 public struct TraceResult {
     
@@ -20,7 +22,7 @@ public struct TraceResult {
         }
         
         self.trace = trace
-        var matchableItemStates = [[TraceItem: TraceItemState]]()
+        var matchableItemStates = [TraceItemStateDictionary]()
         trace.itemsToMatch.forEach({ matchableItemStates.append([$0: .waitingToBeMatched]) })
         self.statesForItemsToMatch = matchableItemStates
     }
@@ -52,13 +54,13 @@ public struct TraceResult {
     public let trace: Traceable
     
     /// A signal that is fired any time the trace's overall state is changed, returning the state
-    public let stateChanged = TraceSignal<TraceState>()
+    public let stateChanged = TraceStateChangedSignal()
     
     /// The trace's `itemsToMatch` with states for how they've been matched during the trace
-    public fileprivate(set) var statesForItemsToMatch: [[TraceItem: TraceItemState]]
+    public fileprivate(set) var statesForItemsToMatch: [TraceItemStateDictionary]
     
     /// A tailing log of all items 
-    public fileprivate(set) var statesForAllLoggedItems = [[TraceItem: TraceItemState]]()
+    public fileprivate(set) var statesForAllLoggedItems = [TraceItemStateDictionary]()
     
     /// The current state of the overall trace
     ///
@@ -125,7 +127,7 @@ fileprivate extension TraceResult {
         guard state != .failed else { return }
         
         // Check for failing states first
-        let failedItems: [TraceItem: TraceItemState]?
+        let failedItems: TraceItemStateDictionary?
         if trace.enforceOrder {
             failedItems = statesForItemsToMatch.first(where: { ($0.values.first == .missing) || ($0.values.first == .outOfOrder) })
         } else {

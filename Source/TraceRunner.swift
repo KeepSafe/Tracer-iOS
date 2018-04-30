@@ -28,15 +28,15 @@ internal final class TraceRunner {
     func start() {
         trace.setupBeforeStartingTrace?()
         
-        listener = Tracer.itemFired.listen(wasFired: { [weak self] anyTraceEquatable in
-            self?.result.handleFiring(of: anyTraceEquatable)
+        listener = itemLogged.listen(wasFired: { [weak self] traceItem in
+            self?.result.handleFiring(of: traceItem)
         })
     }
     
     /// Stops listening to items being fired, finalizes the trace report and returns it.
     func stop() -> TraceResult {
         if let listener = listener {
-            Tracer.itemFired.remove(listener: listener)
+            itemLogged.remove(listener: listener)
         }
         
         result.finalize()
@@ -45,7 +45,8 @@ internal final class TraceRunner {
     
     // MARK: - Internal Properties
     
-    internal fileprivate(set) var result: TraceResult
+    let itemLogged = TraceItemLoggedSignal()
+    fileprivate(set) var result: TraceResult
     
     // MARK: - Private Properties
     

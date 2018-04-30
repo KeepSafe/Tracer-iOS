@@ -9,7 +9,7 @@
 import XCTest
 @testable import Tracer
 
-class AnyTraceEquatableTests: XCTestCase {
+final class AnyTraceEquatableTests: XCTestCase {
     
     let intBox = AnyTraceEquatable(1)
     let stringBox = AnyTraceEquatable("string")

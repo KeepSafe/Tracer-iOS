@@ -8,6 +8,16 @@
 
 import Foundation
 
+/// A signal that is fired any time the trace's overall state is changed, returning the state
+public typealias TraceStateChangedSignal = TraceSignal<TraceState>
+
+/// A signal that is fired any time an item was logged
+public typealias TraceItemLoggedSignal = TraceSignal<TraceItem>
+
+/// A tuple of signals returned when a trace is started
+public typealias TraceStartedSignals = (stateChanged: TraceStateChangedSignal, itemLogged: TraceItemLoggedSignal)
+
+/// Main interface for registering and running traces
 public final class Tracer {
     
     // MARK: - Instantiation
@@ -35,47 +45,43 @@ public final class Tracer {
     /// Attempts to start a trace by the given name, if it's been previously registered
     ///
     /// - Parameter name: The name of the `Traceable` or `Trace` item to start
-    /// - Returns: `false` if the passed in trace isn't registered, otherwise `true`
+    /// - Returns: `nil` if the passed in trace isn't registered, otherwise returns
+    ///            a tuple of `TraceStartedSignals` that can be listened to for trace changes
     @discardableResult
-    public func startTrace(named name: String) -> Bool {
+    public func startTrace(named name: String) -> TraceStartedSignals? {
         // no-op if no trace registered by that name
         guard let trace = registeredTraces.first(where: { $0.name == name }) else {
-            return false
+            return nil
         }
         
-        currentTrace = TraceRunner(trace: trace)
-        currentTrace?.start()
-        return true
+        let traceRunner = TraceRunner(trace: trace)
+        currentTraceRunner = traceRunner
+        traceRunner.start()
+        return TraceStartedSignals(stateChanged: traceRunner.result.stateChanged, itemLogged: traceRunner.itemLogged)
+    }
+    
+    /// Logs the given `TraceItem`; this is a no-op if no active trace is running
+    ///
+    /// - Parameter item: The `TraceItem` to log
+    ///
+    /// E.g. if you were tracing analytics calls, you'd fire this for events and user property
+    ///      changes and it would log that and compare it to the current trace being run
+    public func log(item: TraceItem) {
+        currentTraceRunner?.itemLogged.fire(data: item)
     }
     
     /// Stops and clears the current trace
     ///
     /// - Returns: A `TraceReport`, if there was an active trace being run
     public func stopCurrentTrace() -> TraceReport? {
-        guard let result = currentTrace?.stop() else { return nil }
-        currentTrace = nil
+        guard let result = currentTraceRunner?.stop() else { return nil }
+        currentTraceRunner = nil
         return TraceReport(result: result)
-    }
-    
-    // MARK: - Signals
-    
-    /// A signal to fire when a trace item fires; you'd fire this when any item needs
-    /// to be logged or checked during a trace.
-    ///
-    /// E.g. if you were tracing analytics calls, you'd fire this for events and user property
-    ///      changes and it would log that and compare it to the current trace being run
-    public static let itemFired = TraceSignal<TraceItem>()
-    
-    /// A signal that is fired any time the current trace's overall state is changed, returning the state
-    ///
-    /// Note: this returns `nil` if no trace is active
-    public var stateChanged: TraceSignal<TraceState>? {
-        return currentTrace?.result.stateChanged
     }
     
     // MARK: - Private Properties
     
     fileprivate var registeredTraces = [Traceable]()
-    fileprivate var currentTrace: TraceRunner?
+    fileprivate var currentTraceRunner: TraceRunner?
     
 }
