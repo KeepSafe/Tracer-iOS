@@ -7,12 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D41115E82097512100702064 /* TraceSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41115E72097512100702064 /* TraceSignal.swift */; };
 		D45FEC65209345380084DF96 /* Trace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45FEC64209345380084DF96 /* Trace.swift */; };
 		D45FEC69209346220084DF96 /* TraceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45FEC68209346220084DF96 /* TraceItem.swift */; };
 		D463175D209232FD0008A1BC /* Tracer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4631753209232FD0008A1BC /* Tracer.framework */; };
 		D4631762209232FD0008A1BC /* AnyTraceEquatableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4631761209232FD0008A1BC /* AnyTraceEquatableTests.swift */; };
 		D4A668012093B77600009DBD /* AnyTraceEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A668002093B77600009DBD /* AnyTraceEquatable.swift */; };
 		D4A8B7ED209233F9002EC2F3 /* Tracer.h in Headers */ = {isa = PBXBuildFile; fileRef = D4A8B7EB209233F9002EC2F3 /* Tracer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4DB46432097480F00080FE3 /* Tracer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DB46422097480F00080FE3 /* Tracer.swift */; };
+		D4DB46452097482000080FE3 /* TraceResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DB46442097482000080FE3 /* TraceResult.swift */; };
+		D4DB4647209748AC00080FE3 /* TraceRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DB4646209748AC00080FE3 /* TraceRunner.swift */; };
+		D4DB46492097499500080FE3 /* TraceReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DB46482097499500080FE3 /* TraceReport.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D41115E72097512100702064 /* TraceSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceSignal.swift; sourceTree = "<group>"; };
 		D45FEC64209345380084DF96 /* Trace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trace.swift; sourceTree = "<group>"; };
 		D45FEC68209346220084DF96 /* TraceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceItem.swift; sourceTree = "<group>"; };
 		D4631753209232FD0008A1BC /* Tracer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tracer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,6 +41,10 @@
 		D4A668002093B77600009DBD /* AnyTraceEquatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyTraceEquatable.swift; sourceTree = "<group>"; };
 		D4A8B7EA209233F9002EC2F3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4A8B7EB209233F9002EC2F3 /* Tracer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tracer.h; sourceTree = "<group>"; };
+		D4DB46422097480F00080FE3 /* Tracer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracer.swift; sourceTree = "<group>"; };
+		D4DB46442097482000080FE3 /* TraceResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceResult.swift; sourceTree = "<group>"; };
+		D4DB4646209748AC00080FE3 /* TraceRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceRunner.swift; sourceTree = "<group>"; };
+		D4DB46482097499500080FE3 /* TraceReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceReport.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,11 +96,16 @@
 		D4A8B7E9209233F9002EC2F3 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				D4A8B7EA209233F9002EC2F3 /* Info.plist */,
 				D4A8B7EB209233F9002EC2F3 /* Tracer.h */,
+				D4A8B7EA209233F9002EC2F3 /* Info.plist */,
+				D4A668002093B77600009DBD /* AnyTraceEquatable.swift */,
 				D45FEC64209345380084DF96 /* Trace.swift */,
 				D45FEC68209346220084DF96 /* TraceItem.swift */,
-				D4A668002093B77600009DBD /* AnyTraceEquatable.swift */,
+				D4DB46422097480F00080FE3 /* Tracer.swift */,
+				D4DB46482097499500080FE3 /* TraceReport.swift */,
+				D4DB46442097482000080FE3 /* TraceResult.swift */,
+				D4DB4646209748AC00080FE3 /* TraceRunner.swift */,
+				D41115E72097512100702064 /* TraceSignal.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -206,8 +221,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D45FEC69209346220084DF96 /* TraceItem.swift in Sources */,
+				D41115E82097512100702064 /* TraceSignal.swift in Sources */,
 				D4A668012093B77600009DBD /* AnyTraceEquatable.swift in Sources */,
+				D4DB4647209748AC00080FE3 /* TraceRunner.swift in Sources */,
+				D4DB46452097482000080FE3 /* TraceResult.swift in Sources */,
+				D4DB46492097499500080FE3 /* TraceReport.swift in Sources */,
 				D45FEC65209345380084DF96 /* Trace.swift in Sources */,
+				D4DB46432097480F00080FE3 /* Tracer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

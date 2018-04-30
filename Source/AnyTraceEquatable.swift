@@ -13,7 +13,8 @@ import Foundation
 ///
 /// E.g. let itemsToMatch: = [AnyTraceEquatable("string"),
 ///                           AnyTraceEquatable(["a", "b", "c"]),
-///                           AnyTraceEquatable(["key": "value"])]
+///                           AnyTraceEquatable(["key": "value"]),
+///                           AnyTraceEquatable(myCustomEquatableType)]
 ///
 /// Note: this boxed type erasure design pattern comes from `AnyHashable`
 /// via https://github.com/apple/swift/blob/master/stdlib/public/core/AnyHashable.swift
@@ -34,6 +35,7 @@ public struct AnyTraceEquatable: Equatable {
     }
     
     private let _box: _AnyTraceEquatableBox
+    private init() { fatalError("init not supported") }
 }
 
 /// We use this to give us full equality checks at a type level
