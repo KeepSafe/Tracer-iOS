@@ -94,9 +94,11 @@ fileprivate extension TraceResult {
             return
         }
         
-        // Otherwise, check the item can be matched by finding the first
-        // item index of this name that's still waiting to be matched
-        if let index = statesForItemsToMatch.index(where: { $0[item] == .waitingToBeMatched }) {
+        // Otherwise, check the item can be matched by finding the first generic
+        // item that's still waiting to be matched and see if it matches
+        // the first item of the passed in type that's waiting to be matched
+        if let firstGenericIndexWaitingToBeMatched = statesForItemsToMatch.index(where: { $0.values.first == .waitingToBeMatched }),
+           let indexOfThisTypeWaitingToBeMatched = statesForItemsToMatch.index(where: { $0[item] == .waitingToBeMatched }) {
             let itemState: TraceItemState
             if trace.enforceOrder == false {
                 itemState = .matched
@@ -105,14 +107,21 @@ fileprivate extension TraceResult {
                 // e.g. if the trace's items are ["a", "b", "c", "d"], this item is "c",
                 // and we've already shown it's still "waitingToBeMatched", we'll just consume
                 // this item and mark it as matched
-                if trace.itemsToMatch[index] == item {
+                if trace.itemsToMatch[firstGenericIndexWaitingToBeMatched] == item {
                     itemState = .matched
                 } else {
                     itemState = .outOfOrder
+                    
+                    // If this item is out-of-order, any waiting items before it are also out-of-order
+                    let previousWaitingItems = statesForItemsToMatch[0..<indexOfThisTypeWaitingToBeMatched].filter({ $0.values.first == .waitingToBeMatched }).map({ $0.keys }).flatMap({ $0 })
+                    for (index, waitingItem) in previousWaitingItems.enumerated() {
+                        statesForItemsToMatch[index][waitingItem] = .outOfOrder
+                    }
                 }
             }
             
-            statesForItemsToMatch[index][item] = itemState
+            // Update the first instance of this item type waiting to be matched
+            statesForItemsToMatch[indexOfThisTypeWaitingToBeMatched][item] = itemState
             updateLog(with: item, state: itemState)
         } else {
             // The item matches one found in items to match, but we've already matched all of its
