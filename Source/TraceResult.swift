@@ -124,9 +124,17 @@ fileprivate extension TraceResult {
             statesForItemsToMatch[indexOfThisTypeWaitingToBeMatched][item] = itemState
             updateLog(with: item, state: itemState)
         } else {
-            // The item matches one found in items to match, but we've already matched all of its
-            // type that we were supposed to, so just log it as ignored
-            updateLog(with: item, state: .ignoredButMatched)
+            if trace.allowDuplicates {
+                // The item matches one found in items to match, but we've already matched all of its
+                // type that we were supposed to, so just log it as ignored
+                updateLog(with: item, state: .ignoredButMatched)
+            } else if let indexOfThisType = statesForItemsToMatch.index(where: { $0.keys.first == item }) {
+                // Fail the overall trace by marking the type it duplicated
+                statesForItemsToMatch[indexOfThisType][item] = .hadDuplicates
+                
+                // Then mark this extraneous item as a duplicate and update trace state
+                updateLog(with: item, state: .duplicate)
+            }
         }
     }
     
@@ -138,9 +146,24 @@ fileprivate extension TraceResult {
         // Check for failing states first
         let failedItems: TraceItemStateDictionary?
         if trace.enforceOrder {
-            failedItems = statesForItemsToMatch.first(where: { ($0.values.first == .missing) || ($0.values.first == .outOfOrder) })
+            failedItems = statesForItemsToMatch.first(where: { traceItemStateDictionary -> Bool in
+                let traceItemState = traceItemStateDictionary.values.first
+                if trace.allowDuplicates {
+                    return traceItemState == .missing || traceItemState == .outOfOrder
+                } else {
+                    return traceItemState == .missing || traceItemState == .outOfOrder || traceItemState == .hadDuplicates
+                }
+            })
         } else {
-            failedItems = statesForItemsToMatch.first(where: { ($0.values.first == .missing) })
+            // Not enforcing order
+            failedItems = statesForItemsToMatch.first(where: { traceItemStateDictionary -> Bool in
+                let traceItemState = traceItemStateDictionary.values.first
+                if trace.allowDuplicates {
+                    return traceItemState == .missing
+                } else {
+                    return traceItemState == .missing || traceItemState == .hadDuplicates
+                }
+            })
         }
         if failedItems?.isEmpty == false {
             state = .failed

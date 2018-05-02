@@ -16,6 +16,9 @@ public protocol Traceable {
     /// Whether or not to enforce the emitted order of elements in `itemsToMatch`
     var enforceOrder: Bool { get }
     
+    /// Whether or not to allow duplicates of the `itemsToMatch` to be ignored once they've been matched
+    var allowDuplicates: Bool { get }
+    
     /// An array of `TraceItem`'s to match against during an active trace
     var itemsToMatch: [TraceItem] { get }
     
@@ -33,18 +36,21 @@ public struct Trace: Traceable {
     ///
     /// - Parameters:
     ///   - name: The display name of the trace (e.g. `Sign up flow`)
-    ///   - enforceOrder: Whether or not to enforce the emitted order of elements in `itemsToMatch`
+    ///   - enforceOrder: Whether or not to enforce the emitted order of elements in `itemsToMatch`; defaults to true
+    ///   - allowDuplicates: Whether or not to allow duplicates of the `itemsToMatch` to be ignored once they've been matched; defaults to true
     ///   - itemsToMatch: An array of `TraceItem`'s to match against during an active trace
     ///   - setupSteps: An optional array of setup steps rendered as a numbered list
     ///   - setupBeforeStartingTrace: An optional closure to execute arbitrary setup steps before the
     ///                               trace is run such as setting up any application state
     public init(name: String,
                 enforceOrder: Bool = true,
+                allowDuplicates: Bool = true,
                 itemsToMatch: [TraceItem],
                 setupSteps: [String]? = nil,
                 setupBeforeStartingTrace: TracerSetupClosure? = nil) {
         self.name = name
         self.enforceOrder = enforceOrder
+        self.allowDuplicates = allowDuplicates
         self.itemsToMatch = itemsToMatch
         self.setupSteps = setupSteps
         self.setupBeforeStartingTrace = setupBeforeStartingTrace
@@ -53,8 +59,11 @@ public struct Trace: Traceable {
     /// The display name of the trace (e.g. `Sign up flow`)
     public let name: String
     
-    /// Whether or not to enforce the emitted order of elements in `itemsToMatch`
+    /// Whether or not to enforce the emitted order of elements in `itemsToMatch`; defaults to `true`
     public let enforceOrder: Bool
+    
+    /// Whether or not to allow duplicates of the `itemsToMatch` to be ignored once they've been matched; defaults to `true`
+    public let allowDuplicates: Bool
     
     /// An array of `TraceItem`'s to match against during an active trace
     public let itemsToMatch: [TraceItem]

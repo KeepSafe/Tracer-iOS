@@ -11,8 +11,8 @@ import XCTest
 
 final class TraceResultTests: XCTestCase {
     
-    fileprivate let testTraceItemTrue = TraceItem(type: "traceResultTestsTrue", itemToMatch: AnyTraceEquatable(true))
-    fileprivate let testTraceItemFalse = TraceItem(type: "traceResultTestsFalse", itemToMatch: AnyTraceEquatable(false))
+    fileprivate let ti1 = TraceItem(type: "ti1", itemToMatch: AnyTraceEquatable(true))
+    fileprivate let ti2 = TraceItem(type: "ti2", itemToMatch: AnyTraceEquatable(false))
     fileprivate let ignoredItem = TraceItem(type: "ignoreMe", itemToMatch: AnyTraceEquatable(true))
     
     private let i1 = TraceItem(type: "1", itemToMatch: AnyTraceEquatable(1))
@@ -31,8 +31,8 @@ final class TraceResultTests: XCTestCase {
         XCTAssertFalse(result.statesForItemsToMatch.isEmpty)
         XCTAssertTrue(result.statesForItemsToMatch.count == 2)
         
-        verifyMatchedItemState(in: result, firstItem: true, state: .waitingToBeMatched)
-        verifyMatchedItemState(in: result, firstItem: false, state: .waitingToBeMatched)
+        verifyMatchedItemState(in: result, item: ti1, state: .waitingToBeMatched)
+        verifyMatchedItemState(in: result, item: ti2, state: .waitingToBeMatched)
         
         // Make sure no items have been logged yet
         XCTAssertTrue(result.statesForAllLoggedItems.isEmpty)
@@ -42,43 +42,43 @@ final class TraceResultTests: XCTestCase {
         var result = testResult(for: "firingOfItem")
         
         // Ensure it logs the item and updates the state
-        verifyMatchedItemState(in: result, firstItem: true, state: .waitingToBeMatched)
-        result.handleFiring(of: testTraceItemTrue)
-        verifyMatchedItemState(in: result, firstItem: true, state: .matched)
+        verifyMatchedItemState(in: result, item: ti1, state: .waitingToBeMatched)
+        result.handleFiring(of: ti1)
+        verifyMatchedItemState(in: result, item: ti1, state: .matched)
         
         // Is a no-op if result is already finalized
         result.finalize()
-        verifyMatchedItemState(in: result, firstItem: false, state: .missing)
-        result.handleFiring(of: testTraceItemFalse)
-        verifyMatchedItemState(in: result, firstItem: false, state: .missing)
+        verifyMatchedItemState(in: result, item: ti2, state: .missing)
+        result.handleFiring(of: ti2)
+        verifyMatchedItemState(in: result, item: ti2, state: .missing)
     }
     
     func testFinalizing() {
         var result = testResult(for: "finalize")
         
         // Log an item so we have one matched
-        result.handleFiring(of: testTraceItemTrue)
+        result.handleFiring(of: ti1)
         
         // Finalize and see if it switched waiting items to missing
-        verifyMatchedItemState(in: result, firstItem: false, state: .waitingToBeMatched)
-        verifyMatchedItemState(in: result, firstItem: true, state: .matched)
+        verifyMatchedItemState(in: result, item: ti2, state: .waitingToBeMatched)
+        verifyMatchedItemState(in: result, item: ti1, state: .matched)
         result.finalize()
-        verifyMatchedItemState(in: result, firstItem: true, state: .matched)
-        verifyMatchedItemState(in: result, firstItem: false, state: .missing)
+        verifyMatchedItemState(in: result, item: ti1, state: .matched)
+        verifyMatchedItemState(in: result, item: ti2, state: .missing)
     }
     
     func testStatesForAllLoggedItems() {
         var result = testResult(for: "finalize")
         
         // Log an item that will match and one that will be ignored
-        result.handleFiring(of: testTraceItemTrue)
+        result.handleFiring(of: ti1)
         result.handleFiring(of: ignoredItem)
         
         verifyLoggedItemState(in: result, item: ignoredItem, state: .ignoredNoMatch)
-        verifyLoggedItemState(in: result, item: testTraceItemTrue, state: .matched)
+        verifyLoggedItemState(in: result, item: ti1, state: .matched)
         
         // Verify the false item wasn't logged
-        XCTAssertNil(findItemInLog(in: result, item: testTraceItemFalse))
+        XCTAssertNil(findItemInLog(in: result, item: ti2))
     }
     
     func testStateChanges() {
@@ -88,11 +88,11 @@ final class TraceResultTests: XCTestCase {
         XCTAssertTrue(result.state == .waiting)
         
         // Passing (but not all the results in yet)
-        result.handleFiring(of: testTraceItemTrue)
+        result.handleFiring(of: ti1)
         XCTAssertTrue(result.state == .passing)
         
         // Passed (all items fired and it was finalized)
-        result.handleFiring(of: testTraceItemFalse)
+        result.handleFiring(of: ti2)
         XCTAssertTrue(result.state == .passing)
         result.finalize()
         XCTAssertTrue(result.state == .passed)
@@ -114,34 +114,41 @@ final class TraceResultTests: XCTestCase {
 
         // Matched
         var r2 = testResult(for: "matched")
-        r2.handleFiring(of: testTraceItemTrue)
-        r2.handleFiring(of: testTraceItemFalse)
-        verifyLoggedItemState(in: r2, item: testTraceItemTrue, state: .matched)
-        verifyLoggedItemState(in: r2, item: testTraceItemFalse, state: .matched)
+        r2.handleFiring(of: ti1)
+        r2.handleFiring(of: ti2)
+        verifyLoggedItemState(in: r2, item: ti1, state: .matched)
+        verifyLoggedItemState(in: r2, item: ti2, state: .matched)
         
         // Out-of-order
         var r3 = testResult(for: "out-of-order")
-        r3.handleFiring(of: testTraceItemFalse)
-        r3.handleFiring(of: testTraceItemTrue)
-        verifyMatchedItemState(in: r3, firstItem: false, state: .outOfOrder)
-        verifyMatchedItemState(in: r3, firstItem: true, state: .outOfOrder)
+        r3.handleFiring(of: ti2)
+        r3.handleFiring(of: ti1)
+        verifyMatchedItemState(in: r3, item: ti2, state: .outOfOrder)
+        verifyMatchedItemState(in: r3, item: ti1, state: .outOfOrder)
         
         // Ignored, but matched
         var r4 = testResult(for: "ignored, but matched")
-        r4.handleFiring(of: testTraceItemTrue)
-        verifyLoggedItemState(in: r4, item: testTraceItemTrue, state: .matched)
+        r4.handleFiring(of: ti1)
+        verifyLoggedItemState(in: r4, item: ti1, state: .matched)
         // Fire it again and it should ignore it since all items
         // of this type were already consumed
-        r4.handleFiring(of: testTraceItemTrue)
-        verifyLoggedItemState(in: r4, item: testTraceItemTrue, state: .ignoredButMatched)
+        r4.handleFiring(of: ti1)
+        verifyLoggedItemState(in: r4, item: ti1, state: .ignoredButMatched)
+        
+        // Duplicate, or Had duplicates
+        var r5 = testResult(for: "duplicates", allowDuplicates: false)
+        r5.handleFiring(of: ti1)
+        r5.handleFiring(of: ti1)
+        verifyMatchedItemState(in: r5, item: ti1, state: .hadDuplicates)
+        verifyLoggedItemState(in: r5, item: ti1, state: .duplicate)
     }
     
     // MARK: - Order Logic
     
     func testCorrectOrderPasses() {
         var result = testResult(for: "correctOrder")
-        result.handleFiring(of: testTraceItemTrue)
-        result.handleFiring(of: testTraceItemFalse)
+        result.handleFiring(of: ti1)
+        result.handleFiring(of: ti2)
         XCTAssertTrue(result.state == .passing)
         result.finalize()
         XCTAssertTrue(result.state == .passed)
@@ -166,9 +173,9 @@ final class TraceResultTests: XCTestCase {
     
     func testIncorrectOrderFails() {
         var result = testResult(for: "incorrectOrder")
-        result.handleFiring(of: testTraceItemFalse)
+        result.handleFiring(of: ti2)
         XCTAssertTrue(result.state == .failed)
-        result.handleFiring(of: testTraceItemTrue)
+        result.handleFiring(of: ti1)
         XCTAssertTrue(result.state == .failed)
         result.finalize()
         XCTAssertTrue(result.state == .failed)
@@ -221,31 +228,57 @@ final class TraceResultTests: XCTestCase {
         XCTAssertTrue(r1.state == .passed)
     }
     
+    // MARK: - Duplicates
+    
+    func testEnforcingNoDuplicates() {
+        let trace = Trace(name: "noDuplicatesAllowed",
+                          allowDuplicates: false,
+                          itemsToMatch: [i1, i2, i3, i4, i5, i6])
+        
+        // Fire a passing state, but fail on duplicates
+        var r1 = TraceResult(trace: trace)
+        r1.handleFiring(of: i1)
+        r1.handleFiring(of: i2)
+        r1.handleFiring(of: i3)
+        r1.handleFiring(of: i4)
+        r1.handleFiring(of: i5)
+        r1.handleFiring(of: i6)
+        XCTAssertTrue(r1.state == .passing)
+        r1.handleFiring(of: i1)
+        XCTAssertTrue(r1.state == .failed)
+        r1.finalize()
+        XCTAssertTrue(r1.state == .failed)
+        // Ensure we marked it as `hadDuplicates` and `duplicate`
+        verifyMatchedItemState(in: r1, item: i1, state: .hadDuplicates)
+        verifyLoggedItemState(in: r1, item: i1, state: .duplicate)
+        
+        // Fail with duplicates early on
+        var r2 = TraceResult(trace: trace)
+        r2.handleFiring(of: i1)
+        XCTAssertTrue(r2.state == .passing)
+        r2.handleFiring(of: i1)
+        XCTAssertTrue(r2.state == .failed)
+        r2.handleFiring(of: i2)
+        r2.handleFiring(of: i3)
+        r2.handleFiring(of: i4)
+        r2.handleFiring(of: i5)
+        r2.handleFiring(of: i6)
+        r2.finalize()
+        XCTAssertTrue(r2.state == .failed)
+        // Ensure we marked it as `hadDuplicates` and `duplicate`
+        verifyMatchedItemState(in: r1, item: i1, state: .hadDuplicates)
+        verifyLoggedItemState(in: r1, item: i1, state: .duplicate)
+    }
+    
 }
 
 // MARK: - Private Helpers
 
 fileprivate extension TraceResultTests {
 
-    func testResult(for traceName: String, enforceOrder: Bool = true) -> TraceResult {
-        let trace = Trace(name: traceName, enforceOrder: enforceOrder, itemsToMatch: [testTraceItemTrue, testTraceItemFalse])
+    func testResult(for traceName: String, enforceOrder: Bool = true, allowDuplicates: Bool = true) -> TraceResult {
+        let trace = Trace(name: traceName, enforceOrder: enforceOrder, allowDuplicates: allowDuplicates, itemsToMatch: [ti1, ti2])
         return TraceResult(trace: trace)
-    }
-    
-    func verifyMatchedItemState(in result: TraceResult, firstItem isFirstItem: Bool, state: TraceItemState) {
-        if isFirstItem {
-            let firstItem = result.statesForItemsToMatch.first!
-            let firstTraceItem = firstItem.keys.first
-            let firstItemState = firstItem.values.first
-            XCTAssertTrue(firstTraceItem == testTraceItemTrue)
-            XCTAssertTrue(firstItemState == state)
-        } else {
-            let lastItem = result.statesForItemsToMatch.last!
-            let lastTraceItem = lastItem.keys.first
-            let lastItemState = lastItem.values.first
-            XCTAssertTrue(lastTraceItem == testTraceItemFalse)
-            XCTAssertTrue(lastItemState == state)
-        }
     }
     
     func findItemInLog(in result: TraceResult, item: TraceItem) -> TraceItemStateDictionary? {
@@ -253,6 +286,13 @@ fileprivate extension TraceResultTests {
             return nil
         }
         return foundItem
+    }
+    
+    func verifyMatchedItemState(in result: TraceResult, item: TraceItem, state: TraceItemState) {
+        guard result.statesForItemsToMatch.first(where: { $0.keys.first == item && $0.values.first == state }) != nil else {
+            XCTFail("Item (\(item.type)) with that state (\(state.rawValue)) not found")
+            return
+        }
     }
     
     func verifyLoggedItemState(in result: TraceResult, item: TraceItem, state: TraceItemState) {

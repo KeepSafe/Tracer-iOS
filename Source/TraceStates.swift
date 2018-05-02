@@ -43,6 +43,12 @@ public enum TraceItemState: String, CustomDebugStringConvertible {
     /// This matched an item in the trace's `itemsToMatch` but we had already matched all necessary items of that type, so it was ignored
     case ignoredButMatched
     
+    /// This was a duplicate of an item in the trace's `itemsToMatch` that we already matched all of and this trace was enforcing no duplicates, so it failed
+    case duplicate
+    
+    /// A duplicate of this item was fired after it and this trace was enforcing no duplicates, so it failed
+    case hadDuplicates
+    
     // MARK: - Description
     
     /// Debug descriptions useful in summary reports to help others understand each state's meaning
@@ -54,6 +60,8 @@ public enum TraceItemState: String, CustomDebugStringConvertible {
         case .missing: return "The trace has completed and this trace item was unaccounted for"
         case .ignoredNoMatch: return "Did not find this item in the trace's `itemsToMatch`, so it was ignored"
         case .ignoredButMatched: return "This matched an item in the trace's `itemsToMatch` but we had already matched all necessary items of that type, so it was ignored"
+        case .duplicate: return "This was a duplicate of an item in the trace's `itemsToMatch` that we already matched all of and this trace was enforcing no duplicates, so it failed"
+        case .hadDuplicates: return "A duplicate of this item was fired after it and this trace was enforcing no duplicates, so it failed"
         }
     }
 }
