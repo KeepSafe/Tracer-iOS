@@ -11,7 +11,7 @@ import XCTest
 
 final class TracerTests: XCTestCase {
 
-    let testTraceItem = TraceItem(type: "testing", itemToMatch: AnyTraceEquatable(true))
+    private let testTraceItem = TraceItem(type: "tracerTests", itemToMatch: AnyTraceEquatable(true))
     
     func testRegisteringTrace() {
         let tracer = Tracer()

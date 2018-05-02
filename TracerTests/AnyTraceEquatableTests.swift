@@ -11,13 +11,13 @@ import XCTest
 
 final class AnyTraceEquatableTests: XCTestCase {
     
-    let intBox = AnyTraceEquatable(1)
-    let stringBox = AnyTraceEquatable("string")
-    let arrayBox = AnyTraceEquatable(["a", "b", "c"])
-    let setBox = AnyTraceEquatable(Set(["a", "b", "c"]))
-    let dictionaryBox = AnyTraceEquatable(["key": "value"])
-    let nestedDictionaryBox = AnyTraceEquatable(["dictionary": ["key": "value"]])
-    let customBox = AnyTraceEquatable(_CustomTraceEquatable(name: "custom"))
+    private let intBox = AnyTraceEquatable(1)
+    private let stringBox = AnyTraceEquatable("string")
+    private let arrayBox = AnyTraceEquatable(["a", "b", "c"])
+    private let setBox = AnyTraceEquatable(Set(["a", "b", "c"]))
+    private let dictionaryBox = AnyTraceEquatable(["key": "value"])
+    private let nestedDictionaryBox = AnyTraceEquatable(["dictionary": ["key": "value"]])
+    private let customBox = AnyTraceEquatable(_CustomTraceEquatable(name: "custom"))
     
     func testEquatableBoxingAndComparison() {
         XCTAssertTrue(intBox == AnyTraceEquatable(1))
