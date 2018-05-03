@@ -45,6 +45,7 @@ public struct TraceResult {
             statesForItemsToMatch[index][item] = .missing
         }
         updateTraceState(finalizing: true)
+        endTime = Date()
         finalized = true
     }
     
@@ -70,6 +71,12 @@ public struct TraceResult {
             stateChanged.fire(data: state)
         }
     }
+    
+    /// The date and time at which this trace started
+    public let startTime = Date()
+    
+    /// The date and time at which this trace ended
+    public fileprivate(set) var endTime: Date?
     
     // MARK: - Private Properties
     

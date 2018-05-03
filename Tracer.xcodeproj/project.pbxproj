@@ -15,6 +15,7 @@
 		D411160C209B518300702064 /* TraceItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D411160B209B518300702064 /* TraceItemTests.swift */; };
 		D411160E209B531400702064 /* TraceRunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D411160D209B531400702064 /* TraceRunnerTests.swift */; };
 		D4111610209B578D00702064 /* TraceSignalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D411160F209B578D00702064 /* TraceSignalTests.swift */; };
+		D4111612209B666C00702064 /* TraceReportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4111611209B666C00702064 /* TraceReportTests.swift */; };
 		D45FEC65209345380084DF96 /* Trace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45FEC64209345380084DF96 /* Trace.swift */; };
 		D45FEC69209346220084DF96 /* TraceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45FEC68209346220084DF96 /* TraceItem.swift */; };
 		D463175D209232FD0008A1BC /* Tracer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4631753209232FD0008A1BC /* Tracer.framework */; };
@@ -45,6 +46,7 @@
 		D411160B209B518300702064 /* TraceItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceItemTests.swift; sourceTree = "<group>"; };
 		D411160D209B531400702064 /* TraceRunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceRunnerTests.swift; sourceTree = "<group>"; };
 		D411160F209B578D00702064 /* TraceSignalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceSignalTests.swift; sourceTree = "<group>"; };
+		D4111611209B666C00702064 /* TraceReportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceReportTests.swift; sourceTree = "<group>"; };
 		D45FEC64209345380084DF96 /* Trace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trace.swift; sourceTree = "<group>"; };
 		D45FEC68209346220084DF96 /* TraceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceItem.swift; sourceTree = "<group>"; };
 		D4631753209232FD0008A1BC /* Tracer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tracer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,6 +105,7 @@
 				D4111609209B4EFD00702064 /* TraceTests.swift */,
 				D411160B209B518300702064 /* TraceItemTests.swift */,
 				D41115FD209A251000702064 /* TracerTests.swift */,
+				D4111611209B666C00702064 /* TraceReportTests.swift */,
 				D4111603209A300800702064 /* TraceResultTests.swift */,
 				D411160D209B531400702064 /* TraceRunnerTests.swift */,
 				D411160F209B578D00702064 /* TraceSignalTests.swift */,
@@ -260,6 +263,7 @@
 				D4631762209232FD0008A1BC /* AnyTraceEquatableTests.swift in Sources */,
 				D4111604209A300800702064 /* TraceResultTests.swift in Sources */,
 				D4111610209B578D00702064 /* TraceSignalTests.swift in Sources */,
+				D4111612209B666C00702064 /* TraceReportTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
