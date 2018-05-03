@@ -58,6 +58,13 @@ public enum TraceItemState: String, CustomDebugStringConvertible {
     /// A duplicate of this item was fired after it and this trace was enforcing no duplicates, so it failed
     case hadDuplicates
     
+    // MARK: - Properties
+    
+    internal static var allReportableStates: [TraceItemState] {
+        return [.matched, .outOfOrder, .missing, .ignoredNoMatch,
+                .ignoredButMatched, .duplicate, .hadDuplicates]
+    }
+    
     // MARK: - Description
     
     /// Debug descriptions useful in summary reports to help others understand each state's meaning
