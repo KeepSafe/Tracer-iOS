@@ -270,6 +270,31 @@ final class TraceResultTests: XCTestCase {
         verifyLoggedItemState(in: r1, item: i1, state: .duplicate)
     }
     
+    func testEnforcingNoOrderAndNoDuplicates() {
+        let trace = Trace(name: "noDuplicatesAllowedAndNoOrderEnforced",
+                          enforceOrder: false,
+                          allowDuplicates: false,
+                          itemsToMatch: [i1, i2, i3, i4, i5, i6])
+        
+        // Fire in random order, but only fail on duplicates
+        var r1 = TraceResult(trace: trace)
+        r1.handleFiring(of: i3)
+        r1.handleFiring(of: i2)
+        r1.handleFiring(of: i1)
+        r1.handleFiring(of: i6)
+        r1.handleFiring(of: i5)
+        r1.handleFiring(of: i4)
+        XCTAssertTrue(r1.state == .passing)
+        r1.handleFiring(of: i1)
+        XCTAssertTrue(r1.state == .failed)
+        r1.finalize()
+        XCTAssertTrue(r1.state == .failed)
+        // Ensure we marked it as `hadDuplicates` and `duplicate`
+        verifyMatchedItemState(in: r1, item: i1, state: .hadDuplicates)
+        verifyLoggedItemState(in: r1, item: i1, state: .duplicate)
+        
+    }
+    
 }
 
 // MARK: - Private Helpers
