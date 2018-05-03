@@ -18,17 +18,19 @@ final class TraceTests: XCTestCase {
         XCTAssertTrue(trace.name == "foo")
         XCTAssertTrue(trace.enforceOrder == true)
         XCTAssertTrue(trace.allowDuplicates == true)
+        XCTAssertTrue(trace.assertOnFailure == false)
     }
     
     func testInstantiationCustomProperties() {
         let setupExp = expectation(description: "setupCalled")
-        let trace = Trace(name: "hai", enforceOrder: false, allowDuplicates: false, itemsToMatch: [testTraceItem], setupSteps: ["Don't panic"], setupBeforeStartingTrace: {
+        let trace = Trace(name: "hai", enforceOrder: false, allowDuplicates: false, assertOnFailure: true, itemsToMatch: [testTraceItem], setupSteps: ["Don't panic"], setupBeforeStartingTrace: {
             setupExp.fulfill()
         })
         
         XCTAssertTrue(trace.name == "hai")
         XCTAssertTrue(trace.enforceOrder == false)
         XCTAssertTrue(trace.allowDuplicates == false)
+        XCTAssertTrue(trace.assertOnFailure == true)
         XCTAssertTrue(trace.itemsToMatch.count == 1)
         XCTAssertTrue(trace.itemsToMatch.first == testTraceItem)
         XCTAssertTrue(trace.setupSteps?.count == 1)
