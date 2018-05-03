@@ -9,7 +9,7 @@
 import Foundation
 
 /// The state of an active trace
-public enum TraceState: String {
+public enum TraceState: String, CustomDebugStringConvertible {
     /// We are waiting for our first traceable item to be emitted
     case waiting
     
@@ -21,6 +21,15 @@ public enum TraceState: String {
     
     /// This trace has failed in some way; check its report for more information
     case failed
+    
+    public var debugDescription: String {
+        switch self {
+        case .waiting: return "We are waiting for our first traceable item to be emitted"
+        case .passing: return "This trace is passing so far, but the trace isn't completed yet"
+        case .passed: return "The trace has completed and all trace items were accounted for"
+        case .failed: return "This trace has failed in some way; check its report for more information"
+        }
+    }
 }
 
 /// The state of a items within an active trace
