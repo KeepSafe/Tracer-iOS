@@ -76,7 +76,7 @@ public struct Trace: Traceable {
         guard let setupSteps = setupSteps, setupSteps.isEmpty == false else { return nil }
         var numberedList = "Setup steps:\n\n"
         for (index, step) in setupSteps.enumerated() {
-            numberedList.append("    \(index). \(step)\n")
+            numberedList.append("    \(index + 1). \(step)\n")
         }
         return numberedList
     }
