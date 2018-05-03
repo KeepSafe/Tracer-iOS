@@ -8,12 +8,12 @@
 
 import Tracer
 
-enum AnalyticsTrace {
+enum AnalyticsTrace: String {
     case signupFlow
     
     var toTrace: Trace {
         switch self {
-        case .signupFlow: return Trace(name: "signupFlow",
+        case .signupFlow: return Trace(name: self.rawValue,
                                        itemsToMatch: AnalyticsEvent.traceItems(from: [.firstViewSeen,
                                                                                       .secondViewSeen,
                                                                                       .thirdViewSeen]))
