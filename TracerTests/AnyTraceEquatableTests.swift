@@ -75,6 +75,11 @@ final class AnyTraceEquatableTests: XCTestCase {
         XCTAssertFalse(dictOne == dictFour)
     }
     
+    func testDescriptions() {
+        XCTAssertTrue(AnyTraceEquatable("whyHello").description == "whyHello")
+        XCTAssertTrue(AnyTraceEquatable(1).description == "1")
+    }
+    
 }
 
 fileprivate struct _CustomTraceEquatable: Equatable {
