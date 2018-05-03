@@ -26,6 +26,16 @@ public final class Tracer {
     
     // MARK: - API
     
+    /// Registers the given traces which can later be run or displayed in a list
+    ///
+    /// - Parameter trace: A `Traceable` (or concretely `Trace`) item to register; this should
+    ///                    be done prior to attempting to start a trace, such as at app launch
+    ///
+    /// Note: this is a no-op if one of the passed in traces is already registered
+    public func register(traces: [Traceable]) {
+        traces.forEach({ register(trace: $0 )})
+    }
+    
     /// Registers the given trace which can later be run or displayed in a list
     ///
     /// - Parameter trace: A `Traceable` (or concretely `Trace`) item to register; this should
@@ -88,10 +98,17 @@ public final class Tracer {
     ///
     /// - Returns: A `TraceReport`, if there was an active trace being run
     @discardableResult
-    public func stopCurrentTrace() -> TraceReport? {
+    public func stop() -> TraceReport? {
         guard let result = currentTraceRunner?.stop() else { return nil }
         currentTraceRunner = nil
         return TraceReport(result: result)
+    }
+    
+    // MARK: - Properties
+    
+    /// The currently active `Traceable` or `Trace` being run; returns `nil` if there is none
+    public var activeTrace: Traceable? {
+        return currentTraceRunner?.result.trace
     }
     
     // MARK: - Private Properties
