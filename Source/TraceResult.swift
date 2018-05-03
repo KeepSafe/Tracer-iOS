@@ -69,6 +69,10 @@ public struct TraceResult {
     public fileprivate(set) var state: TraceState = .waiting {
         didSet {
             stateChanged.fire(data: state)
+            
+            if state == .failed && trace.assertOnFailure {
+                assertionFailure("Trace (\(trace.name)) failed.")
+            }
         }
     }
     
