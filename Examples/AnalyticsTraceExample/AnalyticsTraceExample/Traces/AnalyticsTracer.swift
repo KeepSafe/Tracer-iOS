@@ -13,6 +13,8 @@ final class AnalyticsTracer {
     // MARK: - API
     
     func start(trace traceToRun: AnalyticsTrace) {
+        guard activeTracer == nil else { return }
+        
         let analyticsTrace = traceToRun.toTrace
         let tracer = Tracer()
         tracer.register(trace: analyticsTrace)
@@ -33,7 +35,7 @@ final class AnalyticsTracer {
         activeTracer = tracer
     }
     
-    func stopActiveTrace() -> TraceReport? {
+    func stop() -> TraceReport? {
         // FYI: signal listeners are automatically removed when stopped
         let report = activeTracer?.stop()
         return report

@@ -53,4 +53,22 @@ final class TraceTests: XCTestCase {
         XCTAssertTrue(setupList.contains("3. Buckle up, buttercup\n"))
     }
     
+    func testEquality() {
+        let ti0 = TraceItem(type: "ti0", itemToMatch: AnyTraceEquatable(true))
+        let ti1 = TraceItem(type: "ti2", itemToMatch: AnyTraceEquatable(false))
+        
+        let t0 = Trace(name: "equal1", itemsToMatch: [ti0])
+        let t1 = Trace(name: "equal1", itemsToMatch: [ti0])
+        let t2 = Trace(name: "equal1", itemsToMatch: [ti1])
+        let t3 = Trace(name: "equal2", itemsToMatch: [ti0])
+
+        // Equal if names are equal
+        XCTAssertTrue(t0 == t1)
+        XCTAssertTrue(t1 != t3)
+        XCTAssertTrue(t2 != t3)
+
+        // Items to match doesn't matter
+        XCTAssertTrue(t0 == t2)
+    }
+    
 }

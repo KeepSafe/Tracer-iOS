@@ -16,7 +16,7 @@ class ThirdController: UIViewController {
         Analytics.log(event: .thirdViewSeen)
         
         print("\n\n---> Trace stopped.")
-        guard var report = Tracers.analytics.stopActiveTrace() else {
+        guard var report = Tracers.analytics.stop() else {
             assertionFailure("Oops, programming error somewhere.")
             return
         }

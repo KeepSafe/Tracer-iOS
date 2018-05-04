@@ -106,8 +106,13 @@ public final class Tracer {
     
     // MARK: - Properties
     
-    /// The currently active `Traceable` or `Trace` being run; returns `nil` if there is none
-    public var activeTrace: Traceable? {
+    /// The currently active `Trace` being run (to save having to cast from `Traceable`); returns `nil` if there is none
+    public var activeTrace: Trace? {
+        return currentTraceRunner?.result.trace as? Trace
+    }
+    
+    /// The currently active `Traceable` being run; returns `nil` if there is none
+    public var activeTraceble: Traceable? {
         return currentTraceRunner?.result.trace
     }
     

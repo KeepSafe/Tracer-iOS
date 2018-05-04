@@ -26,6 +26,9 @@ final class TracerTests: XCTestCase {
         let trace = Trace(name: "start", itemsToMatch: [testTraceItem])
         tracer.register(trace: trace)
         XCTAssertNotNil(tracer.startTrace(named: "start"))
+        
+        XCTAssertNotNil(tracer.activeTraceble)
+        XCTAssertTrue(tracer.activeTrace == trace)
     }
     
     func testStartingTraceWithoutRegisteringIt() {
@@ -70,7 +73,7 @@ final class TracerTests: XCTestCase {
             XCTAssertTrue(traceState == .passed)
             tracePassed.fulfill()
         }
-        tracer.stopCurrentTrace()
+        tracer.stop()
         wait(for: [tracePassed], timeout: 5)
     }
     
@@ -88,7 +91,7 @@ final class TracerTests: XCTestCase {
             traceFailing.fulfill()
         }
         // finalize test results which will mark `testTraceItem` as missing
-        tracer.stopCurrentTrace()
+        tracer.stop()
         wait(for: [traceFailing], timeout: 5)
     }
     
@@ -109,7 +112,7 @@ final class TracerTests: XCTestCase {
         wait(for: [itemWasLogged], timeout: 5)
         
         // Check the trace results to see what was logged
-        let report = tracer.stopCurrentTrace()
+        let report = tracer.stop()
         XCTAssertTrue(report?.result.state == .passed)
         let loggedItem = report?.result.statesForItemsToMatch.first
         XCTAssertTrue(loggedItem?.keys.first == testTraceItem)
@@ -123,10 +126,10 @@ final class TracerTests: XCTestCase {
         tracer.start(trace: trace)
         
         // Generates a report
-        XCTAssertNotNil(tracer.stopCurrentTrace())
+        XCTAssertNotNil(tracer.stop())
         
         // But is a no-op if no trace is running
-        XCTAssertNil(tracer.stopCurrentTrace())
+        XCTAssertNil(tracer.stop())
     }
     
 }
