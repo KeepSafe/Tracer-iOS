@@ -71,6 +71,9 @@ public struct TraceResult {
             stateChanged.fire(data: state)
             
             if state == .failed && trace.assertOnFailure {
+                finalize()
+                // You can print the report on the console here
+                // (lldb) po TraceReport(result: self)
                 assertionFailure("Trace (\(trace.name)) failed.")
             }
         }

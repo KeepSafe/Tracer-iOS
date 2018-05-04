@@ -38,11 +38,12 @@
                                 <rect key="frame" x="132" y="318" width="111" height="30"/>
                                 <state key="normal" title="Next Screen --&gt;"/>
                                 <connections>
-                                    <segue destination="NyB-8w-Ybz" kind="show" id="ArB-Jc-XRP"/>
+                                    <action selector="startSignupFlow" destination="g2X-nE-DNj" eventType="touchUpInside" id="N8H-ya-reV"/>
+                                    <segue destination="NyB-8w-Ybz" kind="show" id="p0r-eK-8YZ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVT-QZ-waw">
-                                <rect key="frame" x="43" y="128" width="289" height="128"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVT-QZ-waw">
+                                <rect key="frame" x="43" y="182" width="289" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="VTo-7z-CZe"/>
                                 </constraints>
@@ -55,14 +56,37 @@ Tap the button below to begin.</string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oZq-TE-Fqa">
+                                <rect key="frame" x="121" y="492" width="133" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Assert example --&gt;"/>
+                                <connections>
+                                    <action selector="startAssertFlow" destination="g2X-nE-DNj" eventType="touchUpInside" id="D7m-3X-h3n"/>
+                                    <segue destination="9ob-ly-Wxm" kind="show" id="SIk-RW-Rdv"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTl-8g-BTR">
+                                <rect key="frame" x="43" y="389" width="301" height="107"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="107" id="tod-qE-fdb"/>
+                                </constraints>
+                                <string key="text">Or go through an assertion example where it asserts for out-of-order
+events</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="GTl-8g-BTR" firstAttribute="top" secondItem="q4N-11-Txv" secondAttribute="bottom" constant="41" id="0Ca-IX-t7u"/>
                             <constraint firstItem="q4N-11-Txv" firstAttribute="centerY" secondItem="uo1-Gh-noq" secondAttribute="centerY" id="DWZ-9N-pzM"/>
                             <constraint firstItem="NVT-QZ-waw" firstAttribute="centerX" secondItem="q4N-11-Txv" secondAttribute="centerX" id="TEr-WE-sYR"/>
                             <constraint firstItem="NVT-QZ-waw" firstAttribute="top" secondItem="HGh-81-7b8" secondAttribute="top" constant="64" id="UyP-yE-nCU"/>
                             <constraint firstItem="NVT-QZ-waw" firstAttribute="leading" secondItem="HGh-81-7b8" secondAttribute="leading" constant="43" id="aqt-Gy-ihN"/>
                             <constraint firstItem="q4N-11-Txv" firstAttribute="centerX" secondItem="uo1-Gh-noq" secondAttribute="centerX" id="fDG-DG-8rf"/>
+                            <constraint firstItem="HGh-81-7b8" firstAttribute="trailing" secondItem="GTl-8g-BTR" secondAttribute="trailing" constant="31" id="i44-aQ-RLf"/>
+                            <constraint firstItem="GTl-8g-BTR" firstAttribute="leading" secondItem="NVT-QZ-waw" secondAttribute="leading" id="wef-jk-WnX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HGh-81-7b8"/>
                     </view>
@@ -71,6 +95,35 @@ Tap the button below to begin.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2R0-g9-Ewh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-359.19999999999999" y="124.58770614692655"/>
+        </scene>
+        <!--Assert One-->
+        <scene sceneID="Qbq-t9-o6b">
+            <objects>
+                <viewController title="Assert One" id="9ob-ly-Wxm" customClass="AssertControllerOne" customModule="AnalyticsTraceExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HMH-Zd-QEq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="obb-6d-kYg">
+                                <rect key="frame" x="36" y="261" width="303" height="41"/>
+                                <string key="text">Trace failed and asserted because
+an out-of-order event fired on this view.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="obb-6d-kYg" firstAttribute="top" secondItem="IxR-NW-H0R" secondAttribute="top" constant="197" id="b0O-6K-k63"/>
+                            <constraint firstItem="obb-6d-kYg" firstAttribute="centerX" secondItem="HMH-Zd-QEq" secondAttribute="centerX" id="f9G-Cp-chM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="IxR-NW-H0R"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Syu-e2-Tkh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-359" y="911"/>
         </scene>
         <!--Second View-->
         <scene sceneID="yQ9-8V-myV">
