@@ -12,13 +12,12 @@ final class AnalyticsTracer {
     
     // MARK: - API
     
-    func start(trace traceToRun: AnalyticsTrace) {
+    func start(trace: AnalyticsTrace) {
         guard activeTracer == nil else { return }
         
-        let analyticsTrace = traceToRun.toTrace
-        let tracer = Tracer()
-        tracer.register(trace: analyticsTrace)
-        guard let (currentState, stateChangedSignal, itemLoggedSignal) = tracer.start(trace: analyticsTrace) else { return }
+        let analyticsTrace = trace.toTrace
+        let tracer = Tracer(trace: analyticsTrace)
+        let (currentState, stateChangedSignal, itemLoggedSignal) = tracer.start()
     
         print("\n\n---> TRACE STARTED: \(analyticsTrace.name)")
         print("---> Current trace state: \(currentState)")
