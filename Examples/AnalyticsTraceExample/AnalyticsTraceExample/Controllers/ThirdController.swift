@@ -16,11 +16,7 @@ class ThirdController: UIViewController {
         Analytics.log(event: .thirdViewSeen)
         
         print("\n\n---> Trace stopped.")
-        guard var report = Tracers.analytics.stop() else {
-            assertionFailure("Oops, programming error somewhere.")
-            return
-        }
-        
+        guard var report = Tracers.analytics.stop() else { return }
         print(report.summary)
         print(report.rawLog)
     }
