@@ -22,56 +22,34 @@ public final class Tracer {
     
     // MARK: - Instantiation
     
-    public init() {}
+    /// Prepares a `Tracer` to be run and prepares an empty result to eventually report on.
+    ///
+    /// - Parameter trace: The `Traceable` trace to execute
+    public init(trace: Traceable) {
+        self.trace = trace
+        self.result = TraceResult(trace: trace)
+    }
     
     // MARK: - API
     
-    /// Registers the given trace which can later be run or displayed in a list
+    /// Executes any setup steps, then starts listening to items being fired and appends them
+    /// appropriately into a `TraceResult` that can be displayed at the end of the trace.
     ///
-    /// - Parameter trace: A `Traceable` (or concretely `Trace`) item to register; this should
-    ///                    be done prior to attempting to start a trace, such as at app launch
-    /// - Returns: `false` if the passed in trace is already registered, otherwise `true`
+    /// - Returns: A tuple `TraceStarted` with signals that can be listened to for trace changes
     @discardableResult
-    public func register(trace: Traceable) -> Bool {
-        // no-op if trace already registered by that name
-        guard registeredTraces.first(where: { $0.name == trace.name }) == nil else {
-            return false
+    public func start() -> TraceStarted {
+        guard listener == nil else {
+            // Trace is already active, so just return signals
+            return TraceStarted(currentState: result.state, stateChanged: result.stateChanged, itemLogged: itemLogged)
         }
         
-        registeredTraces.append(trace)
-        return true
-    }
-    
-    /// Attempts to start a trace by the given name, if it's been previously registered
-    ///
-    /// - Parameter trace: The `Traceable` or `Trace` item to start
-    /// - Returns: `nil` if the passed in trace isn't registered, otherwise returns
-    ///            a tuple `TraceStarted` with signals that can be listened to for trace changes
-    ///
-    /// Note: this is a no-op if there's an active trace running
-    @discardableResult
-    public func start(trace: Traceable) -> TraceStarted? {
-        return startTrace(named: trace.name)
-    }
-    
-    /// Attempts to start a trace by the given name, if it's been previously registered
-    ///
-    /// - Parameter name: The name of the `Traceable` or `Trace` item to start
-    /// - Returns: `nil` if the passed in trace isn't registered, otherwise returns
-    ///            a tuple `TraceStarted` with signals that can be listened to for trace changes
-    ///
-    /// Note: this is a no-op if there's an active trace running
-    @discardableResult
-    public func startTrace(named name: String) -> TraceStarted? {
-        // no-op if no trace registered by that name
-        guard currentTraceRunner == nil, let trace = registeredTraces.first(where: { $0.name == name }) else {
-            return nil
-        }
+        trace.setupBeforeStartingTrace?()
         
-        let traceRunner = TraceRunner(trace: trace)
-        currentTraceRunner = traceRunner
-        traceRunner.start()
-        return TraceStarted(currentState: traceRunner.result.state, stateChanged: traceRunner.result.stateChanged, itemLogged: traceRunner.itemLogged)
+        listener = itemLogged.listen(wasFired: { [weak self] traceItem in
+            self?.result.handleFiring(of: traceItem)
+        })
+        
+        return TraceStarted(currentState: result.state, stateChanged: result.stateChanged, itemLogged: itemLogged)
     }
     
     /// Logs the given `TraceItem`; this is a no-op if no active trace is running
@@ -81,22 +59,31 @@ public final class Tracer {
     /// E.g. if you were tracing analytics calls, you'd fire this for events and user property
     ///      changes and it would log that and compare it to the current trace being run
     public func log(item: TraceItem) {
-        currentTraceRunner?.itemLogged.fire(data: item)
+        itemLogged.fire(data: item)
     }
     
-    /// Stops and clears the current trace
+    /// Stops the current trace, removes all listeners, finalizes the trace report and returns it
     ///
     /// - Returns: A `TraceReport`, if there was an active trace being run
     @discardableResult
-    public func stopCurrentTrace() -> TraceReport? {
-        guard let result = currentTraceRunner?.stop() else { return nil }
-        currentTraceRunner = nil
+    public func stop() -> TraceReport {
+        if let listener = listener {
+            itemLogged.remove(listener: listener)
+        }
+        
+        result.finalize()
         return TraceReport(result: result)
     }
     
+    // MARK: - Internal Properties
+    
+    fileprivate(set) var result: TraceResult
+    
     // MARK: - Private Properties
     
-    fileprivate var registeredTraces = [Traceable]()
-    fileprivate var currentTraceRunner: TraceRunner?
+    fileprivate var trace: Traceable
+    fileprivate var listener: TraceSignalListener?
+    
+    fileprivate let itemLogged = TraceItemLoggedSignal()
     
 }

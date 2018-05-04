@@ -2,7 +2,7 @@
 //  TracerTests.swift
 //  TracerTests
 //
-//  Created by Rob Phillips on 5/2/18.
+//  Created by Rob Phillips on 5/3/18.
 //  Copyright © 2018 Keepsafe Inc. All rights reserved.
 //
 
@@ -11,44 +11,68 @@ import XCTest
 
 final class TracerTests: XCTestCase {
 
-    private let testTraceItem = TraceItem(type: "tracerTests", itemToMatch: AnyTraceEquatable(true))
+    private let testTraceItem = TraceItem(type: "TracerTests", itemToMatch: AnyTraceEquatable(true))
     
-    func testRegisteringTrace() {
-        let tracer = Tracer()
-        let trace = Trace(name: "register", itemsToMatch: [testTraceItem])
-        XCTAssertTrue(tracer.register(trace: trace))
-        // Trying to register it again should be a no-op
-        XCTAssertFalse(tracer.register(trace: trace))
+    func testInstantiation() {
+        let trace = Trace(name: "instantiation", itemsToMatch: [testTraceItem])
+        let tracer = Tracer(trace: trace)
+        XCTAssertTrue(tracer.result.statesForItemsToMatch.first?.keys.first == testTraceItem)
     }
     
-    func testStartingTraceByName() {
-        let tracer = Tracer()
-        let trace = Trace(name: "start", itemsToMatch: [testTraceItem])
-        tracer.register(trace: trace)
-        XCTAssertNotNil(tracer.startTrace(named: "start"))
+    func testStartCallsSetup() {
+        let setupExp = expectation(description: "setupCalled")
+        let trace = Trace(name: "startSetup", itemsToMatch: [testTraceItem], setupBeforeStartingTrace: {
+            setupExp.fulfill()
+        })
+        Tracer(trace: trace).start()
+        wait(for: [setupExp], timeout: 5)
     }
     
-    func testStartingTraceWithoutRegisteringIt() {
-        let tracer = Tracer()
-        XCTAssertNil(tracer.startTrace(named: "doesntExistYet"))
-    }
-    
-    func testStartingTraceAfterRegisteringIt() {
-        let tracer = Tracer()
-        let trace = Trace(name: "start", itemsToMatch: [testTraceItem])
-        tracer.register(trace: trace)
-        XCTAssertNotNil(tracer.start(trace: trace))
+    func testStartListensForItemsToLog() {
+        let trace = Trace(name: "startSignals", itemsToMatch: [testTraceItem])
+        let tracer = Tracer(trace: trace)
         
-        // If we try to start it again, it should be a no-op
-        XCTAssertNil(tracer.startTrace(named: "start"))
+        // Try to fire a signal before starting and see if anything is logged
+        tracer.log(item: testTraceItem)
+        XCTAssertNil(tracer.result.statesForAllLoggedItems.first?.keys.first)
+        
+        // Now start it and do the same
+        tracer.start()
+        tracer.log(item: testTraceItem)
+        XCTAssertTrue(tracer.result.statesForAllLoggedItems.first?.keys.first == testTraceItem)
+    }
+    
+    func testStopRemovesListener() {
+        let trace = Trace(name: "stopSignals", itemsToMatch: [testTraceItem])
+        let tracer = Tracer(trace: trace)
+        tracer.start()
+        
+        // Now stop and see if the item gets logged
+        _ = tracer.stop()
+        tracer.log(item: testTraceItem)
+        XCTAssertNil(tracer.result.statesForAllLoggedItems.first?.keys.first)
+    }
+    
+    func testStopReturnsFinalizedResult() {
+        let trace = Trace(name: "stopResults", itemsToMatch: [testTraceItem])
+        let tracer = Tracer(trace: trace)
+        tracer.start()
+        tracer.log(item: testTraceItem)
+        
+        var report = tracer.stop()
+        XCTAssertNotNil(report) // Generates a report
+        XCTAssertTrue(report.result.state == .passed)
+        
+        // But will just return the same report again if called again
+        var report2 = tracer.stop()
+        XCTAssertTrue(report.summary == report2.summary)
     }
     
     func testStartingTraceSignalsSuccess() {
-        let tracer = Tracer()
         let trace = Trace(name: "passing_signals", itemsToMatch: [testTraceItem])
-        tracer.register(trace: trace)
-
-        let (currentState, stateChanged, itemLogged) = tracer.start(trace: trace)!
+        let tracer = Tracer(trace: trace)
+        
+        let (currentState, stateChanged, itemLogged) = tracer.start()
         XCTAssertTrue(currentState == .waiting)
         
         let tracePassing = expectation(description: "tracePassing")
@@ -70,16 +94,15 @@ final class TracerTests: XCTestCase {
             XCTAssertTrue(traceState == .passed)
             tracePassed.fulfill()
         }
-        tracer.stopCurrentTrace()
+        tracer.stop()
         wait(for: [tracePassed], timeout: 5)
     }
     
     func testStartingTraceSignalsFailure() {
-        let tracer = Tracer()
         let trace = Trace(name: "failing_signal", itemsToMatch: [testTraceItem])
-        tracer.register(trace: trace)
+        let tracer = Tracer(trace: trace)
         
-        let (currentState, stateChanged, _) = tracer.start(trace: trace)!
+        let (currentState, stateChanged, _) = tracer.start()
         XCTAssertTrue(currentState == .waiting)
         
         let traceFailing = expectation(description: "traceFailing")
@@ -88,16 +111,15 @@ final class TracerTests: XCTestCase {
             traceFailing.fulfill()
         }
         // finalize test results which will mark `testTraceItem` as missing
-        tracer.stopCurrentTrace()
+        tracer.stop()
         wait(for: [traceFailing], timeout: 5)
     }
     
     func testLoggingItemToTrace() {
-        let tracer = Tracer()
         let trace = Trace(name: "logItem", itemsToMatch: [testTraceItem])
-        tracer.register(trace: trace)
+        let tracer = Tracer(trace: trace)
         
-        let (currentState, _, itemLogged) = tracer.start(trace: trace)!
+        let (currentState, _, itemLogged) = tracer.start()
         XCTAssertTrue(currentState == .waiting)
         
         let itemWasLogged = expectation(description: "itemWasLogged")
@@ -109,24 +131,11 @@ final class TracerTests: XCTestCase {
         wait(for: [itemWasLogged], timeout: 5)
         
         // Check the trace results to see what was logged
-        let report = tracer.stopCurrentTrace()
-        XCTAssertTrue(report?.result.state == .passed)
-        let loggedItem = report?.result.statesForItemsToMatch.first
+        let report = tracer.stop()
+        XCTAssertTrue(report.result.state == .passed)
+        let loggedItem = report.result.statesForItemsToMatch.first
         XCTAssertTrue(loggedItem?.keys.first == testTraceItem)
         XCTAssertTrue(loggedItem?.values.first == .matched)
-    }
-    
-    func testStoppingTrace() {
-        let tracer = Tracer()
-        let trace = Trace(name: "stop", itemsToMatch: [testTraceItem])
-        tracer.register(trace: trace)
-        tracer.start(trace: trace)
-        
-        // Generates a report
-        XCTAssertNotNil(tracer.stopCurrentTrace())
-        
-        // But is a no-op if no trace is running
-        XCTAssertNil(tracer.stopCurrentTrace())
     }
     
 }
