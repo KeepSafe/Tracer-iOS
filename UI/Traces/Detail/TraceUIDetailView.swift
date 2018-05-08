@@ -1,5 +1,5 @@
 //
-//  TraceUIListView.swift
+//  TraceUIDetailView.swift
 //  Tracer
 //
 //  Created by Rob Phillips on 5/8/18.
@@ -8,13 +8,11 @@
 
 import UIKit
 
-final class TraceUIListView: UIView, Viewing {
+final class TraceUIDetailView: UIView, Viewing {
     
     // MARK: - Instantiation
     
-    init(viewModel: TraceUIListViewModel = TraceUIListViewModel(traces: [])) {
-        self.viewModel = viewModel
-        
+    init() {
         super.init(frame: .zero)
         
         setupView()
@@ -22,7 +20,7 @@ final class TraceUIListView: UIView, Viewing {
     
     // MARK: - View Model
     
-    func configure(with newViewModel: TraceUIListViewModel) {
+    func configure(with newViewModel: TraceUIDetailViewModel) {
         viewModel = newViewModel
         tableView.reloadData()
     }
@@ -31,15 +29,14 @@ final class TraceUIListView: UIView, Viewing {
     
     private lazy var tableView: UITableView = { [unowned self] in
         let table = UITableView(frame: .zero)
-        table.register(TraceUIListItemCell.self, forCellReuseIdentifier: TraceUIListItemCell.identifier)
-        table.delegate = self
+        table.register(TraceUIDetailItemCell.self, forCellReuseIdentifier: TraceUIDetailItemCell.identifier)
         table.dataSource = self
         table.estimatedRowHeight = 40
         table.tableFooterView = UIView(frame: .zero)
         return table
     }()
     
-    private var viewModel: TraceUIListViewModel
+    private var viewModel: TraceUIDetailViewModel?
     
     // MARK: - Unsupported Initializers
     
@@ -49,36 +46,24 @@ final class TraceUIListView: UIView, Viewing {
 
 // MARK: - UITableViewDataSource
 
-extension TraceUIListView: UITableViewDataSource {
+extension TraceUIDetailView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.traces.count
+        return viewModel?.trace.itemsToMatch.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TraceUIListItemCell.identifier, for: indexPath) as? TraceUIListItemCell else { fatalError("Could not dequeue cell") }
-        let trace = viewModel.traces[indexPath.row]
-        cell.configure(with: trace)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TraceUIDetailItemCell.identifier, for: indexPath) as? TraceUIDetailItemCell else { fatalError("Could not dequeue cell") }
+        guard let traceItem = viewModel?.trace.itemsToMatch[indexPath.row] else { return cell }
+        cell.configure(with: traceItem)
         return cell
-    }
-    
-}
-
-// MARK: - UITableViewDelegate
-
-extension TraceUIListView: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        TraceUISignals.Traces.showTraceDetail.fire(data: viewModel.traces[indexPath.row])
     }
     
 }
 
 // MARK: - Private API
 
-private extension TraceUIListView {
+private extension TraceUIDetailView {
     
     func setupView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -92,4 +77,3 @@ private extension TraceUIListView {
     }
     
 }
-

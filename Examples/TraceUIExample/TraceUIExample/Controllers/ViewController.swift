@@ -13,7 +13,7 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        App.traceUICoordinator.showTracesList(in: self)
+        App.traceUICoordinator.show(in: self)
         App.traceUICoordinator.add(traces: EventTrace.allTraces)
     }
     

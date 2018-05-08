@@ -16,6 +16,9 @@ public final class TraceUICoordinator {
     public init() {
         self.traceListView = TraceUIListView()
         self.traceListPresenter = TraceUIListPresenter(view: self.traceListView)
+        
+        self.traceDetailView = TraceUIDetailView()
+        self.traceDetailPresenter = TraceUIDetailPresenter(view: self.traceDetailView)
     }
     
     // MARK: - API
@@ -33,8 +36,68 @@ public final class TraceUICoordinator {
     
     // MARK: - Temporary API
     
-    public func showTracesList(in viewController: UIViewController) {
+    public func show(in viewController: UIViewController) {
+        setupTracesList(in: viewController)
+        setupTraceDetail(in: viewController)
+        showTraceList()
+    }
+    
+    // MARK: - Private Properties
+    
+    private let traceListView: TraceUIListView
+    private let traceListPresenter: TraceUIListPresenter
+    
+    private let traceDetailView: TraceUIDetailView
+    private let traceDetailPresenter: TraceUIDetailPresenter
+    
+}
+
+// MARK: - Listeners
+
+private extension TraceUICoordinator {
+    
+    func listenForRoutingActions() {
+        TraceUISignals.Traces.showTraceDetail.listen { _ in
+            self.showTraceDetail()
+        }
+    }
+    
+    func listenForTraceChanges() {
+        
+    }
+    
+}
+
+// MARK: - Coordination
+
+private extension TraceUICoordinator {
+    
+    func showTraceList() {
+        display(viewToDisplay: traceListView, andHide: traceDetailView)
+    }
+    
+    func showTraceDetail() {
+        display(viewToDisplay: traceDetailView, andHide: traceListView)
+    }
+    
+    func display(viewToDisplay: UIView, andHide viewToHide: UIView) {
+        UIView.animate(withDuration: 0.2, animations: {
+            viewToHide.alpha = 0
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.15, animations: {
+                viewToDisplay.alpha = 1
+            })
+        })
+    }
+}
+
+// MARK: - View Setup
+
+private extension TraceUICoordinator {
+    
+    func setupTracesList(in viewController: UIViewController) {
         guard let superview = viewController.view else { return }
+        traceListView.alpha = 0
         traceListView.translatesAutoresizingMaskIntoConstraints = false
         superview.addSubview(traceListView)
         
@@ -44,24 +107,15 @@ public final class TraceUICoordinator {
                                      traceListView.trailingAnchor.constraint(equalTo: superview.trailingAnchor)])
     }
     
-    // MARK: - Private Properties
-    
-    private let traceListView: TraceUIListView
-    private let traceListPresenter: TraceUIListPresenter
-    
-}
-
-// MARK: - Listeners
-
-private extension TraceUICoordinator {
-    
-    func listenForRoutingActions() {
-        TraceUISignals.Traces.showTraceDetail.listen { traceToShow in
-            
-        }
-    }
-    
-    func listenForTraceChanges() {
+    func setupTraceDetail(in viewController: UIViewController) {
+        guard let superview = viewController.view else { return }
+        traceDetailView.alpha = 0
+        traceDetailView.translatesAutoresizingMaskIntoConstraints = false
+        superview.addSubview(traceDetailView)
         
+        NSLayoutConstraint.activate([traceDetailView.topAnchor.constraint(equalTo: superview.topAnchor),
+                                     traceDetailView.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
+                                     traceDetailView.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                                     traceDetailView.trailingAnchor.constraint(equalTo: superview.trailingAnchor)])
     }
 }

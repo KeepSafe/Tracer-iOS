@@ -13,8 +13,16 @@ enum Event: String {
     case logicCheckpointTwo
     case logicCheckpointThree
     
+    var uxFlowHint: String {
+        switch self {
+        case .logicCheckpointOne: return "Step one here"
+        case .logicCheckpointTwo: return "Step two here"
+        case .logicCheckpointThree: return "Step three here"
+        }
+    }
+    
     var toTraceItem: TraceItem {
-        return TraceItem(type: "event", itemToMatch: AnyTraceEquatable(self))
+        return TraceItem(type: "event", itemToMatch: AnyTraceEquatable(self), uxFlowHint: uxFlowHint)
     }
     
     static func traceItems(from events: [Event]) -> [TraceItem] {
