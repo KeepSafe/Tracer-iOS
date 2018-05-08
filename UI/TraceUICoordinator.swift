@@ -57,7 +57,7 @@ public final class TraceUICoordinator {
 private extension TraceUICoordinator {
     
     func listenForRoutingActions() {
-        TraceUISignals.Traces.showTraceDetail.listen { _ in
+        TraceUISignals.Traces.showDetail.listen { _ in
             self.showTraceDetail()
         }
     }

@@ -9,6 +9,7 @@
 import Foundation
 
 struct TraceUIDetailViewModel: ViewModeling {
-    // TODO: Update to include traceItem states from Tracer
     let trace: Traceable
+    let isTraceRunning: Bool
+    let statesForItemsToMatch: [TraceItemStateDictionary]
 }

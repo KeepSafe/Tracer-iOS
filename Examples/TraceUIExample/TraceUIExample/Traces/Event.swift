@@ -1,5 +1,5 @@
 //
-//  EventTracer.swift
+//  Event.swift
 //  TraceUIExample
 //
 //  Created by Rob Phillips on 5/8/18.
@@ -28,12 +28,4 @@ enum Event: String {
     static func traceItems(from events: [Event]) -> [TraceItem] {
         return events.map({ $0.toTraceItem })
     }
-}
-
-struct EventTracer {
-    
-    static func log(event: Event) {
-        print("\nEVENT: \(event.rawValue) logged")
-    }
-    
 }

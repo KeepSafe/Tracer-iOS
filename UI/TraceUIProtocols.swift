@@ -27,14 +27,10 @@ internal protocol Viewing {}
 internal protocol Actioning {}
 
 /// Services that listen for actions and apply them to the services they control
-internal protocol Servicing {
-    func listenForActions()
-}
+internal protocol Servicing {}
 
 /// Fires signals to notify other components of some event
 internal protocol Notifying {}
 
 /// Listens for generic changes
-internal protocol Listening {
-    func listenForChanges()
-}
+internal protocol Listening {}

@@ -71,7 +71,7 @@ extension TraceUIListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        TraceUISignals.Traces.showTraceDetail.fire(data: viewModel.traces[indexPath.row])
+        TraceUISignals.Traces.showDetail.fire(data: viewModel.traces[indexPath.row])
     }
     
 }

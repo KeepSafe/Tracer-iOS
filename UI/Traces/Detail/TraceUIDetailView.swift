@@ -31,7 +31,7 @@ final class TraceUIDetailView: UIView, Viewing {
         let table = UITableView(frame: .zero)
         table.register(TraceUIDetailItemCell.self, forCellReuseIdentifier: TraceUIDetailItemCell.identifier)
         table.dataSource = self
-        table.estimatedRowHeight = 40
+        table.estimatedRowHeight = 60
         table.tableFooterView = UIView(frame: .zero)
         return table
     }()
@@ -54,8 +54,11 @@ extension TraceUIDetailView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TraceUIDetailItemCell.identifier, for: indexPath) as? TraceUIDetailItemCell else { fatalError("Could not dequeue cell") }
-        guard let traceItem = viewModel?.trace.itemsToMatch[indexPath.row] else { return cell }
-        cell.configure(with: traceItem)
+        guard let traceItem = viewModel?.trace.itemsToMatch[indexPath.row],
+              let isTraceRunning = viewModel?.isTraceRunning,
+              let state = viewModel?.statesForItemsToMatch[indexPath.row].values.first
+            else { return cell }
+        cell.configure(with: traceItem, isTraceRunning: isTraceRunning, state: state)
         return cell
     }
     
