@@ -16,6 +16,12 @@
 		D4111610209B578D00702064 /* TraceSignalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D411160F209B578D00702064 /* TraceSignalTests.swift */; };
 		D4111612209B666C00702064 /* TraceReportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4111611209B666C00702064 /* TraceReportTests.swift */; };
 		D417C7B320A1E685000C1AE2 /* TraceUICoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C7B220A1E685000C1AE2 /* TraceUICoordinator.swift */; };
+		D417C7E920A1E98E000C1AE2 /* TraceUISignals.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C7E820A1E98E000C1AE2 /* TraceUISignals.swift */; };
+		D417C7EC20A1EB49000C1AE2 /* TraceUIProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C7EB20A1EB49000C1AE2 /* TraceUIProtocols.swift */; };
+		D417C7EF20A1EE52000C1AE2 /* TraceUIListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C7EE20A1EE52000C1AE2 /* TraceUIListView.swift */; };
+		D417C7F120A1EF04000C1AE2 /* TraceUIListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C7F020A1EF04000C1AE2 /* TraceUIListPresenter.swift */; };
+		D417C7F320A1EF6C000C1AE2 /* TraceUIListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C7F220A1EF6C000C1AE2 /* TraceUIListViewModel.swift */; };
+		D417C7F520A1EF8C000C1AE2 /* TraceUIListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C7F420A1EF8C000C1AE2 /* TraceUIListItemCell.swift */; };
 		D45FEC65209345380084DF96 /* Trace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45FEC64209345380084DF96 /* Trace.swift */; };
 		D45FEC69209346220084DF96 /* TraceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45FEC68209346220084DF96 /* TraceItem.swift */; };
 		D463175D209232FD0008A1BC /* Tracer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4631753209232FD0008A1BC /* Tracer.framework */; };
@@ -47,6 +53,12 @@
 		D411160F209B578D00702064 /* TraceSignalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceSignalTests.swift; sourceTree = "<group>"; };
 		D4111611209B666C00702064 /* TraceReportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceReportTests.swift; sourceTree = "<group>"; };
 		D417C7B220A1E685000C1AE2 /* TraceUICoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUICoordinator.swift; sourceTree = "<group>"; };
+		D417C7E820A1E98E000C1AE2 /* TraceUISignals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUISignals.swift; sourceTree = "<group>"; };
+		D417C7EB20A1EB49000C1AE2 /* TraceUIProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIProtocols.swift; sourceTree = "<group>"; };
+		D417C7EE20A1EE52000C1AE2 /* TraceUIListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIListView.swift; sourceTree = "<group>"; };
+		D417C7F020A1EF04000C1AE2 /* TraceUIListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIListPresenter.swift; sourceTree = "<group>"; };
+		D417C7F220A1EF6C000C1AE2 /* TraceUIListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIListViewModel.swift; sourceTree = "<group>"; };
+		D417C7F420A1EF8C000C1AE2 /* TraceUIListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIListItemCell.swift; sourceTree = "<group>"; };
 		D45FEC64209345380084DF96 /* Trace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trace.swift; sourceTree = "<group>"; };
 		D45FEC68209346220084DF96 /* TraceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceItem.swift; sourceTree = "<group>"; };
 		D4631753209232FD0008A1BC /* Tracer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tracer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,8 +96,38 @@
 			isa = PBXGroup;
 			children = (
 				D417C7B220A1E685000C1AE2 /* TraceUICoordinator.swift */,
+				D417C7EB20A1EB49000C1AE2 /* TraceUIProtocols.swift */,
+				D417C7E820A1E98E000C1AE2 /* TraceUISignals.swift */,
+				D417C7ED20A1EE31000C1AE2 /* Traces */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		D417C7ED20A1EE31000C1AE2 /* Traces */ = {
+			isa = PBXGroup;
+			children = (
+				D417C80420A20394000C1AE2 /* List */,
+				D417C80520A203A1000C1AE2 /* Detail */,
+			);
+			path = Traces;
+			sourceTree = "<group>";
+		};
+		D417C80420A20394000C1AE2 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				D417C7EE20A1EE52000C1AE2 /* TraceUIListView.swift */,
+				D417C7F020A1EF04000C1AE2 /* TraceUIListPresenter.swift */,
+				D417C7F220A1EF6C000C1AE2 /* TraceUIListViewModel.swift */,
+				D417C7F420A1EF8C000C1AE2 /* TraceUIListItemCell.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		D417C80520A203A1000C1AE2 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		D4631749209232FD0008A1BC = {
@@ -253,11 +295,17 @@
 				D41115E82097512100702064 /* TraceSignal.swift in Sources */,
 				D4A668012093B77600009DBD /* AnyTraceEquatable.swift in Sources */,
 				D4DB46452097482000080FE3 /* TraceResult.swift in Sources */,
+				D417C7EF20A1EE52000C1AE2 /* TraceUIListView.swift in Sources */,
 				D4DB46492097499500080FE3 /* TraceReport.swift in Sources */,
+				D417C7F520A1EF8C000C1AE2 /* TraceUIListItemCell.swift in Sources */,
 				D45FEC65209345380084DF96 /* Trace.swift in Sources */,
 				D4DB46432097480F00080FE3 /* Tracer.swift in Sources */,
 				D417C7B320A1E685000C1AE2 /* TraceUICoordinator.swift in Sources */,
 				D41115EE2097AFB800702064 /* TraceStates.swift in Sources */,
+				D417C7E920A1E98E000C1AE2 /* TraceUISignals.swift in Sources */,
+				D417C7F320A1EF6C000C1AE2 /* TraceUIListViewModel.swift in Sources */,
+				D417C7F120A1EF04000C1AE2 /* TraceUIListPresenter.swift in Sources */,
+				D417C7EC20A1EB49000C1AE2 /* TraceUIProtocols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

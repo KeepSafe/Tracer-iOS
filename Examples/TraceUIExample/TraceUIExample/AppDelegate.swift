@@ -9,6 +9,8 @@
 import UIKit
 import Tracer
 
+private(set) var App: AppDelegate!
+
 @UIApplicationMain
 class AppDelegate: UIResponder {
     
@@ -18,15 +20,14 @@ class AppDelegate: UIResponder {
         self.traceUICoordinator = TraceUICoordinator()
         
         super.init()
+        
+        App = self
     }
     
     // MARK: - Properties
     
     var window: UIWindow?
-    
-    // MARK: - Private Properties
-    
-    private let traceUICoordinator: TraceUICoordinator
+    let traceUICoordinator: TraceUICoordinator
 
 }
 

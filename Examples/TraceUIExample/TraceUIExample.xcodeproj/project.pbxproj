@@ -13,8 +13,11 @@
 		D417C7C820A1E6A4000C1AE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D417C7C720A1E6A4000C1AE2 /* Assets.xcassets */; };
 		D417C7CB20A1E6A4000C1AE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D417C7C920A1E6A4000C1AE2 /* LaunchScreen.storyboard */; };
 		D417C7D620A1E6A5000C1AE2 /* TraceUIExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C7D520A1E6A5000C1AE2 /* TraceUIExampleUITests.swift */; };
-		D417C7E520A1E7B2000C1AE2 /* Tracer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D417C7E420A1E7B2000C1AE2 /* Tracer.framework */; };
-		D417C7E620A1E7B2000C1AE2 /* Tracer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D417C7E420A1E7B2000C1AE2 /* Tracer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D417C7FA20A1FC25000C1AE2 /* Tracers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C7F920A1FC24000C1AE2 /* Tracers.swift */; };
+		D417C7FE20A1FD34000C1AE2 /* EventTrace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C7FD20A1FD34000C1AE2 /* EventTrace.swift */; };
+		D417C80020A1FDF0000C1AE2 /* EventTracer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C7FF20A1FDF0000C1AE2 /* EventTracer.swift */; };
+		D417C80220A20002000C1AE2 /* Tracer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D417C80120A20002000C1AE2 /* Tracer.framework */; };
+		D417C80320A20002000C1AE2 /* Tracer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D417C80120A20002000C1AE2 /* Tracer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +37,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D417C7E620A1E7B2000C1AE2 /* Tracer.framework in Embed Frameworks */,
+				D417C80320A20002000C1AE2 /* Tracer.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -52,7 +55,10 @@
 		D417C7D120A1E6A5000C1AE2 /* TraceUIExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TraceUIExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D417C7D520A1E6A5000C1AE2 /* TraceUIExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIExampleUITests.swift; sourceTree = "<group>"; };
 		D417C7D720A1E6A5000C1AE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D417C7E420A1E7B2000C1AE2 /* Tracer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Tracer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D417C7F920A1FC24000C1AE2 /* Tracers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracers.swift; sourceTree = "<group>"; };
+		D417C7FD20A1FD34000C1AE2 /* EventTrace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTrace.swift; sourceTree = "<group>"; };
+		D417C7FF20A1FDF0000C1AE2 /* EventTracer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTracer.swift; sourceTree = "<group>"; };
+		D417C80120A20002000C1AE2 /* Tracer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Tracer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D417C7E520A1E7B2000C1AE2 /* Tracer.framework in Frameworks */,
+				D417C80220A20002000C1AE2 /* Tracer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,7 +83,7 @@
 		D417C7B420A1E6A4000C1AE2 = {
 			isa = PBXGroup;
 			children = (
-				D417C7E420A1E7B2000C1AE2 /* Tracer.framework */,
+				D417C80120A20002000C1AE2 /* Tracer.framework */,
 				D417C7BF20A1E6A4000C1AE2 /* TraceUIExample */,
 				D417C7D420A1E6A5000C1AE2 /* TraceUIExampleUITests */,
 				D417C7BE20A1E6A4000C1AE2 /* Products */,
@@ -97,7 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				D417C7C020A1E6A4000C1AE2 /* AppDelegate.swift */,
-				D417C7C220A1E6A4000C1AE2 /* ViewController.swift */,
+				D417C7FB20A1FCF7000C1AE2 /* Controllers */,
+				D417C7FC20A1FCFE000C1AE2 /* Traces */,
 				D417C7C420A1E6A4000C1AE2 /* Main.storyboard */,
 				D417C7C720A1E6A4000C1AE2 /* Assets.xcassets */,
 				D417C7C920A1E6A4000C1AE2 /* LaunchScreen.storyboard */,
@@ -113,6 +120,24 @@
 				D417C7D720A1E6A5000C1AE2 /* Info.plist */,
 			);
 			path = TraceUIExampleUITests;
+			sourceTree = "<group>";
+		};
+		D417C7FB20A1FCF7000C1AE2 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D417C7C220A1E6A4000C1AE2 /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		D417C7FC20A1FCFE000C1AE2 /* Traces */ = {
+			isa = PBXGroup;
+			children = (
+				D417C7F920A1FC24000C1AE2 /* Tracers.swift */,
+				D417C7FD20A1FD34000C1AE2 /* EventTrace.swift */,
+				D417C7FF20A1FDF0000C1AE2 /* EventTracer.swift */,
+			);
+			path = Traces;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,7 +242,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D417C7FE20A1FD34000C1AE2 /* EventTrace.swift in Sources */,
 				D417C7C320A1E6A4000C1AE2 /* ViewController.swift in Sources */,
+				D417C7FA20A1FC25000C1AE2 /* Tracers.swift in Sources */,
+				D417C80020A1FDF0000C1AE2 /* EventTracer.swift in Sources */,
 				D417C7C120A1E6A4000C1AE2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
