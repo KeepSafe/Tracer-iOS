@@ -31,7 +31,7 @@ final class TraceUIDetailView: UIView, Viewing {
         let table = UITableView(frame: .zero)
         table.register(TraceUIDetailItemCell.self, forCellReuseIdentifier: TraceUIDetailItemCell.identifier)
         table.dataSource = self
-        table.estimatedRowHeight = 60
+        table.estimatedRowHeight = TraceUIListItemCell.height
         table.tableFooterView = UIView(frame: .zero)
         return table
     }()
