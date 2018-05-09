@@ -18,7 +18,10 @@ enum EventTrace: String {
         case .logicVerificationFlow: return Trace(name: self.rawValue,
                                                   itemsToMatch: Event.traceItems(from: [.logicCheckpointOne,
                                                                                         .logicCheckpointTwo,
-                                                                                        .logicCheckpointThree]))
+                                                                                        .logicCheckpointThree]),
+                                                  setupSteps: ["Do this",
+                                                               "Then do that",
+                                                               "And finish with that other thing that's also really important"])
         }
     }
     

@@ -22,6 +22,13 @@ final class TraceUIDetailView: UIView, Viewing {
     
     func configure(with newViewModel: TraceUIDetailViewModel) {
         viewModel = newViewModel
+        
+        tableView.tableHeaderView = nil
+        if let setupSteps = viewModel?.trace.setupStepsAsList {
+            tableView.tableHeaderView = TraceUIDetailHeaderView(setupSteps: setupSteps)
+            tableView.tracer_enableVariableHeightTableHeaderView()
+        }
+        
         tableView.reloadData()
     }
     

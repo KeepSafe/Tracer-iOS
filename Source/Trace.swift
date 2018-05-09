@@ -28,10 +28,28 @@ public protocol Traceable {
     /// An optional array of setup steps rendered as a numbered list
     var setupSteps: [String]? { get }
     
+    /// Returns a numbered of list of the setup steps
+    var setupStepsAsList: String? { get }
+    
     /// An optional closure to execute arbitrary setup steps before the
     /// trace is run such as setting up any application state
     var setupBeforeStartingTrace: TracerSetupClosure? { get }
 }
+
+// MARK: - Default Implementation
+
+extension Traceable {
+    public var setupStepsAsList: String? {
+        guard let setupSteps = setupSteps, setupSteps.isEmpty == false else { return nil }
+        var numberedList = "Setup steps:\n\n"
+        for (index, step) in setupSteps.enumerated() {
+            numberedList.append("\(index + 1). \(step)\n")
+        }
+        return numberedList
+    }
+}
+
+// MARK: - Concrete `Trace` ready to be used
 
 /// A trace that can be executed and scored for.
 public struct Trace: Traceable {
@@ -79,16 +97,6 @@ public struct Trace: Traceable {
     
     /// An optional array of setup steps rendered as a numbered list (i.e. pass these in without numbers)
     public let setupSteps: [String]?
-    
-    /// Returns a numbered of list of the setup steps
-    public var setupStepsAsList: String? {
-        guard let setupSteps = setupSteps, setupSteps.isEmpty == false else { return nil }
-        var numberedList = "Setup steps:\n\n"
-        for (index, step) in setupSteps.enumerated() {
-            numberedList.append("    \(index + 1). \(step)\n")
-        }
-        return numberedList
-    }
     
     /// An optional closure to execute arbitrary setup steps before the
     /// trace is run such as setting up any application state
