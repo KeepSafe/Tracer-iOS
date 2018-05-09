@@ -51,7 +51,7 @@ private extension TraceUIDetailHeaderView {
         let superview = self
         NSLayoutConstraint.activate([setupStepsLabel.topAnchor.constraint(equalTo: superview.topAnchor, constant: 15),
                                      setupStepsLabel.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
-                                     setupStepsLabel.widthAnchor.constraint(equalTo: superview.widthAnchor, multiplier: 0.7),
+                                     setupStepsLabel.widthAnchor.constraint(equalTo: superview.widthAnchor, multiplier: 0.76),
                                      setupStepsLabel.centerXAnchor.constraint(equalTo: superview.centerXAnchor)])
     }
     

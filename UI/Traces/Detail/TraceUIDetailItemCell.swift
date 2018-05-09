@@ -53,6 +53,7 @@ final class TraceUIDetailItemCell: UITableViewCell, Viewing {
         let label = UILabel(frame: .zero)
         label.font = labelFont
         label.textColor = .lightGray
+        label.numberOfLines = 0
         return label
     }()
     
@@ -91,7 +92,7 @@ private extension TraceUIDetailItemCell {
         
         
         let uxTop = uxHintLabel.topAnchor.constraint(equalTo: itemLabel.bottomAnchor, constant: 5)
-        let uxHeight = uxHintLabel.heightAnchor.constraint(equalToConstant: labelHeight)
+        let uxHeight = uxHintLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: labelHeight)
         NSLayoutConstraint.activate([uxTop, uxHeight,
                                      uxHintLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
                                      uxHintLabel.leftAnchor.constraint(equalTo: itemLabel.leftAnchor),

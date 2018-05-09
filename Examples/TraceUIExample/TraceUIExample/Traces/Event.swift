@@ -17,7 +17,7 @@ enum Event: String {
         switch self {
         case .logicCheckpointOne: return "Step one here"
         case .logicCheckpointTwo: return "Step two here"
-        case .logicCheckpointThree: return "Step three here"
+        case .logicCheckpointThree: return "Step three here and then also do that other thing, you know what I'm talking about"
         }
     }
     
