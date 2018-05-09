@@ -28,6 +28,10 @@
 		D417C80D20A205E2000C1AE2 /* TraceUIDetailItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C80C20A205E2000C1AE2 /* TraceUIDetailItemCell.swift */; };
 		D417C81C20A389F5000C1AE2 /* UITableView+Bug.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C81B20A389F5000C1AE2 /* UITableView+Bug.swift */; };
 		D417C82220A38C4E000C1AE2 /* TraceUIDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C82120A38C4E000C1AE2 /* TraceUIDetailHeaderView.swift */; };
+		D417C82420A394DB000C1AE2 /* ItemLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C82320A394DB000C1AE2 /* ItemLogger.swift */; };
+		D417C82620A396A2000C1AE2 /* LoggedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C82520A396A2000C1AE2 /* LoggedItem.swift */; };
+		D417C82820A39878000C1AE2 /* LoggedItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C82720A39878000C1AE2 /* LoggedItemTests.swift */; };
+		D417C82A20A39883000C1AE2 /* ItemLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C82920A39883000C1AE2 /* ItemLoggerTests.swift */; };
 		D45FEC65209345380084DF96 /* Trace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45FEC64209345380084DF96 /* Trace.swift */; };
 		D45FEC69209346220084DF96 /* TraceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45FEC68209346220084DF96 /* TraceItem.swift */; };
 		D463175D209232FD0008A1BC /* Tracer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4631753209232FD0008A1BC /* Tracer.framework */; };
@@ -71,6 +75,10 @@
 		D417C80C20A205E2000C1AE2 /* TraceUIDetailItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIDetailItemCell.swift; sourceTree = "<group>"; };
 		D417C81B20A389F5000C1AE2 /* UITableView+Bug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Bug.swift"; sourceTree = "<group>"; };
 		D417C82120A38C4E000C1AE2 /* TraceUIDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIDetailHeaderView.swift; sourceTree = "<group>"; };
+		D417C82320A394DB000C1AE2 /* ItemLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemLogger.swift; sourceTree = "<group>"; };
+		D417C82520A396A2000C1AE2 /* LoggedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedItem.swift; sourceTree = "<group>"; };
+		D417C82720A39878000C1AE2 /* LoggedItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedItemTests.swift; sourceTree = "<group>"; };
+		D417C82920A39883000C1AE2 /* ItemLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemLoggerTests.swift; sourceTree = "<group>"; };
 		D45FEC64209345380084DF96 /* Trace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trace.swift; sourceTree = "<group>"; };
 		D45FEC68209346220084DF96 /* TraceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceItem.swift; sourceTree = "<group>"; };
 		D4631753209232FD0008A1BC /* Tracer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tracer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,6 +187,8 @@
 			isa = PBXGroup;
 			children = (
 				D4631761209232FD0008A1BC /* AnyTraceEquatableTests.swift */,
+				D417C82920A39883000C1AE2 /* ItemLoggerTests.swift */,
+				D417C82720A39878000C1AE2 /* LoggedItemTests.swift */,
 				D4111609209B4EFD00702064 /* TraceTests.swift */,
 				D411160B209B518300702064 /* TraceItemTests.swift */,
 				D4111611209B666C00702064 /* TraceReportTests.swift */,
@@ -196,6 +206,8 @@
 				D4A8B7EB209233F9002EC2F3 /* Tracer.h */,
 				D4A8B7EA209233F9002EC2F3 /* Info.plist */,
 				D4A668002093B77600009DBD /* AnyTraceEquatable.swift */,
+				D417C82320A394DB000C1AE2 /* ItemLogger.swift */,
+				D417C82520A396A2000C1AE2 /* LoggedItem.swift */,
 				D45FEC64209345380084DF96 /* Trace.swift */,
 				D45FEC68209346220084DF96 /* TraceItem.swift */,
 				D4DB46422097480F00080FE3 /* Tracer.swift */,
@@ -323,8 +335,10 @@
 				D4A668012093B77600009DBD /* AnyTraceEquatable.swift in Sources */,
 				D4DB46452097482000080FE3 /* TraceResult.swift in Sources */,
 				D417C7EF20A1EE52000C1AE2 /* TraceUIListView.swift in Sources */,
+				D417C82420A394DB000C1AE2 /* ItemLogger.swift in Sources */,
 				D417C80D20A205E2000C1AE2 /* TraceUIDetailItemCell.swift in Sources */,
 				D4DB46492097499500080FE3 /* TraceReport.swift in Sources */,
+				D417C82620A396A2000C1AE2 /* LoggedItem.swift in Sources */,
 				D417C7F520A1EF8C000C1AE2 /* TraceUIListItemCell.swift in Sources */,
 				D45FEC65209345380084DF96 /* Trace.swift in Sources */,
 				D417C81C20A389F5000C1AE2 /* UITableView+Bug.swift in Sources */,
@@ -349,6 +363,8 @@
 				D411160C209B518300702064 /* TraceItemTests.swift in Sources */,
 				D411160A209B4EFD00702064 /* TraceTests.swift in Sources */,
 				D4631762209232FD0008A1BC /* AnyTraceEquatableTests.swift in Sources */,
+				D417C82A20A39883000C1AE2 /* ItemLoggerTests.swift in Sources */,
+				D417C82820A39878000C1AE2 /* LoggedItemTests.swift in Sources */,
 				D4111604209A300800702064 /* TraceResultTests.swift in Sources */,
 				D4111610209B578D00702064 /* TraceSignalTests.swift in Sources */,
 				D4111612209B666C00702064 /* TraceReportTests.swift in Sources */,
