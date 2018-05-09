@@ -17,7 +17,7 @@ class AppDelegate: UIResponder {
     // MARK: - Instantiation
     
     override init() {
-        self.traceUICoordinator = TraceUICoordinator()
+        self.traceUI = TraceUI()
         
         super.init()
         
@@ -27,7 +27,7 @@ class AppDelegate: UIResponder {
     // MARK: - Properties
     
     var window: UIWindow?
-    let traceUICoordinator: TraceUICoordinator
+    let traceUI: TraceUI
 
 }
 
@@ -36,7 +36,7 @@ class AppDelegate: UIResponder {
 extension AppDelegate: UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        traceUICoordinator.start()
+        traceUI.start()
         return true
     }
     

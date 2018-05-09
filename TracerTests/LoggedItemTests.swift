@@ -13,8 +13,11 @@ final class LoggedItemTests: XCTestCase {
     
     func testInstantiationProperties() {
         let anyItem = AnyTraceEquatable("Hello")
-        let li = LoggedItem(anyItem)
+        let dictionary = AnyTraceEquatable(["hai": "there"])
+        let properties =  ["test": dictionary]
+        let li = LoggedItem(item: anyItem, properties: properties)
         XCTAssertTrue(li.item == anyItem)
+        XCTAssertTrue(li.properties == properties)
         let timestampIsFresh = (Date().timeIntervalSinceNow - li.timestamp.timeIntervalSinceNow) < 3
         XCTAssertTrue(timestampIsFresh)
     }

@@ -7,14 +7,26 @@
 //
 
 import UIKit
+import Tracer
 
 final class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        App.traceUICoordinator.show(in: self)
-        App.traceUICoordinator.add(traces: EventTrace.allTraces)
+        // Show the UI tool in this controller
+        App.traceUI.show(in: self)
+        
+        // Adding some traces to the UI tool
+        App.traceUI.add(traces: EventTrace.allTraces)
+        
+        // Example of logging some items
+        for i in 1...50 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i / 10)) {
+                let dictionary = ["myAwesomeKey": "someAmazingValue"]
+                App.traceUI.log(item: AnyTraceEquatable("⚡️ Logged a number! It was \(i)"), properties: ["example": AnyTraceEquatable(dictionary)])
+            }
+        }
     }
     
 }

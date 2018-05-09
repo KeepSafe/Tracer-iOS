@@ -21,6 +21,12 @@ final class TraceUIListItemCell: UITableViewCell, Viewing {
         setupView()
     }
     
+    // MARK: - Overrides
+    
+    public override func prepareForReuse() {
+        textLabel?.text = nil
+    }
+    
     // MARK: - API
     
     func configure(with trace: Traceable) {

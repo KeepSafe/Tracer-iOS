@@ -33,7 +33,8 @@ final class ItemLoggerTests: XCTestCase {
         logger.start()
         logger.log(item: AnyTraceEquatable(2))
         XCTAssertTrue(logger.loggedItems.count == 2)
-        XCTAssertTrue(logger.loggedItems.last?.item == AnyTraceEquatable(2))
+        // item appends to the top of the list
+        XCTAssertTrue(logger.loggedItems.first?.item == AnyTraceEquatable(2))
     }
     
     func testStoppingStopsLogging() {

@@ -9,10 +9,10 @@
 import Foundation
 
 /// A signal that is fired any time an item was logged
-public typealias ItemLoggedSignal = TraceSignal<AnyTraceEquatable>
+public typealias ItemLoggedSignal = TraceSignal<LoggedItem>
 
 /// Main interface for generic item logger
-/// (e.g. useful for logging items outside of running races)
+/// (e.g. useful for logging items outside of running traces)
 public final class ItemLogger {
     
     // MARK: - Instantiation
@@ -32,21 +32,31 @@ public final class ItemLogger {
             return itemLogged
         }
         
-        listener = itemLogged.listen(wasFired: { [weak self] item in
-            self?.loggedItems.append(LoggedItem(item))
+        listener = itemLogged.listen(wasFired: { [weak self] loggedItem in
+            self?.loggedItems.insert(loggedItem, at: 0)
         })
         return itemLogged
+    }
+    
+    /// Convenience method for logging a `LoggedItem`
+    ///
+    /// - Parameter item: The `LoggedItem` to log
+    internal func log(item: LoggedItem) {
+        itemLogged.fire(data: item)
     }
     
     /// Logs the given `AnyTraceEquatable` item
     /// (e.g. any item that is boxed in any `AnyTraceEquatable` like `AnyTraceEquatable("Hello")`)
     /// this is a no-op if no active trace is running
     ///
-    /// - Parameter item: The `AnyTraceEquatable` to log
+    /// - Parameters:
+    ///   - item: The `AnyTraceEquatable` item to log
+    ///   - properties: An optional dictionary of properties (i.e. `LoggedItemProperties`) to log along with this item
     ///
     /// E.g. if you were logging analytics calls, you'd fire this for events and user property
     ///      changes and it would log that in memory until you asked it to stop
-    public func log(item: AnyTraceEquatable) {
+    public func log(item: AnyTraceEquatable, properties: LoggedItemProperties? = nil) {
+        let item = LoggedItem(item: item, properties: properties)
         itemLogged.fire(data: item)
     }
     
@@ -66,9 +76,9 @@ public final class ItemLogger {
         loggedItems.removeAll()
     }
     
-    // MARK: - Internal Properties
+    // MARK: - Properties
     
-    fileprivate(set) var loggedItems = [LoggedItem]()
+    public fileprivate(set) var loggedItems = [LoggedItem]()
     
     // MARK: - Private Properties
 

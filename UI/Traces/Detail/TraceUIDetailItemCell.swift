@@ -19,6 +19,14 @@ final class TraceUIDetailItemCell: UITableViewCell, Viewing {
         setupView()
     }
     
+    // MARK: - Overrides
+    
+    public override func prepareForReuse() {
+        statusLabel.text = nil
+        itemLabel.text = nil
+        uxHintLabel.text = nil
+    }
+    
     // MARK: - API
     
     func configure(with traceItem: TraceItem, isTraceRunning: Bool, state: TraceItemState) {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct TraceUISignals {
+internal struct TraceUISignals {
     
     internal struct Traces {
         static let added = TraceSignal<[Traceable]>()
@@ -17,6 +17,10 @@ public struct TraceUISignals {
         static let itemLogged = TraceItemLoggedSignal()
         static let stateChanged = TraceStateChangedSignal()
         static let stopped = TraceSignal<(trace: Traceable, report: TraceReport)>()
+    }
+    
+    internal struct Logger {
+        static let itemLogged = ItemLoggedSignal()
     }
     
     private init() {}
