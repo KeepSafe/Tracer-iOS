@@ -19,7 +19,7 @@ final class TraceUIDetailPresenter: Presenting {
     // MARK: - Presenting
     
     func listenForChanges() {
-        TraceUISignals.Traces.showDetail.listen { traceToShow in
+        TraceUISignals.UI.showTraceDetail.listen { traceToShow in
             self.trace = traceToShow
             let newTracer = Tracer(trace: traceToShow)
             self.tracer = newTracer

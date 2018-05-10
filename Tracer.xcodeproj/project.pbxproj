@@ -35,6 +35,15 @@
 		D417C83120A39C9C000C1AE2 /* ItemLoggerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C83020A39C9C000C1AE2 /* ItemLoggerListView.swift */; };
 		D417C83320A39CA6000C1AE2 /* ItemLoggerListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C83220A39CA6000C1AE2 /* ItemLoggerListPresenter.swift */; };
 		D417C83720A39CBD000C1AE2 /* ItemLoggerListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C83620A39CBD000C1AE2 /* ItemLoggerListCell.swift */; };
+		D417C83C20A48490000C1AE2 /* TraceUITabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C83B20A48490000C1AE2 /* TraceUITabView.swift */; };
+		D417C83E20A48687000C1AE2 /* TraceUITabPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C83D20A48687000C1AE2 /* TraceUITabPresenter.swift */; };
+		D417C84020A48690000C1AE2 /* TraceUITabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C83F20A48690000C1AE2 /* TraceUITabViewModel.swift */; };
+		D417C84220A486A4000C1AE2 /* TraceUITabSegmentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C84120A486A4000C1AE2 /* TraceUITabSegmentButton.swift */; };
+		D417C84420A486B1000C1AE2 /* TraceUIStartStopButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C84320A486B1000C1AE2 /* TraceUIStartStopButton.swift */; };
+		D417C84620A486BA000C1AE2 /* TraceUIButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C84520A486BA000C1AE2 /* TraceUIButtons.swift */; };
+		D417C84820A49609000C1AE2 /* TraceUI.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D417C84720A49609000C1AE2 /* TraceUI.xcassets */; };
+		D417C84A20A4A1EF000C1AE2 /* UIImage+Tracer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C84920A4A1EF000C1AE2 /* UIImage+Tracer.swift */; };
+		D417C84C20A4A371000C1AE2 /* UIColor+Tracer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C84B20A4A371000C1AE2 /* UIColor+Tracer.swift */; };
 		D45FEC65209345380084DF96 /* Trace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45FEC64209345380084DF96 /* Trace.swift */; };
 		D45FEC69209346220084DF96 /* TraceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45FEC68209346220084DF96 /* TraceItem.swift */; };
 		D463175D209232FD0008A1BC /* Tracer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4631753209232FD0008A1BC /* Tracer.framework */; };
@@ -85,6 +94,15 @@
 		D417C83020A39C9C000C1AE2 /* ItemLoggerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemLoggerListView.swift; sourceTree = "<group>"; };
 		D417C83220A39CA6000C1AE2 /* ItemLoggerListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemLoggerListPresenter.swift; sourceTree = "<group>"; };
 		D417C83620A39CBD000C1AE2 /* ItemLoggerListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemLoggerListCell.swift; sourceTree = "<group>"; };
+		D417C83B20A48490000C1AE2 /* TraceUITabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceUITabView.swift; sourceTree = "<group>"; };
+		D417C83D20A48687000C1AE2 /* TraceUITabPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUITabPresenter.swift; sourceTree = "<group>"; };
+		D417C83F20A48690000C1AE2 /* TraceUITabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUITabViewModel.swift; sourceTree = "<group>"; };
+		D417C84120A486A4000C1AE2 /* TraceUITabSegmentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUITabSegmentButton.swift; sourceTree = "<group>"; };
+		D417C84320A486B1000C1AE2 /* TraceUIStartStopButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIStartStopButton.swift; sourceTree = "<group>"; };
+		D417C84520A486BA000C1AE2 /* TraceUIButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIButtons.swift; sourceTree = "<group>"; };
+		D417C84720A49609000C1AE2 /* TraceUI.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TraceUI.xcassets; sourceTree = "<group>"; };
+		D417C84920A4A1EF000C1AE2 /* UIImage+Tracer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Tracer.swift"; sourceTree = "<group>"; };
+		D417C84B20A4A371000C1AE2 /* UIColor+Tracer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Tracer.swift"; sourceTree = "<group>"; };
 		D45FEC64209345380084DF96 /* Trace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trace.swift; sourceTree = "<group>"; };
 		D45FEC68209346220084DF96 /* TraceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceItem.swift; sourceTree = "<group>"; };
 		D4631753209232FD0008A1BC /* Tracer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tracer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +146,7 @@
 				D417C82F20A39C7E000C1AE2 /* Logger */,
 				D417C83820A480A7000C1AE2 /* Tabs */,
 				D417C7ED20A1EE31000C1AE2 /* Traces */,
+				D417C84720A49609000C1AE2 /* TraceUI.xcassets */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -167,6 +186,8 @@
 		D417C81A20A389E4000C1AE2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				D417C84B20A4A371000C1AE2 /* UIColor+Tracer.swift */,
+				D417C84920A4A1EF000C1AE2 /* UIImage+Tracer.swift */,
 				D417C81B20A389F5000C1AE2 /* UITableView+Bug.swift */,
 			);
 			path = Extensions;
@@ -185,6 +206,12 @@
 		D417C83820A480A7000C1AE2 /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
+				D417C83B20A48490000C1AE2 /* TraceUITabView.swift */,
+				D417C83D20A48687000C1AE2 /* TraceUITabPresenter.swift */,
+				D417C83F20A48690000C1AE2 /* TraceUITabViewModel.swift */,
+				D417C84120A486A4000C1AE2 /* TraceUITabSegmentButton.swift */,
+				D417C84320A486B1000C1AE2 /* TraceUIStartStopButton.swift */,
+				D417C84520A486BA000C1AE2 /* TraceUIButtons.swift */,
 			);
 			path = Tabs;
 			sourceTree = "<group>";
@@ -337,6 +364,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D417C84820A49609000C1AE2 /* TraceUI.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,9 +386,11 @@
 				D417C83120A39C9C000C1AE2 /* ItemLoggerListView.swift in Sources */,
 				D417C80920A205C9000C1AE2 /* TraceUIDetailPresenter.swift in Sources */,
 				D41115E82097512100702064 /* TraceSignal.swift in Sources */,
+				D417C84620A486BA000C1AE2 /* TraceUIButtons.swift in Sources */,
 				D4A668012093B77600009DBD /* AnyTraceEquatable.swift in Sources */,
 				D4DB46452097482000080FE3 /* TraceResult.swift in Sources */,
 				D417C7EF20A1EE52000C1AE2 /* TraceUIListView.swift in Sources */,
+				D417C84020A48690000C1AE2 /* TraceUITabViewModel.swift in Sources */,
 				D417C83320A39CA6000C1AE2 /* ItemLoggerListPresenter.swift in Sources */,
 				D417C82420A394DB000C1AE2 /* ItemLogger.swift in Sources */,
 				D417C80D20A205E2000C1AE2 /* TraceUIDetailItemCell.swift in Sources */,
@@ -368,17 +398,23 @@
 				D417C82620A396A2000C1AE2 /* LoggedItem.swift in Sources */,
 				D417C7F520A1EF8C000C1AE2 /* TraceUIListItemCell.swift in Sources */,
 				D45FEC65209345380084DF96 /* Trace.swift in Sources */,
+				D417C84420A486B1000C1AE2 /* TraceUIStartStopButton.swift in Sources */,
 				D417C81C20A389F5000C1AE2 /* UITableView+Bug.swift in Sources */,
 				D4DB46432097480F00080FE3 /* Tracer.swift in Sources */,
 				D417C7B320A1E685000C1AE2 /* TraceUI.swift in Sources */,
 				D417C83720A39CBD000C1AE2 /* ItemLoggerListCell.swift in Sources */,
+				D417C84220A486A4000C1AE2 /* TraceUITabSegmentButton.swift in Sources */,
 				D417C80B20A205D4000C1AE2 /* TraceUIDetailViewModel.swift in Sources */,
 				D41115EE2097AFB800702064 /* TraceStates.swift in Sources */,
 				D417C7E920A1E98E000C1AE2 /* TraceUISignals.swift in Sources */,
 				D417C82220A38C4E000C1AE2 /* TraceUIDetailHeaderView.swift in Sources */,
 				D417C7F320A1EF6C000C1AE2 /* TraceUIListViewModel.swift in Sources */,
 				D417C80720A205BF000C1AE2 /* TraceUIDetailView.swift in Sources */,
+				D417C83E20A48687000C1AE2 /* TraceUITabPresenter.swift in Sources */,
+				D417C84C20A4A371000C1AE2 /* UIColor+Tracer.swift in Sources */,
+				D417C84A20A4A1EF000C1AE2 /* UIImage+Tracer.swift in Sources */,
 				D417C7F120A1EF04000C1AE2 /* TraceUIListPresenter.swift in Sources */,
+				D417C83C20A48490000C1AE2 /* TraceUITabView.swift in Sources */,
 				D417C7EC20A1EB49000C1AE2 /* TraceUIProtocols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

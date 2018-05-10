@@ -43,7 +43,7 @@ final class TraceUIDetailHeaderView: UIView, Viewing {
 private extension TraceUIDetailHeaderView {
     
     func setupView() {
-        backgroundColor = UIColor(white: 0.95, alpha: 1)
+        backgroundColor = UIColor.TraceUI.lightGray
         
         setupStepsLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(setupStepsLabel)

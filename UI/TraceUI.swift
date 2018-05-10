@@ -15,6 +15,9 @@ public final class TraceUI {
     
     /// Prepares UI for display and restores any state
     public init() {
+        self.tabView = TraceUITabView()
+        self.tabViewPresenter = TraceUITabPresenter(view: self.tabView)
+        
         self.logger = ItemLogger()
         self.loggerListView = ItemLoggerListView()
         self.loggerListPresenter = ItemLoggerListPresenter(view: self.loggerListView)
@@ -61,6 +64,7 @@ public final class TraceUI {
     // MARK: - Temporary API
     
     public func show(in viewController: UIViewController) {
+        setupTabView(in: viewController)
         setupLoggerView(in: viewController)
         setupTracesList(in: viewController)
         setupTraceDetail(in: viewController)
@@ -75,6 +79,9 @@ public final class TraceUI {
     }
     
     // MARK: - Private Properties
+    
+    private let tabView: TraceUITabView
+    private let tabViewPresenter: TraceUITabPresenter
     
     private let logger: ItemLogger
     private let loggerListView: ItemLoggerListView
@@ -93,8 +100,20 @@ public final class TraceUI {
 private extension TraceUI {
     
     func listenForRoutingActions() {
-        TraceUISignals.Traces.showDetail.listen { _ in
+        TraceUISignals.UI.showLogger.listen { _ in
+            self.showLoggerView()
+        }
+        
+        TraceUISignals.UI.showTraces.listen { _ in
+            self.showTraceList()
+        }
+        
+        TraceUISignals.UI.showTraceDetail.listen { _ in
             self.showTraceDetail()
+        }
+        
+        TraceUISignals.UI.closeTraceDetail.listen { _ in
+            self.showTraceList()
         }
     }
     
@@ -121,14 +140,11 @@ private extension TraceUI {
     }
     
     func display(viewToDisplay: UIView, andHide viewsToHide: [UIView]) {
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: 0.25, animations: {
             for viewToHide in viewsToHide {
                 viewToHide.alpha = 0
             }
-        }, completion: { _ in
-            UIView.animate(withDuration: 0.15, animations: {
-                viewToDisplay.alpha = 1
-            })
+            viewToDisplay.alpha = 1
         })
     }
 }
@@ -136,6 +152,17 @@ private extension TraceUI {
 // MARK: - View Setup
 
 private extension TraceUI {
+    
+    func setupTabView(in viewController: UIViewController) {
+        guard let superview = viewController.view else { return }
+        tabView.translatesAutoresizingMaskIntoConstraints = false
+        superview.addSubview(tabView)
+        
+        NSLayoutConstraint.activate([tabView.topAnchor.constraint(equalTo: superview.topAnchor),
+                                     tabView.heightAnchor.constraint(equalToConstant: TraceUITabView.height),
+                                     tabView.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                                     tabView.trailingAnchor.constraint(equalTo: superview.trailingAnchor)])
+    }
     
     func setupLoggerView(in viewController: UIViewController) {
         setup(view: loggerListView, in: viewController)
@@ -155,7 +182,7 @@ private extension TraceUI {
         view.translatesAutoresizingMaskIntoConstraints = false
         superview.addSubview(view)
         
-        NSLayoutConstraint.activate([view.topAnchor.constraint(equalTo: superview.topAnchor),
+        NSLayoutConstraint.activate([view.topAnchor.constraint(equalTo: tabView.bottomAnchor),
                                      view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
                                      view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
                                      view.trailingAnchor.constraint(equalTo: superview.trailingAnchor)])
