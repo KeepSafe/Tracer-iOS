@@ -33,7 +33,12 @@ final class TraceUIDetailPresenter: Presenting {
             TraceUISignals.Traces.started.fire(data: (trace: trace, started: started))
             self.updateTraceState()
         }
+        TraceUISignals.Traces.itemLogged.listen { traceItem in
+            guard self.tracer?.isRunning == true else { return }
+            self.tracer?.log(item: traceItem)
+        }
         TraceUISignals.UI.stopTrace.listen { _ in
+            guard self.tracer?.isRunning == true else { return }
             self.tracer?.stop()
         }
         TraceUISignals.Traces.started.listen { tuple in
@@ -53,12 +58,6 @@ final class TraceUIDetailPresenter: Presenting {
 extension TraceUIDetailPresenter: Servicing {
     
     func listenForTraceChanges(with traceStarted: TraceStarted) {
-        guard let trace = trace else { return }
-        
-        traceStarted.itemLogged.listen { traceItem in
-            TraceUISignals.Traces.itemLogged.fire(data: traceItem)
-        }
-        
         traceStarted.stateChanged.listen { traceState in
             TraceUISignals.Traces.stateChanged.fire(data: traceState)
             

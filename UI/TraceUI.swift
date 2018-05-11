@@ -45,6 +45,15 @@ public final class TraceUI {
         TraceUISignals.Traces.added.fire(data: traces)
     }
     
+    /// Logs the given item to a trace, if running
+    ///
+    /// - Parameter traceItem: The `TraceItem` to log
+    ///
+    /// Note: this is a no-op if no trace is running
+    public func log(traceItem: TraceItem) {
+        TraceUISignals.Traces.itemLogged.fire(data: traceItem)
+    }
+    
     /// Logs a generic item to the in-memory tailing log (i.e. this is not for trace logging)
     ///
     /// - Parameters:

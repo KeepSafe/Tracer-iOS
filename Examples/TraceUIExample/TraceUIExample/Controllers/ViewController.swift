@@ -27,6 +27,21 @@ final class ViewController: UIViewController {
                 App.traceUI.log(item: AnyTraceEquatable("⚡️ Logged a number! It was \(i)"), properties: ["example": AnyTraceEquatable(dictionary)])
             }
         }
+        
+        // TODO: Remove after testing
+        for i in 10...17 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i)) {
+                if i == 10 {
+                    App.traceUI.log(traceItem: Event.logicCheckpointOne.toTraceItem)
+                }
+                if i == 13 {
+                    App.traceUI.log(traceItem: Event.logicCheckpointTwo.toTraceItem)
+                }
+                if i == 16 {
+                    App.traceUI.log(traceItem: Event.logicCheckpointThree.toTraceItem)
+                }
+            }
+        }
     }
     
 }
