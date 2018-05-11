@@ -47,10 +47,13 @@ public final class TraceUI {
     
     /// Logs the given `TraceItem` to a trace, if running, and also logs it to the generic log
     ///
-    /// - Parameter traceItem: traceItem: The `TraceItem` to log
+    /// - Parameters:
+    ///   - traceItem: The `TraceItem` to log
+    ///   - emojiToPrepend: An optional emoji to prepend to the generic log entry, defaulting to ⚡️
+    ///                     (i.e. the emoji does not affect trace item values)
     ///
     /// Note: If no trace is running, this will just log to the generic log and be a no-op
-    public func log(traceItem: TraceItem) {
+    public func log(traceItem: TraceItem, emojiToPrepend: String? = "⚡️") {
         TraceUISignals.Traces.itemLogged.fire(data: traceItem)
         
         var properties = ["traceItem": AnyTraceEquatable(true),
@@ -58,7 +61,7 @@ public final class TraceUI {
         if let uxFlowHint = traceItem.uxFlowHint {
             properties["uxFlowHint"] = AnyTraceEquatable(uxFlowHint)
         }
-        log(genericItem: traceItem.itemToMatch, properties: properties)
+        log(genericItem: traceItem.itemToMatch, properties: properties, emojiToPrepend: emojiToPrepend)
     }
     
     /// Logs an item to the in-memory tailing log
@@ -69,12 +72,18 @@ public final class TraceUI {
     /// - Parameters:
     ///   - genericItem: The `AnyTraceEquatable` item to log
     ///   - properties: An optional dictionary of properties (i.e. `LoggedItemProperties`) to log along with this item
+    ///   - emojiToPrepend: An optional emoji to prepend to the generic log entry, defaulting to ⚡️
     ///
     /// Note: this isn't used for traces because trace items require a `type` to differentiate
     ///       the items from each other (e.g. ["type": "userId"] with a value of "1" is
     ///       different than ["type": "age"] with a value of "1")
-    public func log(genericItem: AnyTraceEquatable, properties: LoggedItemProperties? = nil) {
-        let loggedItem = LoggedItem(item: genericItem, properties: properties)
+    public func log(genericItem: AnyTraceEquatable, properties: LoggedItemProperties? = nil, emojiToPrepend: String? = "⚡️") {
+        let loggedItem: LoggedItem
+        if let emojiToPrepend = emojiToPrepend {
+            loggedItem = LoggedItem(item: AnyTraceEquatable("\(emojiToPrepend) \(genericItem)"), properties: properties)
+        } else {
+            loggedItem = LoggedItem(item: genericItem, properties: properties)
+        }
         logger.log(item: loggedItem)
         TraceUISignals.Logger.itemLogged.fire(data: loggedItem)
     }

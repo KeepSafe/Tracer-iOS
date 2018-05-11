@@ -24,7 +24,7 @@ final class ViewController: UIViewController {
         for i in 1...50 {
             DispatchQueue.main.asyncAfter(deadline: .now() + Double(i / 10)) {
                 let dictionary = ["myAwesomeKey": "someAmazingValue"]
-                App.traceUI.log(genericItem: AnyTraceEquatable("⚡️ Logged a number! It was \(i)"),
+                App.traceUI.log(genericItem: AnyTraceEquatable("Logged a number! It was \(i)"),
                                 properties: ["example": AnyTraceEquatable(dictionary)])
             }
         }
