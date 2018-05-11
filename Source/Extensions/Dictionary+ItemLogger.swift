@@ -19,4 +19,8 @@ internal extension Dictionary where Key: ExpressibleByStringLiteral, Value: Cust
         return v
     }
     
+    var csvDescription: String {
+        return loggerDescription.cleanedForCSV()
+    }
+    
 }

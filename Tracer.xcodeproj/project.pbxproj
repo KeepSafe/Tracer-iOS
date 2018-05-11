@@ -13,6 +13,7 @@
 		D4045CF420A62E4900BD8571 /* Dictionary+ItemLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4045CF320A62E4900BD8571 /* Dictionary+ItemLogger.swift */; };
 		D4045CF620A62EAD00BD8571 /* TraceDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4045CF520A62EAD00BD8571 /* TraceDateFormatter.swift */; };
 		D4045CF820A62F7100BD8571 /* ItemLoggerReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4045CF720A62F7100BD8571 /* ItemLoggerReport.swift */; };
+		D4045D0320A63E2C00BD8571 /* String+CSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4045D0220A63E2C00BD8571 /* String+CSV.swift */; };
 		D41115E82097512100702064 /* TraceSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41115E72097512100702064 /* TraceSignal.swift */; };
 		D41115EE2097AFB800702064 /* TraceStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41115ED2097AFB800702064 /* TraceStates.swift */; };
 		D4111604209A300800702064 /* TraceResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4111603209A300800702064 /* TraceResultTests.swift */; };
@@ -79,6 +80,7 @@
 		D4045CF320A62E4900BD8571 /* Dictionary+ItemLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+ItemLogger.swift"; sourceTree = "<group>"; };
 		D4045CF520A62EAD00BD8571 /* TraceDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceDateFormatter.swift; sourceTree = "<group>"; };
 		D4045CF720A62F7100BD8571 /* ItemLoggerReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemLoggerReport.swift; sourceTree = "<group>"; };
+		D4045D0220A63E2C00BD8571 /* String+CSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+CSV.swift"; sourceTree = "<group>"; };
 		D41115E72097512100702064 /* TraceSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceSignal.swift; sourceTree = "<group>"; };
 		D41115ED2097AFB800702064 /* TraceStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceStates.swift; sourceTree = "<group>"; };
 		D4111603209A300800702064 /* TraceResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceResultTests.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				D4045CF320A62E4900BD8571 /* Dictionary+ItemLogger.swift */,
+				D4045D0220A63E2C00BD8571 /* String+CSV.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -190,6 +193,13 @@
 			path = Traces;
 			sourceTree = "<group>";
 		};
+		D4045CFD20A63BFB00BD8571 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		D417C7B120A1E672000C1AE2 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +209,7 @@
 				D417C81A20A389E4000C1AE2 /* Extensions */,
 				D417C82F20A39C7E000C1AE2 /* Logger */,
 				D417C85320A623D5000C1AE2 /* Misc */,
+				D4045CFD20A63BFB00BD8571 /* Settings */,
 				D417C83820A480A7000C1AE2 /* Tabs */,
 				D417C7ED20A1EE31000C1AE2 /* Traces */,
 				D417C84720A49609000C1AE2 /* TraceUI.xcassets */,
@@ -474,6 +485,7 @@
 				D417C7E920A1E98E000C1AE2 /* TraceUISignals.swift in Sources */,
 				D417C82220A38C4E000C1AE2 /* TraceUIDetailHeaderView.swift in Sources */,
 				D4045CF820A62F7100BD8571 /* ItemLoggerReport.swift in Sources */,
+				D4045D0320A63E2C00BD8571 /* String+CSV.swift in Sources */,
 				D417C7F320A1EF6C000C1AE2 /* TraceUIListViewModel.swift in Sources */,
 				D417C80720A205BF000C1AE2 /* TraceUIDetailView.swift in Sources */,
 				D417C83E20A48687000C1AE2 /* TraceUITabPresenter.swift in Sources */,

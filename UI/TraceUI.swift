@@ -9,7 +9,7 @@
 import UIKit
 
 /// Coordinator for the Trace UI
-public final class TraceUI {
+public final class TraceUI: Listening {
     
     // MARK: - Instantiation
     
@@ -19,7 +19,6 @@ public final class TraceUI {
         self.tabViewPresenter = TraceUITabPresenter(view: self.tabView)
         
         self.logger = ItemLogger()
-        self.logger.start()
         self.loggerListView = ItemLoggerListView()
         self.loggerListPresenter = ItemLoggerListPresenter(view: self.loggerListView)
         
@@ -34,6 +33,7 @@ public final class TraceUI {
     
     /// Starts listening for changes
     public func start() {
+        logger.start()
         listenForRoutingActions()
         listenForTraceChanges()
     }
@@ -151,7 +151,7 @@ private extension TraceUI {
         
         TraceUISignals.UI.traceReportExported.listen { report in
             guard let (summaryURL, rawLogURL) = report.exportedAsTextFiles(),
-                  let genericLogURL = ItemLoggerReport(loggedItems: self.logger.loggedItems).exportedAsTextFile(),
+                  let genericLogURL = ItemLoggerReport(loggedItems: self.loggedItems).exportedAsCSVFile(),
                   let rootVC = UIApplication.shared.keyWindow?.rootViewController
                 else { return }
             

@@ -9,14 +9,14 @@
 import Foundation
 
 extension ItemLoggerReport {
-    func exportedAsTextFile() -> URL? {
-        let rawLogFilename = "allLoggedItems_\(Date().timeIntervalSince1970).txt"
-        let rawLogFilePath = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(rawLogFilename)
+    func exportedAsCSVFile() -> URL? {
+        let csvLogFilename = "allLoggedItems_\(Date().timeIntervalSince1970).csv"
+        let csvLogFilePath = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(csvLogFilename)
         do {
             var report = self
-            let rawLog = report.rawLog
-            try rawLog.write(to: rawLogFilePath, atomically: true, encoding: .utf8)
-            return rawLogFilePath
+            let csvLog = report.csvLog
+            try csvLog.write(to: csvLogFilePath, atomically: true, encoding: .utf8)
+            return csvLogFilePath
         } catch {
             return nil
         }

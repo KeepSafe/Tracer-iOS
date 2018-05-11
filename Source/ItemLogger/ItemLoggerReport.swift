@@ -24,6 +24,12 @@ public struct ItemLoggerReport {
         return generateRawLog()
     }()
     
+    /// Generates a CSV representation of all items logged
+    /// during this session.
+    public lazy var csvLog: String = {
+        return generateCSVLog()
+    }()
+    
     /// The array of `LoggedItem`s during this `ItemLogger` session
     /// (e.g. prior to this report being generated)
     public let loggedItems: [LoggedItem]
@@ -52,6 +58,18 @@ fileprivate extension ItemLoggerReport {
         ========   End Item Logger Session   ========
         
         """
+    }
+    
+    mutating func generateCSVLog() -> String {
+        var csvText = "Item,Timestamp,Properties\r\n"
+        for loggedItem in loggedItems {
+            let itemText = loggedItem.item.description.cleanedForCSV()
+            let timestamp = TraceDateFormatter.default.string(from: loggedItem.timestamp).cleanedForCSV()
+            let properties = loggedItem.properties?.csvDescription ?? "none"
+            let newline = "\(itemText),\(timestamp),\(properties)\r\n"
+            csvText.append(newline)
+        }
+        return csvText
     }
     
 }
