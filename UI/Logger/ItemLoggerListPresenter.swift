@@ -22,6 +22,9 @@ final class ItemLoggerListPresenter: Presenting {
         TraceUISignals.Logger.itemLogged.listen { loggedItem in
             self.view.display(loggedItem: loggedItem)
         }
+        TraceUISignals.UI.clearLog.listen { _ in
+            self.view.clearAll()
+        }
     }
     
     // MARK: - Private Properties

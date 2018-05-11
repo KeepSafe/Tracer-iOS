@@ -200,6 +200,10 @@ private extension TraceUI {
                 self.log(genericItem: AnyTraceEquatable("Error while exporting logged items: \(error.localizedDescription)"))
             })
         }
+        
+        TraceUISignals.UI.clearLog.listen { _ in
+            self.clearLog()
+        }
     }
     
     func listenForTraceChanges() {

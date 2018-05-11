@@ -34,6 +34,7 @@ internal struct TraceUISignals {
         static let settingsAdded = TraceSignal<[UIAlertAction]>()
         static let showSettings = TraceActionSignal()
         static let exportLog = TraceActionSignal()
+        static let clearLog = TraceActionSignal()
         static let exportTrace = TraceActionSignal()
         static let traceReportExported = TraceSignal<TraceReport>()
         static let collapseTool = TraceActionSignal()

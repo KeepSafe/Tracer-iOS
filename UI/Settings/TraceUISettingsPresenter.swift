@@ -25,8 +25,11 @@ final class TraceUISettingsPresenter: Presenting {
         let exportLogAction = UIAlertAction(title: "Export log", style: .default, handler: { _ in
             TraceUISignals.UI.exportLog.fire(data: nil)
         })
+        let clearLogAction = UIAlertAction(title: "Clear log", style: .default, handler: { _ in
+            TraceUISignals.UI.clearLog.fire(data: nil)
+        })
         let cancel = UIAlertAction(title: "Cancel", style: .cancel)
-        return [exportLogAction, cancel]
+        return [exportLogAction, clearLogAction, cancel]
     }()
 }
 
