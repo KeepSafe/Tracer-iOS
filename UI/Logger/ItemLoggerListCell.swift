@@ -123,7 +123,7 @@ private extension Dictionary where Key: ExpressibleByStringLiteral, Value: Custo
     var loggerDescription: String {
         var v = ""
         for (key, value) in self {
-            v += ("\(key)".uppercased() + ": \(value)\n")
+            v += ("\(key)" + ": \(value)\n")
         }
         return v
     }

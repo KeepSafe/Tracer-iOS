@@ -45,22 +45,36 @@ public final class TraceUI {
         TraceUISignals.Traces.added.fire(data: traces)
     }
     
-    /// Logs the given item to a trace, if running
+    /// Logs the given `TraceItem` to a trace, if running, and also logs it to the generic log
     ///
-    /// - Parameter traceItem: The `TraceItem` to log
+    /// - Parameter traceItem: traceItem: The `TraceItem` to log
     ///
-    /// Note: this is a no-op if no trace is running
+    /// Note: If no trace is running, this will just log to the generic log and be a no-op
     public func log(traceItem: TraceItem) {
         TraceUISignals.Traces.itemLogged.fire(data: traceItem)
+        
+        var properties = ["traceItem": AnyTraceEquatable(true),
+                          "type": AnyTraceEquatable(traceItem.type)]
+        if let uxFlowHint = traceItem.uxFlowHint {
+            properties["uxFlowHint"] = AnyTraceEquatable(uxFlowHint)
+        }
+        log(genericItem: traceItem.itemToMatch, properties: properties)
     }
     
-    /// Logs a generic item to the in-memory tailing log (i.e. this is not for trace logging)
+    /// Logs an item to the in-memory tailing log
+    ///
+    /// i.e. this is a generic logger used throughout the entire app session
+    ///      regardless of whether or not a trace is running
     ///
     /// - Parameters:
-    ///   - item: The `AnyTraceEquatable` item to log
+    ///   - genericItem: The `AnyTraceEquatable` item to log
     ///   - properties: An optional dictionary of properties (i.e. `LoggedItemProperties`) to log along with this item
-    public func log(item: AnyTraceEquatable, properties: LoggedItemProperties? = nil) {
-        let loggedItem = LoggedItem(item: item, properties: properties)
+    ///
+    /// Note: this isn't used for traces because trace items require a `type` to differentiate
+    ///       the items from each other (e.g. ["type": "userId"] with a value of "1" is
+    ///       different than ["type": "age"] with a value of "1")
+    public func log(genericItem: AnyTraceEquatable, properties: LoggedItemProperties? = nil) {
+        let loggedItem = LoggedItem(item: genericItem, properties: properties)
         logger.log(item: loggedItem)
         TraceUISignals.Logger.itemLogged.fire(data: loggedItem)
     }
@@ -171,7 +185,7 @@ private extension TraceUI {
         tabView.translatesAutoresizingMaskIntoConstraints = false
         superview.addSubview(tabView)
         
-        NSLayoutConstraint.activate([tabView.topAnchor.constraint(equalTo: superview.topAnchor),
+        NSLayoutConstraint.activate([tabView.topAnchor.constraint(equalTo: superview.topAnchor, constant: 20),
                                      tabView.heightAnchor.constraint(equalToConstant: TraceUITabView.height),
                                      tabView.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
                                      tabView.trailingAnchor.constraint(equalTo: superview.trailingAnchor)])
