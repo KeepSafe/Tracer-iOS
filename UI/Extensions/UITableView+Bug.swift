@@ -9,7 +9,6 @@
 import UIKit
 
 extension UITableView {
-    
     /// This fixes a bug which enables variable height table headers using autolayout
     /// Source: https://gist.github.com/marcoarment/1105553afba6b4900c10
     func tracer_enableVariableHeightTableHeaderView() {
@@ -37,5 +36,4 @@ extension UITableView {
         headerView.removeConstraints(temporaryWidthConstraints)
         headerView.translatesAutoresizingMaskIntoConstraints = true
     }
-    
 }

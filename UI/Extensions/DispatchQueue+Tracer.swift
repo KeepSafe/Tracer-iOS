@@ -9,9 +9,7 @@
 import Foundation
 
 extension DispatchQueue {
-    
     static func inMain(after seconds: Double, work: @escaping () -> ()) {
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds, execute: work)
     }
-    
 }

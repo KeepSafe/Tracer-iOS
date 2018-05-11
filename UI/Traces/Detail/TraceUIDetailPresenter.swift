@@ -33,6 +33,9 @@ final class TraceUIDetailPresenter: Presenting {
             TraceUISignals.Traces.started.fire(data: (trace: trace, started: started))
             self.updateTraceState()
         }
+        TraceUISignals.Traces.started.listen { tuple in
+            self.listenForTraceChanges(with: tuple.started)
+        }
         TraceUISignals.Traces.itemLogged.listen { traceItem in
             guard self.tracer?.isRunning == true else { return }
             self.tracer?.log(item: traceItem)
@@ -41,8 +44,10 @@ final class TraceUIDetailPresenter: Presenting {
             guard self.tracer?.isRunning == true else { return }
             self.tracer?.stop()
         }
-        TraceUISignals.Traces.started.listen { tuple in
-            self.listenForTraceChanges(with: tuple.started)
+        TraceUISignals.UI.exportTrace.listen { _ in
+            guard let result = self.tracer?.result else { return }
+            let report = TraceReport(result: result)
+            TraceUISignals.UI.traceReportExported.fire(data: report)
         }
     }
     

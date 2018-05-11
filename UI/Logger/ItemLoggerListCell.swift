@@ -32,7 +32,7 @@ final class ItemLoggerListCell: UITableViewCell, Viewing {
             }
             
             itemLabel.text = String(describing: loggedItem.item)
-            timestampLabel.text = dateFormatter.string(from: loggedItem.timestamp)
+            timestampLabel.text = TraceDateFormatter.default.string(from: loggedItem.timestamp)
             propertiesLabel.text = loggedItem.properties?.loggerDescription
         }
     }
@@ -64,14 +64,6 @@ final class ItemLoggerListCell: UITableViewCell, Viewing {
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 12.0)
         return label
-    }()
-    
-    // E.g. May 3, 2018 at 12:23:53 PM
-    fileprivate lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "E, MMM d, yyyy 'at' HH:mm:ss a"
-        formatter.locale = Locale.current
-        return formatter
     }()
     
     // MARK: - Unsupported Initializers
@@ -111,21 +103,6 @@ private extension ItemLoggerListCell {
                                      propertiesLabel.trailingAnchor.constraint(equalTo: timestampLabel.trailingAnchor),
                                      propertiesLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 14),
                                      propertiesLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)])
-    }
-    
-}
-
-// MARK: - Private Extension
-
-/// Specifically, this is an extension of LoggedItemProperties which is typed as [String: AnyTraceEquatable]
-private extension Dictionary where Key: ExpressibleByStringLiteral, Value: CustomStringConvertible {
-    
-    var loggerDescription: String {
-        var v = ""
-        for (key, value) in self {
-            v += ("\(key)" + ": \(value)\n")
-        }
-        return v
     }
     
 }

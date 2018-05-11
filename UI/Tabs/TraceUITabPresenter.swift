@@ -16,18 +16,6 @@ final class TraceUITabPresenter: Presenting {
         listenForChanges()
     }
     
-    // MARK: - Presenting
-    
-    func listenForChanges() {
-        TraceUISignals.UI.closeTraceDetail.listen { _ in
-            DispatchQueue.inMain(after: TraceUI.Animation.duration * 2, work: {
-                self.trace = nil
-            })
-        }
-        
-        listenForUIChanges()
-    }
-    
     // MARK: - Private Properties
     
     private let view: TraceUITabView
@@ -40,26 +28,17 @@ final class TraceUITabPresenter: Presenting {
 
 private extension TraceUITabPresenter {
     
-    func listenForUIChanges() {
-        func showTracesList() {
-            let viewModel = TraceUITabViewModel(traceName: traceName,
-                                                showLogsTracesSegmentButton: true,
-                                                showLogger: false,
-                                                showCloseTraceDetailButton: false,
-                                                showStartStopTraceButton: false,
-                                                startStopButtonState: .hidden,
-                                                showSettingsButton: false,
-                                                showExportTraceButton: false,
-                                                showCollapseUIToolButton: true)
-            self.view.configure(with: viewModel)
-        }
-        
+    // MARK: - Presenting
+    
+    func listenForChanges() {
         TraceUISignals.UI.showLogger.listen { _ in
             self.view.configure(with: TraceUITabViewModel.defaultConfiguration)
         }
+        
         TraceUISignals.UI.showTraces.listen { _ in
-            showTracesList()
+            self.showTracesList()
         }
+        
         TraceUISignals.UI.showTraceDetail.listen { newTrace in
             self.trace = newTrace
             let viewModel = TraceUITabViewModel(traceName: self.traceName,
@@ -73,6 +52,7 @@ private extension TraceUITabPresenter {
                                                 showCollapseUIToolButton: true)
             self.view.configure(with: viewModel)
         }
+        
         TraceUISignals.UI.startTrace.listen { _ in
             let viewModel = TraceUITabViewModel(traceName: self.traceName,
                                                 showLogsTracesSegmentButton: false,
@@ -85,6 +65,7 @@ private extension TraceUITabPresenter {
                                                 showCollapseUIToolButton: true)
             self.view.configure(with: viewModel)
         }
+        
         TraceUISignals.UI.stopTrace.listen { _ in
             let viewModel = TraceUITabViewModel(traceName: self.traceName,
                                                 showLogsTracesSegmentButton: false,
@@ -97,9 +78,27 @@ private extension TraceUITabPresenter {
                                                 showCollapseUIToolButton: true)
             self.view.configure(with: viewModel)
         }
+        
         TraceUISignals.UI.closeTraceDetail.listen { _ in
-            showTracesList()
+            self.showTracesList()
+            
+            DispatchQueue.inMain(after: TraceUI.Animation.duration * 2, work: {
+                self.trace = nil
+            })
         }
+    }
+    
+    func showTracesList() {
+        let viewModel = TraceUITabViewModel(traceName: traceName,
+                                            showLogsTracesSegmentButton: true,
+                                            showLogger: false,
+                                            showCloseTraceDetailButton: false,
+                                            showStartStopTraceButton: false,
+                                            startStopButtonState: .hidden,
+                                            showSettingsButton: false,
+                                            showExportTraceButton: false,
+                                            showCollapseUIToolButton: true)
+        self.view.configure(with: viewModel)
     }
     
 }

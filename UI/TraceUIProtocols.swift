@@ -23,14 +23,8 @@ internal protocol ViewModeling {}
 /// Views, agnostic of business logic and populated with a view model
 internal protocol Viewing {}
 
-/// Wrappers for where IBAction and other target-action types fire their signals
-internal protocol Actioning {}
-
 /// Services that listen for actions and apply them to the services they control
 internal protocol Servicing {}
-
-/// Fires signals to notify other components of some event
-internal protocol Notifying {}
 
 /// Listens for generic changes
 internal protocol Listening {}

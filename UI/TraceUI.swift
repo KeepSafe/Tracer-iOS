@@ -19,6 +19,7 @@ public final class TraceUI {
         self.tabViewPresenter = TraceUITabPresenter(view: self.tabView)
         
         self.logger = ItemLogger()
+        self.logger.start()
         self.loggerListView = ItemLoggerListView()
         self.loggerListPresenter = ItemLoggerListPresenter(view: self.loggerListView)
         
@@ -146,6 +147,19 @@ private extension TraceUI {
         
         TraceUISignals.UI.showTraceDetail.listen { _ in
             self.showTraceDetail()
+        }
+        
+        TraceUISignals.UI.traceReportExported.listen { report in
+            guard let (summaryURL, rawLogURL) = report.exportedAsTextFiles(),
+                  let genericLogURL = ItemLoggerReport(loggedItems: self.logger.loggedItems).exportedAsTextFile(),
+                  let rootVC = UIApplication.shared.keyWindow?.rootViewController
+                else { return }
+            
+            TraceShareSheet.present(with: [summaryURL, rawLogURL, genericLogURL], in: rootVC, success: {
+                self.log(genericItem: AnyTraceEquatable("Trace results exported successfully!"))
+            }, failure: { error in
+                self.log(genericItem: AnyTraceEquatable("Error while exporting trace results: \(error.localizedDescription)"))
+            })
         }
         
         TraceUISignals.UI.closeTraceDetail.listen { _ in
