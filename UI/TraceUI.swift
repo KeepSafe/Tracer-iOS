@@ -27,6 +27,9 @@ public final class TraceUI: Listening {
         
         self.traceDetailView = TraceUIDetailView()
         self.traceDetailPresenter = TraceUIDetailPresenter(view: self.traceDetailView)
+        
+        self.settingsView = TraceUISettingsView()
+        self.settingsViewPresenter = TraceUISettingsPresenter(view: self.settingsView)
     }
     
     // MARK: - API
@@ -44,6 +47,15 @@ public final class TraceUI: Listening {
     /// (or manually if using them in other ways outside of this UI tool)
     public func add(traces: [Traceable]) {
         TraceUISignals.Traces.added.fire(data: traces)
+    }
+    
+    /// Optionally add extra settings to the settings action sheet
+    ///
+    /// - Parameter settings: An array of settings to add
+    ///
+    /// Note: this is a no-op if a setting with that title already exists
+    public func add(settings: [UIAlertAction]) {
+        TraceUISignals.UI.settingsAdded.fire(data: settings)
     }
     
     /// Logs the given `TraceItem` to a trace, if running, and also logs it to the generic log
@@ -130,6 +142,13 @@ public final class TraceUI: Listening {
     private let traceDetailView: TraceUIDetailView
     private let traceDetailPresenter: TraceUIDetailPresenter
     
+    private let settingsView: TraceUISettingsView
+    private let settingsViewPresenter: TraceUISettingsPresenter
+    
+    private var rootViewController: UIViewController? {
+        return UIApplication.shared.keyWindow?.rootViewController
+    }
+    
 }
 
 // MARK: - Listeners
@@ -152,7 +171,7 @@ private extension TraceUI {
         TraceUISignals.UI.traceReportExported.listen { report in
             guard let (summaryURL, rawLogURL) = report.exportedAsTextFiles(),
                   let genericLogURL = ItemLoggerReport(loggedItems: self.loggedItems).exportedAsCSVFile(),
-                  let rootVC = UIApplication.shared.keyWindow?.rootViewController
+                  let rootVC = self.rootViewController
                 else { return }
             
             TraceShareSheet.present(with: [summaryURL, rawLogURL, genericLogURL], in: rootVC, success: {
@@ -164,6 +183,22 @@ private extension TraceUI {
         
         TraceUISignals.UI.closeTraceDetail.listen { _ in
             self.showTraceList()
+        }
+        
+        TraceUISignals.UI.showSettings.listen { _ in
+            guard let rootVC = self.rootViewController else { return }
+            rootVC.present(self.settingsView.alertController, animated: true, completion: nil)
+        }
+        
+        TraceUISignals.UI.exportLog.listen { _ in
+            guard let rootVC = self.rootViewController,
+                  let genericLogURL = ItemLoggerReport(loggedItems: self.loggedItems).exportedAsCSVFile()
+                else { return }
+            TraceShareSheet.present(with: [genericLogURL], in: rootVC, success: {
+                self.log(genericItem: AnyTraceEquatable("Logged items exported successfully!"))
+            }, failure: { error in
+                self.log(genericItem: AnyTraceEquatable("Error while exporting logged items: \(error.localizedDescription)"))
+            })
         }
     }
     

@@ -6,7 +6,7 @@
 //  Copyright © 2018 Keepsafe Inc. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 typealias TraceActionSignal = TraceSignal<()?>
 
@@ -31,7 +31,9 @@ internal struct TraceUISignals {
         static let startTrace = TraceActionSignal()
         static let stopTrace = TraceActionSignal()
         static let closeTraceDetail = TraceActionSignal()
+        static let settingsAdded = TraceSignal<[UIAlertAction]>()
         static let showSettings = TraceActionSignal()
+        static let exportLog = TraceActionSignal()
         static let exportTrace = TraceActionSignal()
         static let traceReportExported = TraceSignal<TraceReport>()
         static let collapseTool = TraceActionSignal()

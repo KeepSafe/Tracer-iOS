@@ -14,6 +14,9 @@
 		D4045CF620A62EAD00BD8571 /* TraceDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4045CF520A62EAD00BD8571 /* TraceDateFormatter.swift */; };
 		D4045CF820A62F7100BD8571 /* ItemLoggerReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4045CF720A62F7100BD8571 /* ItemLoggerReport.swift */; };
 		D4045D0320A63E2C00BD8571 /* String+CSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4045D0220A63E2C00BD8571 /* String+CSV.swift */; };
+		D4045D0520A643C200BD8571 /* TraceUISettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4045D0420A643C200BD8571 /* TraceUISettingsPresenter.swift */; };
+		D4045D0720A643CC00BD8571 /* TraceUISettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4045D0620A643CC00BD8571 /* TraceUISettingsView.swift */; };
+		D4045D0920A643D500BD8571 /* TraceUISettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4045D0820A643D500BD8571 /* TraceUISettingsViewModel.swift */; };
 		D41115E82097512100702064 /* TraceSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41115E72097512100702064 /* TraceSignal.swift */; };
 		D41115EE2097AFB800702064 /* TraceStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41115ED2097AFB800702064 /* TraceStates.swift */; };
 		D4111604209A300800702064 /* TraceResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4111603209A300800702064 /* TraceResultTests.swift */; };
@@ -81,6 +84,9 @@
 		D4045CF520A62EAD00BD8571 /* TraceDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceDateFormatter.swift; sourceTree = "<group>"; };
 		D4045CF720A62F7100BD8571 /* ItemLoggerReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemLoggerReport.swift; sourceTree = "<group>"; };
 		D4045D0220A63E2C00BD8571 /* String+CSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+CSV.swift"; sourceTree = "<group>"; };
+		D4045D0420A643C200BD8571 /* TraceUISettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUISettingsPresenter.swift; sourceTree = "<group>"; };
+		D4045D0620A643CC00BD8571 /* TraceUISettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUISettingsView.swift; sourceTree = "<group>"; };
+		D4045D0820A643D500BD8571 /* TraceUISettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUISettingsViewModel.swift; sourceTree = "<group>"; };
 		D41115E72097512100702064 /* TraceSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceSignal.swift; sourceTree = "<group>"; };
 		D41115ED2097AFB800702064 /* TraceStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceStates.swift; sourceTree = "<group>"; };
 		D4111603209A300800702064 /* TraceResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceResultTests.swift; sourceTree = "<group>"; };
@@ -196,6 +202,9 @@
 		D4045CFD20A63BFB00BD8571 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				D4045D0420A643C200BD8571 /* TraceUISettingsPresenter.swift */,
+				D4045D0620A643CC00BD8571 /* TraceUISettingsView.swift */,
+				D4045D0820A643D500BD8571 /* TraceUISettingsViewModel.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -462,6 +471,7 @@
 				D417C84620A486BA000C1AE2 /* TraceUIButtons.swift in Sources */,
 				D4A668012093B77600009DBD /* AnyTraceEquatable.swift in Sources */,
 				D4DB46452097482000080FE3 /* TraceResult.swift in Sources */,
+				D4045D0520A643C200BD8571 /* TraceUISettingsPresenter.swift in Sources */,
 				D417C7EF20A1EE52000C1AE2 /* TraceUIListView.swift in Sources */,
 				D417C84020A48690000C1AE2 /* TraceUITabViewModel.swift in Sources */,
 				D417C83320A39CA6000C1AE2 /* ItemLoggerListPresenter.swift in Sources */,
@@ -478,11 +488,13 @@
 				D4045CF220A62D8800BD8571 /* ItemLoggerReport+Export.swift in Sources */,
 				D4DB46432097480F00080FE3 /* Tracer.swift in Sources */,
 				D417C7B320A1E685000C1AE2 /* TraceUI.swift in Sources */,
+				D4045D0720A643CC00BD8571 /* TraceUISettingsView.swift in Sources */,
 				D417C83720A39CBD000C1AE2 /* ItemLoggerListCell.swift in Sources */,
 				D417C84220A486A4000C1AE2 /* TraceUITabSegmentButton.swift in Sources */,
 				D417C80B20A205D4000C1AE2 /* TraceUIDetailViewModel.swift in Sources */,
 				D41115EE2097AFB800702064 /* TraceStates.swift in Sources */,
 				D417C7E920A1E98E000C1AE2 /* TraceUISignals.swift in Sources */,
+				D4045D0920A643D500BD8571 /* TraceUISettingsViewModel.swift in Sources */,
 				D417C82220A38C4E000C1AE2 /* TraceUIDetailHeaderView.swift in Sources */,
 				D4045CF820A62F7100BD8571 /* ItemLoggerReport.swift in Sources */,
 				D4045D0320A63E2C00BD8571 /* String+CSV.swift in Sources */,

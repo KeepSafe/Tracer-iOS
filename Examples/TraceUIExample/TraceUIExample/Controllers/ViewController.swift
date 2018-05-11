@@ -21,13 +21,19 @@ final class ViewController: UIViewController {
         App.traceUI.add(traces: EventTrace.allTraces)
         
         // Example of logging some items
-        for i in 1...50 {
+        for i in 1...20 {
             DispatchQueue.main.asyncAfter(deadline: .now() + Double(i / 10)) {
                 let dictionary = ["myAwesomeKey": "someAmazingValue"]
                 App.traceUI.log(genericItem: AnyTraceEquatable("Logged a number! It was \(i)"),
                                 properties: ["example": AnyTraceEquatable(dictionary)])
             }
         }
+        
+        // Example of adding extra actions to the settings
+        let mooLikeACow = UIAlertAction(title: "Moo like a cow", style: .default) { _ in
+            App.traceUI.log(genericItem: AnyTraceEquatable("Moooooooooo"), emojiToPrepend: "🐄")
+        }
+        App.traceUI.add(settings: [mooLikeACow])
         
         // TODO: Remove after testing
         for i in 10...17 {
