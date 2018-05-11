@@ -32,13 +32,18 @@ public final class Tracer {
     
     // MARK: - API
     
+    /// Whether or not this tracer is currently running
+    public var isRunning: Bool {
+        return listener != nil
+    }
+    
     /// Executes any setup steps, then starts listening to items being fired and appends them
     /// appropriately into a `TraceResult` that can be displayed at the end of the trace.
     ///
     /// - Returns: A tuple `TraceStarted` with signals that can be listened to for trace changes
     @discardableResult
     public func start() -> TraceStarted {
-        guard listener == nil else {
+        guard isRunning == false else {
             // Trace is already active, so just return signals
             return TraceStarted(currentState: result.state, stateChanged: result.stateChanged, itemLogged: itemLogged)
         }
@@ -69,6 +74,7 @@ public final class Tracer {
     public func stop() -> TraceReport {
         if let listener = listener {
             itemLogged.remove(listener: listener)
+            self.listener = nil
         }
         
         result.finalize()

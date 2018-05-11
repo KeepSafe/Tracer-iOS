@@ -28,9 +28,7 @@ final class TraceUITabView: UIView, Viewing {
     func configure(with newViewModel: TraceUITabViewModel) {
         viewModel = newViewModel
         
-        logsTracesSegmentButton.configure(loggerTabActive: viewModel.showLogger)
-        
-        UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: TraceUI.Animation.duration) {
             self.logsTracesSegmentButton.alpha = self.viewModel.showLogsTracesSegmentButton ? 1 : 0
             self.closeTraceDetailButton.alpha = self.viewModel.showCloseTraceDetailButton ? 1 : 0
             self.startStopTraceButton.alpha = self.viewModel.showStartStopTraceButton ? 1 : 0
@@ -38,6 +36,9 @@ final class TraceUITabView: UIView, Viewing {
             self.exportTraceButton.alpha = self.viewModel.showExportTraceButton ? 1 : 0
             self.collapseUIToolButton.alpha = self.viewModel.showCollapseUIToolButton ? 1 : 0
         }
+        
+        logsTracesSegmentButton.configure(loggerTabActive: viewModel.showLogger)
+        startStopTraceButton.configure(traceName: viewModel.traceName ?? "", state: viewModel.startStopButtonState)
     }
     
     // MARK: - Private Properties
@@ -60,7 +61,6 @@ final class TraceUITabView: UIView, Viewing {
     
     private lazy var startStopTraceButton: TraceUIStartStopButton = {
         let view = TraceUIStartStopButton()
-        view.backgroundColor = .red
         view.alpha = 0
         return view
     }()
@@ -127,8 +127,8 @@ private extension TraceUITabView {
         
         NSLayoutConstraint.activate([startStopTraceButton.topAnchor.constraint(equalTo: superview.topAnchor),
                                      startStopTraceButton.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
-                                     startStopTraceButton.centerXAnchor.constraint(equalTo: superview.centerXAnchor),
-                                     startStopTraceButton.widthAnchor.constraint(lessThanOrEqualToConstant: 200)])
+                                     startStopTraceButton.centerXAnchor.constraint(equalTo: superview.centerXAnchor, constant: -startStopTraceButton.centeringDistance),
+                                     startStopTraceButton.widthAnchor.constraint(lessThanOrEqualTo: superview.widthAnchor, multiplier: 0.65)])
         
         NSLayoutConstraint.activate([closeTraceDetailButton.topAnchor.constraint(equalTo: superview.topAnchor),
                                      closeTraceDetailButton.bottomAnchor.constraint(equalTo: superview.bottomAnchor),

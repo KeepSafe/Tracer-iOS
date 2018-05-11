@@ -78,6 +78,10 @@ public final class TraceUI {
         return logger.loggedItems
     }
     
+    struct Animation {
+        static let duration: Double = 0.25
+    }
+    
     // MARK: - Private Properties
     
     private let tabView: TraceUITabView
@@ -140,7 +144,7 @@ private extension TraceUI {
     }
     
     func display(viewToDisplay: UIView, andHide viewsToHide: [UIView]) {
-        UIView.animate(withDuration: 0.25, animations: {
+        UIView.animate(withDuration: Animation.duration, animations: {
             for viewToHide in viewsToHide {
                 viewToHide.alpha = 0
             }

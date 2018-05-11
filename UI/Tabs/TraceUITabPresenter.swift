@@ -19,70 +19,87 @@ final class TraceUITabPresenter: Presenting {
     // MARK: - Presenting
     
     func listenForChanges() {
+        TraceUISignals.UI.closeTraceDetail.listen { _ in
+            DispatchQueue.inMain(after: TraceUI.Animation.duration * 2, work: {
+                self.trace = nil
+            })
+        }
+        
+        listenForUIChanges()
+    }
+    
+    // MARK: - Private Properties
+    
+    private let view: TraceUITabView
+    private var trace: Traceable?
+    
+    private var traceName: String {
+        return trace?.name ?? ""
+    }
+}
+
+private extension TraceUITabPresenter {
+    
+    func listenForUIChanges() {
         func showTracesList() {
-            let viewModel = TraceUITabViewModel(showLogsTracesSegmentButton: true,
+            let viewModel = TraceUITabViewModel(traceName: traceName,
+                                                showLogsTracesSegmentButton: true,
                                                 showLogger: false,
                                                 showCloseTraceDetailButton: false,
                                                 showStartStopTraceButton: false,
-                                                showTraceAsStarted: false,
+                                                startStopButtonState: .hidden,
                                                 showSettingsButton: false,
                                                 showExportTraceButton: false,
                                                 showCollapseUIToolButton: true)
             self.view.configure(with: viewModel)
         }
         
-        TraceUISignals.UI.showLogger.listen { newTraces in
+        TraceUISignals.UI.showLogger.listen { _ in
             self.view.configure(with: TraceUITabViewModel.defaultConfiguration)
         }
-        TraceUISignals.UI.showTraces.listen { newTraces in
+        TraceUISignals.UI.showTraces.listen { _ in
             showTracesList()
         }
-        TraceUISignals.Traces.started.listen { _ in
-            self.isTraceRunning = true
-        }
-        TraceUISignals.Traces.stopped.listen { _ in
-            self.isTraceRunning = false
-        }
-        TraceUISignals.UI.showTraceDetail.listen { newTraces in
-            let viewModel = TraceUITabViewModel(showLogsTracesSegmentButton: false,
+        TraceUISignals.UI.showTraceDetail.listen { newTrace in
+            self.trace = newTrace
+            let viewModel = TraceUITabViewModel(traceName: self.traceName,
+                                                showLogsTracesSegmentButton: false,
                                                 showLogger: false,
                                                 showCloseTraceDetailButton: true,
                                                 showStartStopTraceButton: true,
-                                                showTraceAsStarted: self.isTraceRunning,
+                                                startStopButtonState: .readyToStart,
                                                 showSettingsButton: false,
                                                 showExportTraceButton: false,
                                                 showCollapseUIToolButton: true)
             self.view.configure(with: viewModel)
         }
-        TraceUISignals.UI.startTrace.listen { newTraces in
-            let viewModel = TraceUITabViewModel(showLogsTracesSegmentButton: true,
-                                                showLogger: true,
+        TraceUISignals.UI.startTrace.listen { _ in
+            let viewModel = TraceUITabViewModel(traceName: self.traceName,
+                                                showLogsTracesSegmentButton: false,
+                                                showLogger: false,
                                                 showCloseTraceDetailButton: false,
-                                                showStartStopTraceButton: false,
-                                                showTraceAsStarted: true,
-                                                showSettingsButton: true,
+                                                showStartStopTraceButton: true,
+                                                startStopButtonState: .started,
+                                                showSettingsButton: false,
                                                 showExportTraceButton: false,
                                                 showCollapseUIToolButton: true)
             self.view.configure(with: viewModel)
         }
-        TraceUISignals.UI.stopTrace.listen { newTraces in
-            let viewModel = TraceUITabViewModel(showLogsTracesSegmentButton: true,
-                                                showLogger: true,
-                                                showCloseTraceDetailButton: false,
-                                                showStartStopTraceButton: false,
-                                                showTraceAsStarted: false,
-                                                showSettingsButton: true,
-                                                showExportTraceButton: false,
+        TraceUISignals.UI.stopTrace.listen { _ in
+            let viewModel = TraceUITabViewModel(traceName: self.traceName,
+                                                showLogsTracesSegmentButton: false,
+                                                showLogger: false,
+                                                showCloseTraceDetailButton: true,
+                                                showStartStopTraceButton: true,
+                                                startStopButtonState: .stopped,
+                                                showSettingsButton: false,
+                                                showExportTraceButton: true,
                                                 showCollapseUIToolButton: true)
             self.view.configure(with: viewModel)
         }
-        TraceUISignals.UI.closeTraceDetail.listen { newTraces in
+        TraceUISignals.UI.closeTraceDetail.listen { _ in
             showTracesList()
         }
     }
     
-    // MARK: - Private Properties
-    
-    private let view: TraceUITabView
-    private var isTraceRunning = false
 }

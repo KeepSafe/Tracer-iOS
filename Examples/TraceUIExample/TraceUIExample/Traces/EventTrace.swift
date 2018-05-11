@@ -12,21 +12,23 @@ import Tracer
 
 enum EventTrace: String {
     case logicVerificationFlow = "Verify logic flow"
+    case longFlowName = "Verification of something really long"
     
     var toTrace: Trace {
         switch self {
-        case .logicVerificationFlow: return Trace(name: self.rawValue,
-                                                  itemsToMatch: Event.traceItems(from: [.logicCheckpointOne,
-                                                                                        .logicCheckpointTwo,
-                                                                                        .logicCheckpointThree]),
-                                                  setupSteps: ["Do this",
-                                                               "Then do that",
-                                                               "And finish with that other thing that's also really important"])
+        case .logicVerificationFlow, .longFlowName:
+            return Trace(name: self.rawValue,
+                         itemsToMatch: Event.traceItems(from: [.logicCheckpointOne,
+                                                               .logicCheckpointTwo,
+                                                               .logicCheckpointThree]),
+                                                        setupSteps: ["Do this",
+                                                                     "Then do that",
+                                                                     "And finish with that other thing that's also really important"])
         }
     }
     
     // E.g. create a convenience property for displaying these in a UI list to start one that way
     static var allTraces: [Trace] {
-        return [logicVerificationFlow.toTrace]
+        return [logicVerificationFlow.toTrace, longFlowName.toTrace]
     }
 }

@@ -19,6 +19,17 @@ final class TracerTests: XCTestCase {
         XCTAssertTrue(tracer.result.statesForItemsToMatch.first?.keys.first == testTraceItem)
     }
     
+    func testIsRunning() {
+        let trace = Trace(name: "startRunning", itemsToMatch: [testTraceItem])
+        let tracer = Tracer(trace: trace)
+        
+        XCTAssertFalse(tracer.isRunning)
+        tracer.start()
+        XCTAssertTrue(tracer.isRunning)
+        tracer.stop()
+        XCTAssertFalse(tracer.isRunning)
+    }
+    
     func testStartCallsSetup() {
         let setupExp = expectation(description: "setupCalled")
         let trace = Trace(name: "startSetup", itemsToMatch: [testTraceItem], setupBeforeStartingTrace: {

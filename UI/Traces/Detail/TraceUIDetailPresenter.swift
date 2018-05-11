@@ -28,7 +28,14 @@ final class TraceUIDetailPresenter: Presenting {
                                                    statesForItemsToMatch: newTracer.result.statesForItemsToMatch)
             self.view.configure(with: viewModel)
         }
-        
+        TraceUISignals.UI.startTrace.listen { _ in
+            guard self.tracer?.isRunning == false, let trace = self.trace, let started = self.tracer?.start() else { return }
+            TraceUISignals.Traces.started.fire(data: (trace: trace, started: started))
+            self.updateTraceState()
+        }
+        TraceUISignals.UI.stopTrace.listen { _ in
+            self.tracer?.stop()
+        }
         TraceUISignals.Traces.started.listen { tuple in
             self.listenForTraceChanges(with: tuple.started)
         }
@@ -55,12 +62,16 @@ extension TraceUIDetailPresenter: Servicing {
         traceStarted.stateChanged.listen { traceState in
             TraceUISignals.Traces.stateChanged.fire(data: traceState)
             
-            guard let states = self.tracer?.result.statesForItemsToMatch else { return }
-            let viewModel = TraceUIDetailViewModel(trace: trace,
-                                                   isTraceRunning: true,
-                                                   statesForItemsToMatch: states)
-            self.view.configure(with: viewModel)
+            self.updateTraceState()
         }
+    }
+    
+    func updateTraceState() {
+        guard let trace = self.trace, let states = self.tracer?.result.statesForItemsToMatch else { return }
+        let viewModel = TraceUIDetailViewModel(trace: trace,
+                                               isTraceRunning: true,
+                                               statesForItemsToMatch: states)
+        self.view.configure(with: viewModel)
     }
     
 }

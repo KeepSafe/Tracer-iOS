@@ -9,20 +9,22 @@
 import Foundation
 
 struct TraceUITabViewModel: ViewModeling {
+    let traceName: String?
     let showLogsTracesSegmentButton: Bool
     let showLogger: Bool
     let showCloseTraceDetailButton: Bool
     let showStartStopTraceButton: Bool
-    let showTraceAsStarted: Bool
+    let startStopButtonState: StartStopButtonState
     let showSettingsButton: Bool
     let showExportTraceButton: Bool
     let showCollapseUIToolButton: Bool
     
-    static let defaultConfiguration = TraceUITabViewModel(showLogsTracesSegmentButton: true,
+    static let defaultConfiguration = TraceUITabViewModel(traceName: nil,
+                                                          showLogsTracesSegmentButton: true,
                                                           showLogger: true,
                                                           showCloseTraceDetailButton: false,
                                                           showStartStopTraceButton: false,
-                                                          showTraceAsStarted: false,
+                                                          startStopButtonState: .readyToStart,
                                                           showSettingsButton: true,
                                                           showExportTraceButton: false,
                                                           showCollapseUIToolButton: true)
