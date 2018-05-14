@@ -9,7 +9,7 @@
 import UIKit
 
 /// A transparent view that passes through its touches
-class TracePassThroughView: UIView {
+class TracePassThroughView: UIView, Viewing {
     init() {
         super.init(frame: .zero)
         

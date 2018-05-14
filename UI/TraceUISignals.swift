@@ -39,6 +39,9 @@ internal struct TraceUISignals {
         static let traceReportExported = TraceSignal<TraceReport>()
         static let collapseTool = TraceActionSignal()
         static let expandTool = TraceActionSignal()
+        
+        /// Broadcasts the touch point in the button's coordinate space
+        static let statusButtonDragged = TraceSignal<(touchPoint: CGPoint, gestureState: UIGestureRecognizerState)>()
     }
     
     private init() {}

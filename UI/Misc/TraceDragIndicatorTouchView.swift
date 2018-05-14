@@ -8,13 +8,11 @@
 
 import UIKit
 
-// MARK: - DragIndicatorView
-
 typealias DragIndicatorTouched = (_ touch: UITouch) -> ()
 
 /// Contains an invisible and visible area to make the touch area
 /// tall enough to be easily dragged around (e.g. 44 points tall)
-final class TraceDragIndicatorTouchView: UIView {
+final class TraceDragIndicatorTouchView: UIView, Viewing {
     
     static let height: CGFloat = 44
     
@@ -81,7 +79,7 @@ private extension TraceDragIndicatorTouchView {
 
 // MARK: - DragIndicatorView
 
-private final class DragIndicatorView: UIView {
+private final class DragIndicatorView: UIView, Viewing {
     
     static let height: CGFloat = 20
     

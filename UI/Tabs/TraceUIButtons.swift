@@ -36,6 +36,7 @@ class TraceUIIconButton: TraceUIButton {
     init(icon: UIImage, backgroundColor: UIColor, tapped: @escaping TraceUIButtonTapped) {
         super.init(backgroundColor: backgroundColor, tapped: tapped)
         
+        adjustsImageWhenHighlighted = false
         setImage(icon, for: .normal)
         contentMode = .scaleAspectFit
     }

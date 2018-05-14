@@ -11,7 +11,7 @@ import UIKit
 typealias TraceShareSheetSuccess = () -> ()
 typealias TraceShareSheetFailure = (_ error: Error) -> ()
 
-struct TraceShareSheet {
+struct TraceShareSheet: Viewing {
     static func present(with activityItems: [Any], in controller: UIViewController,
                         success: TraceShareSheetSuccess? = nil, failure: TraceShareSheetFailure? = nil) {
         let shareSheet = UIActivityViewController(activityItems: activityItems, applicationActivities: [])
