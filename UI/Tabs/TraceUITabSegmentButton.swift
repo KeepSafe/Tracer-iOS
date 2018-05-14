@@ -36,7 +36,7 @@ final class TraceUITabSegmentButton: UIView, Viewing {
             TraceUISignals.UI.showLogger.fire(data: nil)
         })
         button.setTitle("Logger", for: .normal)
-        button.setTitleColor(UIColor.TraceUI.darkGray, for: .normal)
+        button.setTitleColor(UIColor.TraceUI.blueGray, for: .normal)
         button.titleLabel?.font = boldFont
         return button
     }()
@@ -46,7 +46,7 @@ final class TraceUITabSegmentButton: UIView, Viewing {
             TraceUISignals.UI.showTraces.fire(data: nil)
         })
         button.setTitle("Start a trace", for: .normal)
-        button.setTitleColor(UIColor.TraceUI.darkGray, for: .normal)
+        button.setTitleColor(UIColor.TraceUI.blueGray, for: .normal)
         button.titleLabel?.font = font
         return button
     }()

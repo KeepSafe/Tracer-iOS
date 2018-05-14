@@ -10,7 +10,8 @@ import UIKit
 
 extension UIColor {
     struct TraceUI {
-        static let darkGray = UIColor(red: 99/255, green: 115/255, blue: 129/255, alpha: 1)
+        static let darkBlueGray = UIColor(red: 69/255, green: 80/255, blue: 91/255, alpha: 1)
+        static let blueGray = UIColor(red: 99/255, green: 115/255, blue: 129/255, alpha: 1)
         static let lightGray = UIColor(white: 0.95, alpha: 1)
     }
 }

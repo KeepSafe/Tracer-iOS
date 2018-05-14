@@ -17,6 +17,8 @@
 		D4045D0520A643C200BD8571 /* TraceUISettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4045D0420A643C200BD8571 /* TraceUISettingsPresenter.swift */; };
 		D4045D0720A643CC00BD8571 /* TraceUISettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4045D0620A643CC00BD8571 /* TraceUISettingsView.swift */; };
 		D4045D0920A643D500BD8571 /* TraceUISettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4045D0820A643D500BD8571 /* TraceUISettingsViewModel.swift */; };
+		D4045D0B20A9CD8500BD8571 /* TraceUISplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4045D0A20A9CD8500BD8571 /* TraceUISplitView.swift */; };
+		D4045D0D20A9D1BB00BD8571 /* TracePassThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4045D0C20A9D1BB00BD8571 /* TracePassThroughView.swift */; };
 		D41115E82097512100702064 /* TraceSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41115E72097512100702064 /* TraceSignal.swift */; };
 		D41115EE2097AFB800702064 /* TraceStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41115ED2097AFB800702064 /* TraceStates.swift */; };
 		D4111604209A300800702064 /* TraceResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4111603209A300800702064 /* TraceResultTests.swift */; };
@@ -59,6 +61,10 @@
 		D45FEC69209346220084DF96 /* TraceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45FEC68209346220084DF96 /* TraceItem.swift */; };
 		D463175D209232FD0008A1BC /* Tracer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4631753209232FD0008A1BC /* Tracer.framework */; };
 		D4631762209232FD0008A1BC /* AnyTraceEquatableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4631761209232FD0008A1BC /* AnyTraceEquatableTests.swift */; };
+		D4873FBA20A9E0EB00B96BE6 /* TraceUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4873FB920A9E0EB00B96BE6 /* TraceUIView.swift */; };
+		D4873FBC20A9E0F700B96BE6 /* TraceUIPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4873FBB20A9E0F700B96BE6 /* TraceUIPresenter.swift */; };
+		D4873FBE20AA0AAF00B96BE6 /* TraceUIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4873FBD20AA0AAF00B96BE6 /* TraceUIViewModel.swift */; };
+		D4873FC020AA0F0100B96BE6 /* TraceDragIndicatorTouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4873FBF20AA0F0100B96BE6 /* TraceDragIndicatorTouchView.swift */; };
 		D4A668012093B77600009DBD /* AnyTraceEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A668002093B77600009DBD /* AnyTraceEquatable.swift */; };
 		D4A8B7ED209233F9002EC2F3 /* Tracer.h in Headers */ = {isa = PBXBuildFile; fileRef = D4A8B7EB209233F9002EC2F3 /* Tracer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D4DB46432097480F00080FE3 /* Tracer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DB46422097480F00080FE3 /* Tracer.swift */; };
@@ -87,6 +93,8 @@
 		D4045D0420A643C200BD8571 /* TraceUISettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUISettingsPresenter.swift; sourceTree = "<group>"; };
 		D4045D0620A643CC00BD8571 /* TraceUISettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUISettingsView.swift; sourceTree = "<group>"; };
 		D4045D0820A643D500BD8571 /* TraceUISettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUISettingsViewModel.swift; sourceTree = "<group>"; };
+		D4045D0A20A9CD8500BD8571 /* TraceUISplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUISplitView.swift; sourceTree = "<group>"; };
+		D4045D0C20A9D1BB00BD8571 /* TracePassThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracePassThroughView.swift; sourceTree = "<group>"; };
 		D41115E72097512100702064 /* TraceSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceSignal.swift; sourceTree = "<group>"; };
 		D41115ED2097AFB800702064 /* TraceStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceStates.swift; sourceTree = "<group>"; };
 		D4111603209A300800702064 /* TraceResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceResultTests.swift; sourceTree = "<group>"; };
@@ -131,6 +139,10 @@
 		D463175C209232FD0008A1BC /* TracerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TracerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4631761209232FD0008A1BC /* AnyTraceEquatableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyTraceEquatableTests.swift; sourceTree = "<group>"; };
 		D4631763209232FD0008A1BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4873FB920A9E0EB00B96BE6 /* TraceUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIView.swift; sourceTree = "<group>"; };
+		D4873FBB20A9E0F700B96BE6 /* TraceUIPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIPresenter.swift; sourceTree = "<group>"; };
+		D4873FBD20AA0AAF00B96BE6 /* TraceUIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIViewModel.swift; sourceTree = "<group>"; };
+		D4873FBF20AA0F0100B96BE6 /* TraceDragIndicatorTouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceDragIndicatorTouchView.swift; sourceTree = "<group>"; };
 		D4A668002093B77600009DBD /* AnyTraceEquatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyTraceEquatable.swift; sourceTree = "<group>"; };
 		D4A8B7EA209233F9002EC2F3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4A8B7EB209233F9002EC2F3 /* Tracer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tracer.h; sourceTree = "<group>"; };
@@ -215,6 +227,7 @@
 				D417C7B220A1E685000C1AE2 /* TraceUI.swift */,
 				D417C7EB20A1EB49000C1AE2 /* TraceUIProtocols.swift */,
 				D417C7E820A1E98E000C1AE2 /* TraceUISignals.swift */,
+				D4873FB820A9E0C800B96BE6 /* Container */,
 				D417C81A20A389E4000C1AE2 /* Extensions */,
 				D417C82F20A39C7E000C1AE2 /* Logger */,
 				D417C85320A623D5000C1AE2 /* Misc */,
@@ -238,8 +251,8 @@
 		D417C80420A20394000C1AE2 /* List */ = {
 			isa = PBXGroup;
 			children = (
-				D417C7EE20A1EE52000C1AE2 /* TraceUIListView.swift */,
 				D417C7F020A1EF04000C1AE2 /* TraceUIListPresenter.swift */,
+				D417C7EE20A1EE52000C1AE2 /* TraceUIListView.swift */,
 				D417C7F220A1EF6C000C1AE2 /* TraceUIListViewModel.swift */,
 				D417C7F420A1EF8C000C1AE2 /* TraceUIListItemCell.swift */,
 			);
@@ -249,9 +262,9 @@
 		D417C80520A203A1000C1AE2 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				D417C80820A205C9000C1AE2 /* TraceUIDetailPresenter.swift */,
 				D417C80620A205BF000C1AE2 /* TraceUIDetailView.swift */,
 				D417C82120A38C4E000C1AE2 /* TraceUIDetailHeaderView.swift */,
-				D417C80820A205C9000C1AE2 /* TraceUIDetailPresenter.swift */,
 				D417C80A20A205D4000C1AE2 /* TraceUIDetailViewModel.swift */,
 				D417C80C20A205E2000C1AE2 /* TraceUIDetailItemCell.swift */,
 			);
@@ -262,8 +275,8 @@
 			isa = PBXGroup;
 			children = (
 				D417C84D20A5D3C0000C1AE2 /* DispatchQueue+Tracer.swift */,
-				D4045CEF20A629BC00BD8571 /* TraceReport+Export.swift */,
 				D4045CF120A62D8800BD8571 /* ItemLoggerReport+Export.swift */,
+				D4045CEF20A629BC00BD8571 /* TraceReport+Export.swift */,
 				D417C84B20A4A371000C1AE2 /* UIColor+Tracer.swift */,
 				D417C84920A4A1EF000C1AE2 /* UIImage+Tracer.swift */,
 				D417C81B20A389F5000C1AE2 /* UITableView+Bug.swift */,
@@ -274,8 +287,8 @@
 		D417C82F20A39C7E000C1AE2 /* Logger */ = {
 			isa = PBXGroup;
 			children = (
-				D417C83020A39C9C000C1AE2 /* ItemLoggerListView.swift */,
 				D417C83220A39CA6000C1AE2 /* ItemLoggerListPresenter.swift */,
+				D417C83020A39C9C000C1AE2 /* ItemLoggerListView.swift */,
 				D417C83620A39CBD000C1AE2 /* ItemLoggerListCell.swift */,
 			);
 			path = Logger;
@@ -284,8 +297,8 @@
 		D417C83820A480A7000C1AE2 /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
-				D417C83B20A48490000C1AE2 /* TraceUITabView.swift */,
 				D417C83D20A48687000C1AE2 /* TraceUITabPresenter.swift */,
+				D417C83B20A48490000C1AE2 /* TraceUITabView.swift */,
 				D417C83F20A48690000C1AE2 /* TraceUITabViewModel.swift */,
 				D417C84120A486A4000C1AE2 /* TraceUITabSegmentButton.swift */,
 				D417C84320A486B1000C1AE2 /* TraceUIStartStopButton.swift */,
@@ -297,7 +310,10 @@
 		D417C85320A623D5000C1AE2 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				D4873FBF20AA0F0100B96BE6 /* TraceDragIndicatorTouchView.swift */,
+				D4045D0C20A9D1BB00BD8571 /* TracePassThroughView.swift */,
 				D417C85420A623E8000C1AE2 /* TraceShareSheet.swift */,
+				D4045D0A20A9CD8500BD8571 /* TraceUISplitView.swift */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -336,6 +352,16 @@
 				D4631763209232FD0008A1BC /* Info.plist */,
 			);
 			path = TracerTests;
+			sourceTree = "<group>";
+		};
+		D4873FB820A9E0C800B96BE6 /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				D4873FBB20A9E0F700B96BE6 /* TraceUIPresenter.swift */,
+				D4873FB920A9E0EB00B96BE6 /* TraceUIView.swift */,
+				D4873FBD20AA0AAF00B96BE6 /* TraceUIViewModel.swift */,
+			);
+			path = Container;
 			sourceTree = "<group>";
 		};
 		D4A8B7E9209233F9002EC2F3 /* Source */ = {
@@ -465,7 +491,11 @@
 			files = (
 				D4045CF420A62E4900BD8571 /* Dictionary+ItemLogger.swift in Sources */,
 				D45FEC69209346220084DF96 /* TraceItem.swift in Sources */,
+				D4873FC020AA0F0100B96BE6 /* TraceDragIndicatorTouchView.swift in Sources */,
+				D4873FBC20A9E0F700B96BE6 /* TraceUIPresenter.swift in Sources */,
 				D417C83120A39C9C000C1AE2 /* ItemLoggerListView.swift in Sources */,
+				D4045D0B20A9CD8500BD8571 /* TraceUISplitView.swift in Sources */,
+				D4873FBA20A9E0EB00B96BE6 /* TraceUIView.swift in Sources */,
 				D417C80920A205C9000C1AE2 /* TraceUIDetailPresenter.swift in Sources */,
 				D41115E82097512100702064 /* TraceSignal.swift in Sources */,
 				D417C84620A486BA000C1AE2 /* TraceUIButtons.swift in Sources */,
@@ -492,6 +522,7 @@
 				D417C83720A39CBD000C1AE2 /* ItemLoggerListCell.swift in Sources */,
 				D417C84220A486A4000C1AE2 /* TraceUITabSegmentButton.swift in Sources */,
 				D417C80B20A205D4000C1AE2 /* TraceUIDetailViewModel.swift in Sources */,
+				D4873FBE20AA0AAF00B96BE6 /* TraceUIViewModel.swift in Sources */,
 				D41115EE2097AFB800702064 /* TraceStates.swift in Sources */,
 				D417C7E920A1E98E000C1AE2 /* TraceUISignals.swift in Sources */,
 				D4045D0920A643D500BD8571 /* TraceUISettingsViewModel.swift in Sources */,
@@ -507,6 +538,7 @@
 				D4045CF620A62EAD00BD8571 /* TraceDateFormatter.swift in Sources */,
 				D417C7F120A1EF04000C1AE2 /* TraceUIListPresenter.swift in Sources */,
 				D417C83C20A48490000C1AE2 /* TraceUITabView.swift in Sources */,
+				D4045D0D20A9D1BB00BD8571 /* TracePassThroughView.swift in Sources */,
 				D417C7EC20A1EB49000C1AE2 /* TraceUIProtocols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

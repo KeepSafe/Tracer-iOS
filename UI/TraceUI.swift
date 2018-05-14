@@ -15,21 +15,10 @@ public final class TraceUI: Listening {
     
     /// Prepares UI for display and restores any state
     public init() {
-        self.tabView = TraceUITabView()
-        self.tabViewPresenter = TraceUITabPresenter(view: self.tabView)
-        
         self.logger = ItemLogger()
-        self.loggerListView = ItemLoggerListView()
-        self.loggerListPresenter = ItemLoggerListPresenter(view: self.loggerListView)
-        
-        self.traceListView = TraceUIListView()
-        self.traceListPresenter = TraceUIListPresenter(view: self.traceListView)
-        
-        self.traceDetailView = TraceUIDetailView()
-        self.traceDetailPresenter = TraceUIDetailPresenter(view: self.traceDetailView)
-        
-        self.settingsView = TraceUISettingsView()
-        self.settingsViewPresenter = TraceUISettingsPresenter(view: self.settingsView)
+        self.container = TraceUIView()
+        self.containerPresenter = TraceUIPresenter(view: self.container)
+        self.splitView = TraceUISplitView(resizableView: self.container)
     }
     
     // MARK: - API
@@ -109,17 +98,14 @@ public final class TraceUI: Listening {
     // MARK: - Temporary API
     
     public func show(in viewController: UIViewController) {
-        setupTabView(in: viewController)
-        setupLoggerView(in: viewController)
-        setupTracesList(in: viewController)
-        setupTraceDetail(in: viewController)
-        
-        showLoggerView()
+        guard let superview = viewController.view else { return }
+        showAsSplitView(in: superview)
     }
     
     // MARK: - Properties
     
-    var loggedItems: [LoggedItem] {
+    /// The items logged to the generic tailing log
+    public var loggedItems: [LoggedItem] {
         return logger.loggedItems
     }
     
@@ -129,26 +115,15 @@ public final class TraceUI: Listening {
     
     // MARK: - Private Properties
     
-    private let tabView: TraceUITabView
-    private let tabViewPresenter: TraceUITabPresenter
-    
     private let logger: ItemLogger
-    private let loggerListView: ItemLoggerListView
-    private let loggerListPresenter: ItemLoggerListPresenter
     
-    private let traceListView: TraceUIListView
-    private let traceListPresenter: TraceUIListPresenter
-    
-    private let traceDetailView: TraceUIDetailView
-    private let traceDetailPresenter: TraceUIDetailPresenter
-    
-    private let settingsView: TraceUISettingsView
-    private let settingsViewPresenter: TraceUISettingsPresenter
+    private let splitView: TraceUISplitView
+    private let container: TraceUIView
+    private let containerPresenter: TraceUIPresenter
     
     private var rootViewController: UIViewController? {
         return UIApplication.shared.keyWindow?.rootViewController
     }
-    
 }
 
 // MARK: - Listeners
@@ -156,17 +131,6 @@ public final class TraceUI: Listening {
 private extension TraceUI {
     
     func listenForRoutingActions() {
-        TraceUISignals.UI.showLogger.listen { _ in
-            self.showLoggerView()
-        }
-        
-        TraceUISignals.UI.showTraces.listen { _ in
-            self.showTraceList()
-        }
-        
-        TraceUISignals.UI.showTraceDetail.listen { _ in
-            self.showTraceDetail()
-        }
         
         TraceUISignals.UI.traceReportExported.listen { report in
             guard let (summaryURL, rawLogURL) = report.exportedAsTextFiles(),
@@ -181,13 +145,9 @@ private extension TraceUI {
             })
         }
         
-        TraceUISignals.UI.closeTraceDetail.listen { _ in
-            self.showTraceList()
-        }
-        
         TraceUISignals.UI.showSettings.listen { _ in
             guard let rootVC = self.rootViewController else { return }
-            rootVC.present(self.settingsView.alertController, animated: true, completion: nil)
+            rootVC.present(self.container.settingsActionSheet, animated: true, completion: nil)
         }
         
         TraceUISignals.UI.exportLog.listen { _ in
@@ -212,68 +172,25 @@ private extension TraceUI {
     
 }
 
-// MARK: - Coordination
-
-private extension TraceUI {
-    
-    func showLoggerView() {
-        display(viewToDisplay: loggerListView, andHide: [traceListView, traceDetailView])
-    }
-    
-    func showTraceList() {
-        display(viewToDisplay: traceListView, andHide: [loggerListView, traceDetailView])
-    }
-    
-    func showTraceDetail() {
-        display(viewToDisplay: traceDetailView, andHide: [loggerListView, traceListView])
-    }
-    
-    func display(viewToDisplay: UIView, andHide viewsToHide: [UIView]) {
-        UIView.animate(withDuration: Animation.duration, animations: {
-            for viewToHide in viewsToHide {
-                viewToHide.alpha = 0
-            }
-            viewToDisplay.alpha = 1
-        })
-    }
-}
-
 // MARK: - View Setup
 
 private extension TraceUI {
     
-    func setupTabView(in viewController: UIViewController) {
-        guard let superview = viewController.view else { return }
-        tabView.translatesAutoresizingMaskIntoConstraints = false
-        superview.addSubview(tabView)
-        
-        NSLayoutConstraint.activate([tabView.topAnchor.constraint(equalTo: superview.topAnchor, constant: 20),
-                                     tabView.heightAnchor.constraint(equalToConstant: TraceUITabView.height),
-                                     tabView.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                                     tabView.trailingAnchor.constraint(equalTo: superview.trailingAnchor)])
+    func showAsFixedSize(in superview: UIView) {
+        show(view: container, in: superview)
     }
     
-    func setupLoggerView(in viewController: UIViewController) {
-        setup(view: loggerListView, in: viewController)
+    func showAsSplitView(in view: UIView) {
+        show(view: splitView, in: view)
     }
     
-    func setupTracesList(in viewController: UIViewController) {
-        setup(view: traceListView, in: viewController)
-    }
-    
-    func setupTraceDetail(in viewController: UIViewController) {
-        setup(view: traceDetailView, in: viewController)
-    }
-    
-    func setup(view: UIView, in viewController: UIViewController) {
-        guard let superview = viewController.view else { return }
-        view.alpha = 0
+    func show(view: UIView, in superview: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
         superview.addSubview(view)
-        
-        NSLayoutConstraint.activate([view.topAnchor.constraint(equalTo: tabView.bottomAnchor),
+        NSLayoutConstraint.activate([view.topAnchor.constraint(equalTo: superview.topAnchor),
                                      view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
                                      view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
                                      view.trailingAnchor.constraint(equalTo: superview.trailingAnchor)])
     }
+    
 }

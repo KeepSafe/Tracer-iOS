@@ -14,6 +14,8 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .red
+        
         // Show the UI tool in this controller
         App.traceUI.show(in: self)
         

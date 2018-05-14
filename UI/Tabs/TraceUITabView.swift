@@ -82,7 +82,7 @@ final class TraceUITabView: UIView, Viewing {
     }()
     
     private lazy var collapseUIToolButton: TraceUIIconButton = {
-        let button = TraceUIIconButton(icon: .inBundle(named: "DownArrow"), backgroundColor: UIColor.TraceUI.darkGray, tapped: {
+        let button = TraceUIIconButton(icon: .inBundle(named: "DownArrow"), backgroundColor: UIColor.TraceUI.blueGray, tapped: {
             TraceUISignals.UI.collapseTool.fire(data: nil)
         })
         button.alpha = 0
