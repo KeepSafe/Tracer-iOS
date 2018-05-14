@@ -14,8 +14,17 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .red
-        
+        setupView()
+        runExamples()
+    }
+    
+}
+
+// MARK: - Private API
+
+private extension ViewController {
+    
+    func runExamples() {
         // Show the UI tool in this controller
         App.traceUI.show(in: self)
         
@@ -53,5 +62,24 @@ final class ViewController: UIViewController {
         }
     }
     
+    func setupView() {
+        view.backgroundColor = .white
+        
+        let button = UIButton()
+        button.setTitleColor(view.tintColor, for: .normal)
+        button.setTitle("Tap me", for: .normal)
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(button)
+        NSLayoutConstraint.activate([button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                                     button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                                     button.widthAnchor.constraint(equalToConstant: 100),
+                                     button.heightAnchor.constraint(equalToConstant: 44)])
+    }
+    
+    @objc func buttonTapped() {
+        
+    }
 }
 

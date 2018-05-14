@@ -16,6 +16,15 @@ final class TraceUIDetailPresenter: Presenting {
         listenForChanges()
     }
     
+    // MARK: - Private Properties
+    
+    private let view: TraceUIDetailView
+    private var tracer: Tracer?
+    private var trace: Traceable?
+}
+
+private extension TraceUIDetailPresenter {
+    
     // MARK: - Presenting
     
     func listenForChanges() {
@@ -42,7 +51,9 @@ final class TraceUIDetailPresenter: Presenting {
         }
         TraceUISignals.UI.stopTrace.listen { _ in
             guard self.tracer?.isRunning == true else { return }
-            self.tracer?.stop()
+            let traceReport = self.tracer?.stop()
+            guard let trace = self.trace, let report = traceReport else { return }
+            TraceUISignals.Traces.stopped.fire(data: (trace: trace, report: report))
         }
         TraceUISignals.UI.exportTrace.listen { _ in
             guard let result = self.tracer?.result else { return }
@@ -50,17 +61,6 @@ final class TraceUIDetailPresenter: Presenting {
             TraceUISignals.UI.traceReportExported.fire(data: report)
         }
     }
-    
-    // MARK: - Private Properties
-    
-    private let view: TraceUIDetailView
-    private var tracer: Tracer?
-    private var trace: Traceable?
-}
-
-// MARK: - Servicing
-
-extension TraceUIDetailPresenter: Servicing {
     
     func listenForTraceChanges(with traceStarted: TraceStarted) {
         traceStarted.stateChanged.listen { traceState in

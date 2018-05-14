@@ -10,7 +10,7 @@ import UIKit
 
 /// A vertically resizable split view container that has a transparent
 /// area above the split view that can pass touches through
-final class TraceUISplitView: UIView {
+final class TraceUISplitView: TracePassThroughView {
     
     // MARK: - Instantiation
     
@@ -26,7 +26,7 @@ final class TraceUISplitView: UIView {
         self.minimumResizableViewHeight = minimumResizableViewHeight
         self.resizableView = resizableView
         
-        super.init(frame: .zero)
+        super.init()
         
         setupView()
     }

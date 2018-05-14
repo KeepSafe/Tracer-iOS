@@ -9,22 +9,19 @@
 import UIKit
 
 /// A transparent view that passes through its touches
-final class TracePassThroughView: UIView {
+class TracePassThroughView: UIView {
     init() {
         super.init(frame: .zero)
         
         backgroundColor = .clear
     }
     
-    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        for subview in subviews {
-            if !subview.clipsToBounds && !subview.isHidden &&
-                subview.alpha > 0 && subview.isUserInteractionEnabled &&
-                subview.point(inside: convert(point, to: subview), with: event) {
-                return true
-            }
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let hitView = super.hitTest(point, with: event)
+        if hitView == self {
+            return nil
         }
-        return false
+        return hitView
     }
     
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }

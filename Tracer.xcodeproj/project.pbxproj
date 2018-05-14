@@ -65,6 +65,7 @@
 		D4873FBC20A9E0F700B96BE6 /* TraceUIPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4873FBB20A9E0F700B96BE6 /* TraceUIPresenter.swift */; };
 		D4873FBE20AA0AAF00B96BE6 /* TraceUIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4873FBD20AA0AAF00B96BE6 /* TraceUIViewModel.swift */; };
 		D4873FC020AA0F0100B96BE6 /* TraceDragIndicatorTouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4873FBF20AA0F0100B96BE6 /* TraceDragIndicatorTouchView.swift */; };
+		D4873FC220AA19C500B96BE6 /* TraceStatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4873FC120AA19C500B96BE6 /* TraceStatusButton.swift */; };
 		D4A668012093B77600009DBD /* AnyTraceEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A668002093B77600009DBD /* AnyTraceEquatable.swift */; };
 		D4A8B7ED209233F9002EC2F3 /* Tracer.h in Headers */ = {isa = PBXBuildFile; fileRef = D4A8B7EB209233F9002EC2F3 /* Tracer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D4DB46432097480F00080FE3 /* Tracer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DB46422097480F00080FE3 /* Tracer.swift */; };
@@ -143,6 +144,7 @@
 		D4873FBB20A9E0F700B96BE6 /* TraceUIPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIPresenter.swift; sourceTree = "<group>"; };
 		D4873FBD20AA0AAF00B96BE6 /* TraceUIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIViewModel.swift; sourceTree = "<group>"; };
 		D4873FBF20AA0F0100B96BE6 /* TraceDragIndicatorTouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceDragIndicatorTouchView.swift; sourceTree = "<group>"; };
+		D4873FC120AA19C500B96BE6 /* TraceStatusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceStatusButton.swift; sourceTree = "<group>"; };
 		D4A668002093B77600009DBD /* AnyTraceEquatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyTraceEquatable.swift; sourceTree = "<group>"; };
 		D4A8B7EA209233F9002EC2F3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4A8B7EB209233F9002EC2F3 /* Tracer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tracer.h; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 				D4873FBF20AA0F0100B96BE6 /* TraceDragIndicatorTouchView.swift */,
 				D4045D0C20A9D1BB00BD8571 /* TracePassThroughView.swift */,
 				D417C85420A623E8000C1AE2 /* TraceShareSheet.swift */,
+				D4873FC120AA19C500B96BE6 /* TraceStatusButton.swift */,
 				D4045D0A20A9CD8500BD8571 /* TraceUISplitView.swift */,
 			);
 			path = Misc;
@@ -498,6 +501,7 @@
 				D4873FBA20A9E0EB00B96BE6 /* TraceUIView.swift in Sources */,
 				D417C80920A205C9000C1AE2 /* TraceUIDetailPresenter.swift in Sources */,
 				D41115E82097512100702064 /* TraceSignal.swift in Sources */,
+				D4873FC220AA19C500B96BE6 /* TraceStatusButton.swift in Sources */,
 				D417C84620A486BA000C1AE2 /* TraceUIButtons.swift in Sources */,
 				D4A668012093B77600009DBD /* AnyTraceEquatable.swift in Sources */,
 				D4DB46452097482000080FE3 /* TraceResult.swift in Sources */,

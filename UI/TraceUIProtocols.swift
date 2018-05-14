@@ -23,8 +23,5 @@ internal protocol ViewModeling {}
 /// Views, agnostic of business logic and populated with a view model
 internal protocol Viewing {}
 
-/// Services that listen for actions and apply them to the services they control
-internal protocol Servicing {}
-
 /// Listens for generic changes
 internal protocol Listening {}

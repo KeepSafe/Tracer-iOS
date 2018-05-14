@@ -11,11 +11,17 @@ import UIKit
 /// Coordinator for the Trace UI
 public final class TraceUI: Listening {
     
+    struct Animation {
+        static let duration: Double = 0.25
+    }
+    
     // MARK: - Instantiation
     
     /// Prepares UI for display and restores any state
     public init() {
         self.logger = ItemLogger()
+        
+        self.statusButton = TraceStatusButton()
         self.container = TraceUIView()
         self.containerPresenter = TraceUIPresenter(view: self.container)
         self.splitView = TraceUISplitView(resizableView: self.container)
@@ -99,7 +105,8 @@ public final class TraceUI: Listening {
     
     public func show(in viewController: UIViewController) {
         guard let superview = viewController.view else { return }
-        showAsSplitView(in: superview)
+        setupSplitView(in: superview)
+        collapse()
     }
     
     // MARK: - Properties
@@ -109,14 +116,11 @@ public final class TraceUI: Listening {
         return logger.loggedItems
     }
     
-    struct Animation {
-        static let duration: Double = 0.25
-    }
-    
     // MARK: - Private Properties
     
     private let logger: ItemLogger
     
+    private let statusButton: TraceStatusButton
     private let splitView: TraceUISplitView
     private let container: TraceUIView
     private let containerPresenter: TraceUIPresenter
@@ -131,7 +135,6 @@ public final class TraceUI: Listening {
 private extension TraceUI {
     
     func listenForRoutingActions() {
-        
         TraceUISignals.UI.traceReportExported.listen { report in
             guard let (summaryURL, rawLogURL) = report.exportedAsTextFiles(),
                   let genericLogURL = ItemLoggerReport(loggedItems: self.loggedItems).exportedAsCSVFile(),
@@ -164,33 +167,84 @@ private extension TraceUI {
         TraceUISignals.UI.clearLog.listen { _ in
             self.clearLog()
         }
+        
+        TraceUISignals.UI.collapseTool.listen { _ in
+            self.collapse()
+        }
+        
+        TraceUISignals.UI.expandTool.listen { _ in
+            self.expand()
+        }
     }
     
     func listenForTraceChanges() {
-        
+        TraceUISignals.Traces.stateChanged.listen { traceState in
+            self.statusButton.configure(with: traceState)
+        }
+        TraceUISignals.Traces.started.listen { _ in
+            self.statusButton.configure(with: .waiting)
+        }
+        TraceUISignals.Traces.stopped.listen { _ in
+            self.statusButton.configure(with: nil)
+        }
     }
     
 }
 
-// MARK: - View Setup
+// MARK: - Private API
 
 private extension TraceUI {
     
-    func showAsFixedSize(in superview: UIView) {
-        show(view: container, in: superview)
+    // MARK: - View Setup
+    
+    func setupFixedSize(in superview: UIView) {
+        setup(view: container, in: superview)
     }
     
-    func showAsSplitView(in view: UIView) {
-        show(view: splitView, in: view)
+    func setupSplitView(in view: UIView) {
+        setup(view: splitView, in: view)
+        setupStatusButton(in: view)
     }
     
-    func show(view: UIView, in superview: UIView) {
+    func setup(view: UIView, in superview: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.alpha = 0
         superview.addSubview(view)
         NSLayoutConstraint.activate([view.topAnchor.constraint(equalTo: superview.topAnchor),
                                      view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
                                      view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
                                      view.trailingAnchor.constraint(equalTo: superview.trailingAnchor)])
+    }
+    
+    func setupStatusButton(in superview: UIView) {
+        statusButton.translatesAutoresizingMaskIntoConstraints = false
+        statusButton.alpha = 0
+        superview.addSubview(statusButton)
+        NSLayoutConstraint.activate([statusButton.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -5),
+                                     statusButton.leftAnchor.constraint(equalTo: superview.leftAnchor, constant: 5),
+                                     statusButton.heightAnchor.constraint(equalToConstant: TraceStatusButton.sizeLength),
+                                     statusButton.widthAnchor.constraint(equalToConstant: TraceStatusButton.sizeLength)])
+    }
+    
+    // MARK: - Animations
+    
+    func collapse() {
+        UIView.animate(withDuration: TraceUI.Animation.duration, delay: 0, options: [.beginFromCurrentState, .curveEaseInOut], animations: {
+            let scaleTransform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+            let translateTransform = CGAffineTransform(translationX: -175, y: 300)
+            self.splitView.transform = scaleTransform.concatenating(translateTransform)
+            
+            self.splitView.alpha = 0
+            self.statusButton.alpha = 1
+        }, completion: nil)
+    }
+    
+    func expand() {
+        UIView.animate(withDuration: TraceUI.Animation.duration, delay: 0, options: [.beginFromCurrentState, .curveEaseInOut], animations: {
+            self.splitView.transform = .identity
+            self.splitView.alpha = 1
+            self.statusButton.alpha = 0
+        }, completion: nil)
     }
     
 }

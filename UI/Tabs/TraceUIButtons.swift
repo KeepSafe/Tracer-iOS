@@ -32,7 +32,7 @@ class TraceUIButton: UIButton, Viewing {
 }
 
 // e.g. buttons like: close, settings, collapse
-final class TraceUIIconButton: TraceUIButton {
+class TraceUIIconButton: TraceUIButton {
     init(icon: UIImage, backgroundColor: UIColor, tapped: @escaping TraceUIButtonTapped) {
         super.init(backgroundColor: backgroundColor, tapped: tapped)
         
