@@ -107,7 +107,6 @@ public final class TraceUI: Listening {
     public func show(in viewController: UIViewController) {
         guard let parentView = viewController.view else { return }
         setupSplitView(in: parentView)
-        collapse()
     }
     
     // MARK: - Properties
@@ -226,6 +225,7 @@ private extension TraceUI {
         superview = view
         
         setup(view: splitView, in: view)
+        splitView.alpha = 0
         setupStatusButton(in: view)
     }
     
@@ -241,46 +241,38 @@ private extension TraceUI {
     
     func setupStatusButton(in parentView: UIView) {
         statusButton.translatesAutoresizingMaskIntoConstraints = false
-        statusButton.alpha = 0
         parentView.addSubview(statusButton)
     
-        let topOffset = UIScreen.main.bounds.size.height - TraceStatusButton.sizeLength - statusButtonPadding
-        let topConstraint = statusButton.topAnchor.constraint(equalTo: parentView.topAnchor, constant: topOffset)
-        statusButtonTopConstraint = topConstraint
+        let buttonPoint: CGPoint
+        if let savedButtonPoint = savedStatusButtonPoint {
+            buttonPoint = savedButtonPoint
+        } else {
+            let topOffset = UIScreen.main.bounds.size.height - TraceStatusButton.sizeLength - statusButtonPadding * 2
+            let leftOffset = statusButtonPadding * 2
+            buttonPoint = CGPoint(x: leftOffset, y: topOffset)
+        }
         
-        let leftOffset = statusButtonPadding
-        let leftConstraint = statusButton.leftAnchor.constraint(equalTo: parentView.leftAnchor, constant: leftOffset)
+        let topConstraint = statusButton.topAnchor.constraint(equalTo: parentView.topAnchor, constant: buttonPoint.y)
+        statusButtonTopConstraint = topConstraint
+        let leftConstraint = statusButton.leftAnchor.constraint(equalTo: parentView.leftAnchor, constant: buttonPoint.x)
         statusButtonLeftConstraint = leftConstraint
         
         NSLayoutConstraint.activate([topConstraint,
                                      leftConstraint,
                                      statusButton.heightAnchor.constraint(equalToConstant: TraceStatusButton.sizeLength),
                                      statusButton.widthAnchor.constraint(equalToConstant: TraceStatusButton.sizeLength)])
-        
-        if let savedButtonPoint = savedStatusButtonPoint {
-            handleButtonDrag(with: savedButtonPoint)
-        }
     }
     
     // MARK: - Animations
     
     func collapse() {
-        UIView.animate(withDuration: TraceUI.Animation.duration, delay: 0, options: [.beginFromCurrentState, .curveEaseInOut], animations: {
-            let scaleTransform = CGAffineTransform(scaleX: 0.01, y: 0.01)
-            let translateTransform = CGAffineTransform(translationX: -175, y: 300)
-            self.splitView.transform = scaleTransform.concatenating(translateTransform)
-            
-            self.splitView.alpha = 0
-            self.statusButton.alpha = 1
-        }, completion: nil)
+        let animator = TraceUIRevealAnimator(isExpanding: false, triggeringButton: statusButton, expandableView: splitView)
+        animator.start()
     }
     
     func expand() {
-        UIView.animate(withDuration: TraceUI.Animation.duration, delay: 0, options: [.beginFromCurrentState, .curveEaseInOut], animations: {
-            self.splitView.transform = .identity
-            self.splitView.alpha = 1
-            self.statusButton.alpha = 0
-        }, completion: nil)
+        let animator = TraceUIRevealAnimator(isExpanding: true, triggeringButton: statusButton, expandableView: splitView)
+        animator.start()
     }
     
     // MARK: - Dragging
