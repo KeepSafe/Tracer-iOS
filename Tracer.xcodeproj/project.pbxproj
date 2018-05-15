@@ -18,7 +18,6 @@
 		D4045D0720A643CC00BD8571 /* TraceUISettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4045D0620A643CC00BD8571 /* TraceUISettingsView.swift */; };
 		D4045D0920A643D500BD8571 /* TraceUISettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4045D0820A643D500BD8571 /* TraceUISettingsViewModel.swift */; };
 		D4045D0B20A9CD8500BD8571 /* TraceUISplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4045D0A20A9CD8500BD8571 /* TraceUISplitView.swift */; };
-		D4045D0D20A9D1BB00BD8571 /* TracePassThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4045D0C20A9D1BB00BD8571 /* TracePassThroughView.swift */; };
 		D41115E82097512100702064 /* TraceSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41115E72097512100702064 /* TraceSignal.swift */; };
 		D41115EE2097AFB800702064 /* TraceStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41115ED2097AFB800702064 /* TraceStates.swift */; };
 		D4111604209A300800702064 /* TraceResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4111603209A300800702064 /* TraceResultTests.swift */; };
@@ -68,6 +67,7 @@
 		D4873FC220AA19C500B96BE6 /* TraceStatusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4873FC120AA19C500B96BE6 /* TraceStatusButton.swift */; };
 		D4A668012093B77600009DBD /* AnyTraceEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A668002093B77600009DBD /* AnyTraceEquatable.swift */; };
 		D4A8B7ED209233F9002EC2F3 /* Tracer.h in Headers */ = {isa = PBXBuildFile; fileRef = D4A8B7EB209233F9002EC2F3 /* Tracer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4B608C020AB3BC400F875F7 /* TraceUIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B608BF20AB3BC400F875F7 /* TraceUIWindow.swift */; };
 		D4CD7FF920AB164E00B7EEA5 /* TraceUIRevealAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CD7FF820AB164E00B7EEA5 /* TraceUIRevealAnimator.swift */; };
 		D4DB46432097480F00080FE3 /* Tracer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DB46422097480F00080FE3 /* Tracer.swift */; };
 		D4DB46452097482000080FE3 /* TraceResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DB46442097482000080FE3 /* TraceResult.swift */; };
@@ -96,7 +96,6 @@
 		D4045D0620A643CC00BD8571 /* TraceUISettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUISettingsView.swift; sourceTree = "<group>"; };
 		D4045D0820A643D500BD8571 /* TraceUISettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUISettingsViewModel.swift; sourceTree = "<group>"; };
 		D4045D0A20A9CD8500BD8571 /* TraceUISplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUISplitView.swift; sourceTree = "<group>"; };
-		D4045D0C20A9D1BB00BD8571 /* TracePassThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracePassThroughView.swift; sourceTree = "<group>"; };
 		D41115E72097512100702064 /* TraceSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceSignal.swift; sourceTree = "<group>"; };
 		D41115ED2097AFB800702064 /* TraceStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceStates.swift; sourceTree = "<group>"; };
 		D4111603209A300800702064 /* TraceResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceResultTests.swift; sourceTree = "<group>"; };
@@ -149,6 +148,7 @@
 		D4A668002093B77600009DBD /* AnyTraceEquatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyTraceEquatable.swift; sourceTree = "<group>"; };
 		D4A8B7EA209233F9002EC2F3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4A8B7EB209233F9002EC2F3 /* Tracer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tracer.h; sourceTree = "<group>"; };
+		D4B608BF20AB3BC400F875F7 /* TraceUIWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIWindow.swift; sourceTree = "<group>"; };
 		D4CD7FF820AB164E00B7EEA5 /* TraceUIRevealAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIRevealAnimator.swift; sourceTree = "<group>"; };
 		D4DB46422097480F00080FE3 /* Tracer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracer.swift; sourceTree = "<group>"; };
 		D4DB46442097482000080FE3 /* TraceResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceResult.swift; sourceTree = "<group>"; };
@@ -238,6 +238,7 @@
 				D4045CFD20A63BFB00BD8571 /* Settings */,
 				D417C83820A480A7000C1AE2 /* Tabs */,
 				D417C7ED20A1EE31000C1AE2 /* Traces */,
+				D4B608BE20AB3BB200F875F7 /* Window */,
 				D417C84720A49609000C1AE2 /* TraceUI.xcassets */,
 			);
 			path = UI;
@@ -315,7 +316,6 @@
 			isa = PBXGroup;
 			children = (
 				D4873FBF20AA0F0100B96BE6 /* TraceDragIndicatorTouchView.swift */,
-				D4045D0C20A9D1BB00BD8571 /* TracePassThroughView.swift */,
 				D417C85420A623E8000C1AE2 /* TraceShareSheet.swift */,
 				D4873FC120AA19C500B96BE6 /* TraceStatusButton.swift */,
 				D4CD7FF820AB164E00B7EEA5 /* TraceUIRevealAnimator.swift */,
@@ -382,6 +382,14 @@
 				D4045CFC20A6343C00BD8571 /* Traces */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		D4B608BE20AB3BB200F875F7 /* Window */ = {
+			isa = PBXGroup;
+			children = (
+				D4B608BF20AB3BC400F875F7 /* TraceUIWindow.swift */,
+			);
+			path = Window;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -514,6 +522,7 @@
 				D417C83320A39CA6000C1AE2 /* ItemLoggerListPresenter.swift in Sources */,
 				D4045CF020A629BC00BD8571 /* TraceReport+Export.swift in Sources */,
 				D417C82420A394DB000C1AE2 /* ItemLogger.swift in Sources */,
+				D4B608C020AB3BC400F875F7 /* TraceUIWindow.swift in Sources */,
 				D417C80D20A205E2000C1AE2 /* TraceUIDetailItemCell.swift in Sources */,
 				D4DB46492097499500080FE3 /* TraceReport.swift in Sources */,
 				D417C82620A396A2000C1AE2 /* LoggedItem.swift in Sources */,
@@ -546,7 +555,6 @@
 				D4045CF620A62EAD00BD8571 /* TraceDateFormatter.swift in Sources */,
 				D417C7F120A1EF04000C1AE2 /* TraceUIListPresenter.swift in Sources */,
 				D417C83C20A48490000C1AE2 /* TraceUITabView.swift in Sources */,
-				D4045D0D20A9D1BB00BD8571 /* TracePassThroughView.swift in Sources */,
 				D417C7EC20A1EB49000C1AE2 /* TraceUIProtocols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

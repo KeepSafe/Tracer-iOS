@@ -72,6 +72,7 @@ private extension TraceUIRevealAnimator {
     }
     
     func fadeInOrOut() {
+        expandableView.isUserInteractionEnabled = isExpanding
         let duration = isExpanding ? animationDuration / 4 : animationDuration
         UIView.animate(withDuration: duration, delay: 0, options: [.beginFromCurrentState, .curveEaseOut], animations: {
             self.triggeringButton.alpha = self.isExpanding ? 0 : 1

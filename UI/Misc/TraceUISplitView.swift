@@ -10,7 +10,7 @@ import UIKit
 
 /// A vertically resizable split view container that has a transparent
 /// area above the split view that can pass touches through
-final class TraceUISplitView: TracePassThroughView {
+final class TraceUISplitView: UIViewController, Viewing {
     
     // MARK: - Instantiation
     
@@ -26,9 +26,13 @@ final class TraceUISplitView: TracePassThroughView {
         self.minimumResizableViewHeight = minimumResizableViewHeight
         self.resizableView = resizableView
         
-        super.init()
+        super.init(nibName: nil, bundle: nil)
         
         setupView()
+    }
+    
+    override func loadView() {
+        view = TracePassThroughView()
     }
     
     // MARK: - Private Properties
@@ -36,7 +40,7 @@ final class TraceUISplitView: TracePassThroughView {
     private let minimumTransparentViewHeight: CGFloat
     private let minimumResizableViewHeight: CGFloat
     
-    private let transparentView = TracePassThroughView()
+    private var dragViewTopConstraint: NSLayoutConstraint?
     private lazy var dragIndicatorView: TraceDragIndicatorTouchView = { [unowned self] in
         let view = TraceDragIndicatorTouchView(touched: { touch in
             self.resizeView(with: touch)
@@ -44,8 +48,6 @@ final class TraceUISplitView: TracePassThroughView {
         return view
     }()
     private let resizableView: UIView
-
-    private var transparentViewHeightConstraint: NSLayoutConstraint?
     
     private let defaultTransparentViewHeight: CGFloat = 200
     private let defaultsStore = UserDefaults.standard
@@ -64,41 +66,30 @@ private extension TraceUISplitView {
     // MARK: - View Setup
     
     func setupView() {
-        transparentView.translatesAutoresizingMaskIntoConstraints = false
         dragIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         resizableView.translatesAutoresizingMaskIntoConstraints = false
         
-        addSubview(transparentView)
-        addSubview(dragIndicatorView)
-        addSubview(resizableView)
-        
-        let superview = self
+        view.addSubview(dragIndicatorView)
+        view.addSubview(resizableView)
         
         let transparentViewHeight = defaultsStore.value(forKey: lastTransparentViewHeightKey) as? CGFloat ?? defaultTransparentViewHeight
-        let heightAnchor = transparentView.heightAnchor.constraint(equalToConstant: transparentViewHeight)
-        transparentViewHeightConstraint = heightAnchor
-        NSLayoutConstraint.activate([transparentView.topAnchor.constraint(equalTo: superview.topAnchor),
-                                     transparentView.leftAnchor.constraint(equalTo: superview.leftAnchor),
-                                     transparentView.rightAnchor.constraint(equalTo: superview.rightAnchor),
-                                     heightAnchor])
-        
-        NSLayoutConstraint.activate([dragIndicatorView.topAnchor.constraint(equalTo: transparentView.bottomAnchor),
-                                     dragIndicatorView.leftAnchor.constraint(equalTo: superview.leftAnchor),
-                                     dragIndicatorView.rightAnchor.constraint(equalTo: superview.rightAnchor),
+        let topAnchor = dragIndicatorView.topAnchor.constraint(equalTo: view.topAnchor, constant: transparentViewHeight)
+        dragViewTopConstraint = topAnchor
+        NSLayoutConstraint.activate([topAnchor,
+                                     dragIndicatorView.leftAnchor.constraint(equalTo: view.leftAnchor),
+                                     dragIndicatorView.rightAnchor.constraint(equalTo: view.rightAnchor),
                                      dragIndicatorView.heightAnchor.constraint(equalToConstant: TraceDragIndicatorTouchView.height)])
         
         NSLayoutConstraint.activate([resizableView.topAnchor.constraint(equalTo: dragIndicatorView.bottomAnchor),
-                                     resizableView.leftAnchor.constraint(equalTo: superview.leftAnchor),
-                                     resizableView.rightAnchor.constraint(equalTo: superview.rightAnchor),
-                                     resizableView.bottomAnchor.constraint(equalTo: superview.bottomAnchor)])
+                                     resizableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+                                     resizableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+                                     resizableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)])
     }
     
     // MARK: - Resizing
     
     func resizeView(with touch: UITouch) {
-        guard let superview = superview else { return }
-        
-        let touchPoint = touch.location(in: superview)
+        let touchPoint = touch.location(in: view)
         var newTransparentViewHeight = touchPoint.y
         
         // Set some resize boundaries
@@ -110,10 +101,10 @@ private extension TraceUISplitView {
         // Store this preferred height
         defaultsStore.setValue(newTransparentViewHeight, forKey: lastTransparentViewHeightKey)
         
-        layoutIfNeeded()
+        view.layoutIfNeeded()
         UIView.animate(withDuration: 0.1, delay: 0, options: [.beginFromCurrentState, .curveEaseInOut], animations: {
-            self.transparentViewHeightConstraint?.constant = newTransparentViewHeight
-            self.layoutIfNeeded()
+            self.dragViewTopConstraint?.constant = newTransparentViewHeight
+            self.view.layoutIfNeeded()
         }, completion: nil)
     }
     
