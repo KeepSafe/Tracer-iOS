@@ -28,7 +28,7 @@ final class TraceUITabView: UIView, Viewing {
     func configure(with newViewModel: TraceUITabViewModel) {
         viewModel = newViewModel
         
-        UIView.animate(withDuration: TraceUI.Animation.duration) {
+        UIView.animate(withDuration: TraceAnimation.duration) {
             self.logsTracesSegmentButton.alpha = self.viewModel.showLogsTracesSegmentButton ? 1 : 0
             self.closeTraceDetailButton.alpha = self.viewModel.showCloseTraceDetailButton ? 1 : 0
             self.startStopTraceButton.alpha = self.viewModel.showStartStopTraceButton ? 1 : 0

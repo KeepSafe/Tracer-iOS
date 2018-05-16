@@ -118,7 +118,7 @@ private extension TraceUIView {
     }
     
     func display(viewToDisplay: UIView, andHide viewsToHide: [UIView]) {
-        UIView.animate(withDuration: TraceUI.Animation.duration, animations: {
+        UIView.animate(withDuration: TraceAnimation.duration, animations: {
             for viewToHide in viewsToHide {
                 viewToHide.alpha = 0
             }

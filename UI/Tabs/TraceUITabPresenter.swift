@@ -82,7 +82,7 @@ private extension TraceUITabPresenter {
         TraceUISignals.UI.closeTraceDetail.listen { _ in
             self.showTracesList()
             
-            DispatchQueue.inMain(after: TraceUI.Animation.duration * 2, work: {
+            DispatchQueue.inMain(after: TraceAnimation.duration * 2, work: {
                 self.trace = nil
             })
         }

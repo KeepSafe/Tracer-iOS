@@ -28,7 +28,7 @@ private extension ViewController {
     
     func runExamples() {
         // Show the UI tool in a window over top of the app
-        traceUI.show()
+        traceUI.showFloatingUI()
 
         // Adding some traces to the UI tool
         traceUI.add(traces: EventTrace.allTraces)

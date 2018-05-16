@@ -28,7 +28,7 @@ final class TraceUIStartStopButton: UIView, Viewing {
         guard state != .hidden else { return }
         
         traceNameLabel.text = traceName
-        UIView.animate(withDuration: TraceUI.Animation.duration) {
+        UIView.animate(withDuration: TraceAnimation.duration) {
             if state == .stopped {
                 self.startTraceButton.alpha = 0
                 self.stopTraceButton.alpha = 0

@@ -62,7 +62,7 @@ private extension TraceStatusButton {
     }
     
     func changeColor(to color: UIColor) {
-        UIView.transition(with: self, duration: TraceUI.Animation.duration, options: [.beginFromCurrentState, .curveEaseIn], animations: {
+        UIView.transition(with: self, duration: TraceAnimation.duration, options: [.beginFromCurrentState, .curveEaseIn], animations: {
             self.backgroundColor = color
         }, completion: nil)
     }
