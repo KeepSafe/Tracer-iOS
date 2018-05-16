@@ -21,7 +21,6 @@ final class TraceUIWindow: UIWindow {
         super.init(frame: UIScreen.main.bounds)
         
         setupWindow()
-        handleRotate()
         registerNotifications()
         self.rootViewController = rootViewController
     }
@@ -35,30 +34,6 @@ final class TraceUIWindow: UIWindow {
         }
         return hitView
     }
-    
-    // MARK: - Private Properties
-    
-    /// Don't rotate manually if the application:
-    ///
-    /// - is running on iPad
-    /// - supports all orientations
-    /// - doesn't require full screen
-    /// - has launch storyboard
-    private lazy var shouldRotateManually: Bool = {
-        let iPad = UIDevice.current.userInterfaceIdiom == .pad
-        let application = UIApplication.shared
-        let window = application.delegate?.window ?? nil
-        let supportsAllOrientations = application.supportedInterfaceOrientations(for: window) == .all
-        
-        let info = Bundle.main.infoDictionary
-        let requiresFullScreen = (info?["UIRequiresFullScreen"] as? NSNumber)?.boolValue == true
-        let hasLaunchStoryboard = info?["UILaunchStoryboardName"] != nil
-        
-        if iPad && supportsAllOrientations && (requiresFullScreen == false) && hasLaunchStoryboard {
-            return false
-        }
-        return true
-    }()
     
     // MARK: - Unsupported Initializers
     
@@ -78,8 +53,6 @@ private extension TraceUIWindow {
     
     func registerNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(bringWindowToTop), name: .UIWindowDidBecomeVisible, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(statusBarOrientationDidChange), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: .UIApplicationDidBecomeActive, object: nil)
     }
     
     @objc func bringWindowToTop(_ notification: Notification) {
@@ -88,43 +61,6 @@ private extension TraceUIWindow {
         /// Bring this window to top when another window is being shown
         isHidden = true
         isHidden = false
-    }
-    
-    @objc func statusBarOrientationDidChange() {
-        handleRotate()
-    }
-    
-    @objc func applicationDidBecomeActive() {
-        handleRotate()
-    }
-    
-    func handleRotate() {
-        let orientation = UIApplication.shared.statusBarOrientation
-        
-        if shouldRotateManually {
-            transform = CGAffineTransform(rotationAngle: angle(for: orientation))
-        }
-        
-        if let window = UIApplication.shared.windows.first, window is TraceUIWindow == false {
-            let isPortraitOrRotatable = orientation.isPortrait || shouldRotateManually == false
-            let windowSize = window.bounds.size
-            frame.size.width = isPortraitOrRotatable ? windowSize.width : windowSize.height
-            frame.size.height = isPortraitOrRotatable ? windowSize.height : windowSize.width
-        }
-        frame.origin = .zero
-        
-        DispatchQueue.main.async {
-            self.setNeedsLayout()
-        }
-    }
-    
-    func angle(for orientation: UIInterfaceOrientation) -> CGFloat {
-        switch orientation {
-        case .portrait, .unknown: return 0
-        case .landscapeLeft: return -.pi / 2
-        case .landscapeRight: return .pi / 2
-        case .portraitUpsideDown: return .pi
-        }
     }
     
 }

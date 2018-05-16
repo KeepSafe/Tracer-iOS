@@ -18,6 +18,8 @@ final class TraceUIContainer: Viewing {
         traceUIPresenter = TraceUIPresenter(view: traceUIView)
         splitView = TraceUISplitView(resizableView: traceUIView)
         window = TraceUIWindow(rootViewController: splitView)
+        
+        setupNotifications()
     }
     
     // MARK: - View Options
@@ -146,6 +148,40 @@ private extension TraceUIContainer {
                                      leftConstraint,
                                      statusButton.heightAnchor.constraint(equalToConstant: TraceStatusButton.sizeLength),
                                      statusButton.widthAnchor.constraint(equalToConstant: TraceStatusButton.sizeLength)])
+    }
+    
+    func setupNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(statusBarOrientationDidChange), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: .UIApplicationDidBecomeActive, object: nil)
+    }
+    
+    @objc func statusBarOrientationDidChange() {
+        ensureStatusButtonStaysOnScreen()
+    }
+    
+    @objc func applicationDidBecomeActive() {
+        ensureStatusButtonStaysOnScreen()
+    }
+    
+    // Handle rotations
+    func ensureStatusButtonStaysOnScreen() {
+        let mainBounds = UIScreen.main.bounds.size
+        let buttonOrigin = statusButton.frame.origin
+        let buttonPlusPadding = TraceStatusButton.sizeLength + statusButtonPadding
+        
+        if (buttonOrigin.x < statusButtonPadding || buttonOrigin.x > mainBounds.width - buttonPlusPadding) ||
+           (buttonOrigin.y < statusButtonPadding || buttonOrigin.y > mainBounds.height - buttonPlusPadding) {
+            let x = min(mainBounds.width - buttonPlusPadding, max(buttonOrigin.x, statusButtonPadding))
+            let y = min(mainBounds.height - buttonPlusPadding, max(buttonOrigin.y, statusButtonPadding))
+            
+            window.layoutIfNeeded()
+            UIView.animate(withDuration: TraceAnimation.duration) {
+                self.statusButtonLeftConstraint?.constant = x
+                self.statusButtonTopConstraint?.constant = y
+                self.window.layoutIfNeeded()
+            }
+            defaultsStore.set(NSStringFromCGPoint(CGPoint(x: x, y: y)), forKey: lastStatusButtonDragPointKey)
+        }
     }
     
 }

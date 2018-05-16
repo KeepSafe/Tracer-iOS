@@ -29,6 +29,7 @@ final class TraceUISplitView: UIViewController, Viewing {
         super.init(nibName: nil, bundle: nil)
         
         setupView()
+        setupNotifications()
     }
     
     override func loadView() {
@@ -72,8 +73,11 @@ private extension TraceUISplitView {
         view.addSubview(dragIndicatorView)
         view.addSubview(resizableView)
         
-        let transparentViewHeight = defaultsStore.value(forKey: lastTransparentViewHeightKey) as? CGFloat ?? defaultTransparentViewHeight
+        var transparentViewHeight = defaultsStore.value(forKey: lastTransparentViewHeightKey) as? CGFloat ?? defaultTransparentViewHeight
+        transparentViewHeight = constrainedHeightValue(from: transparentViewHeight)
+        
         let topAnchor = dragIndicatorView.topAnchor.constraint(equalTo: view.topAnchor, constant: transparentViewHeight)
+        topAnchor.priority = .defaultLow // ensure this constraint gives if screen rotates
         dragViewTopConstraint = topAnchor
         NSLayoutConstraint.activate([topAnchor,
                                      dragIndicatorView.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -86,18 +90,31 @@ private extension TraceUISplitView {
                                      resizableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)])
     }
     
+    // MARK: - Orientations
+    
+    func setupNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(statusBarOrientationDidChange), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
+    }
+    
+    @objc func statusBarOrientationDidChange() {
+        ensureConstraintsAreMaintained()
+    }
+    
+    func ensureConstraintsAreMaintained() {
+        resizeView(with: dragIndicatorView.frame.origin.y)
+    }
+    
     // MARK: - Resizing
     
     func resizeView(with touch: UITouch) {
         let touchPoint = touch.location(in: view)
-        var newTransparentViewHeight = touchPoint.y
-        
-        // Set some resize boundaries
-        // don't cover top of screen
-        newTransparentViewHeight = max(minimumTransparentViewHeight, newTransparentViewHeight)
-        // but don't collapse too much
-        newTransparentViewHeight = min(UIScreen.main.bounds.size.height - minimumResizableViewHeight, newTransparentViewHeight)
 
+        resizeView(with: touchPoint.y)
+    }
+    
+    func resizeView(with topYOrigin: CGFloat) {
+        let newTransparentViewHeight = constrainedHeightValue(from: topYOrigin)
+    
         // Store this preferred height
         defaultsStore.setValue(newTransparentViewHeight, forKey: lastTransparentViewHeightKey)
         
@@ -106,6 +123,19 @@ private extension TraceUISplitView {
             self.dragViewTopConstraint?.constant = newTransparentViewHeight
             self.view.layoutIfNeeded()
         }, completion: nil)
+    }
+    
+    // Ensures the passed in height value doesn't exceed our limits
+    func constrainedHeightValue(from heightValue: CGFloat) -> CGFloat {
+        var newTransparentViewHeight = heightValue
+        
+        // Set some resize boundaries
+        // don't cover top of screen
+        newTransparentViewHeight = max(minimumTransparentViewHeight, newTransparentViewHeight)
+        // but don't collapse too much
+        newTransparentViewHeight = min(UIScreen.main.bounds.size.height - minimumResizableViewHeight, newTransparentViewHeight)
+        
+        return newTransparentViewHeight
     }
     
 }
