@@ -31,7 +31,7 @@ private extension TraceUIContainerPresenter {
     
     func listenForRoutingActions() {
         TraceUISignals.UI.showSettings.listen { button in
-            guard let rootVC = self.view.rootViewController else { return }
+            let rootVC = self.view.rootViewController
             let actionSheet = self.view.traceUIView.settingsActionSheet
             actionSheet.popoverPresentationController?.sourceView = button
             rootVC.present(actionSheet, animated: true, completion: nil)
