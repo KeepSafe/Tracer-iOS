@@ -23,12 +23,10 @@ final class ViewController: UIViewController {
     
     @IBAction func event1Tapped() {
         traceUI.log(traceItem: Event.one.toTraceItem)
-        traceUI.hide()
     }
     
     @IBAction func event2Tapped() {
         traceUI.log(traceItem: Event.two.toTraceItem)
-        traceUI.show()
     }
     
     @IBAction func event3Tapped() {
