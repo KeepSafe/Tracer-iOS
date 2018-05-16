@@ -89,8 +89,8 @@ final class TraceUIContainer: Viewing {
     
     // MARK: - Properties
     
-    var rootViewController: UIViewController? {
-        return splitView // TODO for fixed views: UIApplication.shared.keyWindow?.rootViewController
+    var rootViewController: UIViewController {
+        return splitView
     }
     
     let traceUIView: TraceUIView

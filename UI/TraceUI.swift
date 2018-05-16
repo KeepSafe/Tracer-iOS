@@ -13,11 +13,11 @@ public final class TraceUI: Listening {
     
     // MARK: - Instantiation
     
-    /// Prepares UI for display and restores any state
+    /// Starts the logger and listens for signals
+    ///
+    /// Note: UI will be configured the first time `show` is called
     public init() {
         logger = ItemLogger()
-        container = TraceUIContainer()
-        containerPresenter = TraceUIContainerPresenter(view: container)
         start()
     }
     
@@ -25,6 +25,12 @@ public final class TraceUI: Listening {
     
     /// Shows the TraceUI tool as a standalone window that floats over top of the application window
     public func show() {
+        let setupView: Void = {
+            let traceUIContainer = TraceUIContainer()
+            container = traceUIContainer
+            containerPresenter = TraceUIContainerPresenter(view: traceUIContainer)
+        }()
+        _ = setupView
         TraceUISignals.UI.show.fire(data: nil)
     }
     
@@ -108,8 +114,8 @@ public final class TraceUI: Listening {
     // MARK: - Private Properties
     
     private let logger: ItemLogger
-    private let container: TraceUIContainer
-    private let containerPresenter: TraceUIContainerPresenter
+    private var container: TraceUIContainer?
+    private var containerPresenter: TraceUIContainerPresenter?
 }
 
 // MARK: - Listeners
@@ -129,7 +135,7 @@ private extension TraceUI {
         TraceUISignals.UI.traceReportExported.listen { report in
             guard let (summaryURL, rawLogURL) = report.exportedAsTextFiles(),
                 let genericLogURL = ItemLoggerReport(loggedItems: self.loggedItems).exportedAsCSVFile(),
-                let rootVC = self.container.rootViewController
+                let rootVC = self.container?.rootViewController
                 else { return }
             
             TraceShareSheet.present(with: [summaryURL, rawLogURL, genericLogURL], in: rootVC, success: {
@@ -140,7 +146,7 @@ private extension TraceUI {
         }
         
         TraceUISignals.UI.exportLog.listen { _ in
-            guard let rootVC = self.container.rootViewController,
+            guard let rootVC = self.container?.rootViewController,
                 let genericLogURL = ItemLoggerReport(loggedItems: self.loggedItems).exportedAsCSVFile()
                 else { return }
             TraceShareSheet.present(with: [genericLogURL], in: rootVC, success: {
