@@ -19,7 +19,7 @@ import Foundation
 /// Note: this boxed type erasure design pattern comes from `AnyHashable`
 /// via https://github.com/apple/swift/blob/master/stdlib/public/core/AnyHashable.swift
 /// and avoids a lot of issues with using generic constraints at a protocol level.
-public struct AnyTraceEquatable: Equatable {
+public struct AnyTraceEquatable: Equatable, CustomStringConvertible {
     public init<H: Equatable>(_ base: H) {
         _box = _ConcreteTraceEquatableBox(base)
     }
@@ -34,12 +34,17 @@ public struct AnyTraceEquatable: Equatable {
         return lhs._box._isEqual(to: rhs._box) ?? false
     }
     
+    /// A description of the base value
+    public var description: String {
+        return _box.description
+    }
+    
     private let _box: _AnyTraceEquatableBox
     private init() { fatalError("init not supported") }
 }
 
 /// We use this to give us full equality checks at a type level
-fileprivate protocol _AnyTraceEquatableBox {
+fileprivate protocol _AnyTraceEquatableBox: CustomStringConvertible {
     func _isEqual(to: _AnyTraceEquatableBox) -> Bool?
     func _unbox<T: Equatable>() -> T?
 }
@@ -66,6 +71,11 @@ fileprivate struct _ConcreteTraceEquatableBox<Base: Equatable>: _AnyTraceEquatab
             return _baseEquatable == rhs
         }
         return nil
+    }
+    
+    /// A description of the base value
+    var description: String {
+        return String(describing: _baseEquatable)
     }
     
     /// Stores the base `Equatable` value without erasing its type

@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4037728209CA8670093E519 /* TracerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4037727209CA8670093E519 /* TracerTests.swift */; };
 		D41115E82097512100702064 /* TraceSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41115E72097512100702064 /* TraceSignal.swift */; };
 		D41115EE2097AFB800702064 /* TraceStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41115ED2097AFB800702064 /* TraceStates.swift */; };
 		D4111604209A300800702064 /* TraceResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4111603209A300800702064 /* TraceResultTests.swift */; };
-		D411160E209B531400702064 /* TracerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D411160D209B531400702064 /* TracerTests.swift */; };
+		D411160A209B4EFD00702064 /* TraceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4111609209B4EFD00702064 /* TraceTests.swift */; };
+		D411160C209B518300702064 /* TraceItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D411160B209B518300702064 /* TraceItemTests.swift */; };
+		D4111610209B578D00702064 /* TraceSignalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D411160F209B578D00702064 /* TraceSignalTests.swift */; };
+		D4111612209B666C00702064 /* TraceReportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4111611209B666C00702064 /* TraceReportTests.swift */; };
 		D45FEC65209345380084DF96 /* Trace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45FEC64209345380084DF96 /* Trace.swift */; };
 		D45FEC69209346220084DF96 /* TraceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45FEC68209346220084DF96 /* TraceItem.swift */; };
 		D463175D209232FD0008A1BC /* Tracer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4631753209232FD0008A1BC /* Tracer.framework */; };
@@ -33,10 +37,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D4037727209CA8670093E519 /* TracerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TracerTests.swift; sourceTree = "<group>"; };
 		D41115E72097512100702064 /* TraceSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceSignal.swift; sourceTree = "<group>"; };
 		D41115ED2097AFB800702064 /* TraceStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceStates.swift; sourceTree = "<group>"; };
 		D4111603209A300800702064 /* TraceResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceResultTests.swift; sourceTree = "<group>"; };
-		D411160D209B531400702064 /* TracerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracerTests.swift; sourceTree = "<group>"; };
+		D4111609209B4EFD00702064 /* TraceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceTests.swift; sourceTree = "<group>"; };
+		D411160B209B518300702064 /* TraceItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceItemTests.swift; sourceTree = "<group>"; };
+		D411160F209B578D00702064 /* TraceSignalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceSignalTests.swift; sourceTree = "<group>"; };
+		D4111611209B666C00702064 /* TraceReportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceReportTests.swift; sourceTree = "<group>"; };
 		D45FEC64209345380084DF96 /* Trace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trace.swift; sourceTree = "<group>"; };
 		D45FEC68209346220084DF96 /* TraceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceItem.swift; sourceTree = "<group>"; };
 		D4631753209232FD0008A1BC /* Tracer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tracer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,8 +100,12 @@
 			isa = PBXGroup;
 			children = (
 				D4631761209232FD0008A1BC /* AnyTraceEquatableTests.swift */,
-				D411160D209B531400702064 /* TracerTests.swift */,
+				D4111609209B4EFD00702064 /* TraceTests.swift */,
+				D411160B209B518300702064 /* TraceItemTests.swift */,
+				D4111611209B666C00702064 /* TraceReportTests.swift */,
 				D4111603209A300800702064 /* TraceResultTests.swift */,
+				D4037727209CA8670093E519 /* TracerTests.swift */,
+				D411160F209B578D00702064 /* TraceSignalTests.swift */,
 				D4631763209232FD0008A1BC /* Info.plist */,
 			);
 			path = TracerTests;
@@ -241,9 +253,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D411160E209B531400702064 /* TracerTests.swift in Sources */,
+				D4037728209CA8670093E519 /* TracerTests.swift in Sources */,
+				D411160C209B518300702064 /* TraceItemTests.swift in Sources */,
+				D411160A209B4EFD00702064 /* TraceTests.swift in Sources */,
 				D4631762209232FD0008A1BC /* AnyTraceEquatableTests.swift in Sources */,
 				D4111604209A300800702064 /* TraceResultTests.swift in Sources */,
+				D4111610209B578D00702064 /* TraceSignalTests.swift in Sources */,
+				D4111612209B666C00702064 /* TraceReportTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,6 +403,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.keepsafe.Tracer;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -408,6 +425,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.keepsafe.Tracer;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";

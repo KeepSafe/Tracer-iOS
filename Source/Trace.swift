@@ -19,6 +19,9 @@ public protocol Traceable {
     /// Whether or not to allow duplicates of the `itemsToMatch` to be ignored once they've been matched
     var allowDuplicates: Bool { get }
     
+    /// Whether or not to assert when the trace's state changes to `failed`
+    var assertOnFailure: Bool { get }
+    
     /// An array of `TraceItem`'s to match against during an active trace
     var itemsToMatch: [TraceItem] { get }
     
@@ -38,6 +41,7 @@ public struct Trace: Traceable {
     ///   - name: The display name of the trace (e.g. `Sign up flow`)
     ///   - enforceOrder: Whether or not to enforce the emitted order of elements in `itemsToMatch`; defaults to true
     ///   - allowDuplicates: Whether or not to allow duplicates of the `itemsToMatch` to be ignored once they've been matched; defaults to true
+    ///   - assertOnFailure: Whether or not to assert when the trace's state changes to `failed`
     ///   - itemsToMatch: An array of `TraceItem`'s to match against during an active trace
     ///   - setupSteps: An optional array of setup steps rendered as a numbered list
     ///   - setupBeforeStartingTrace: An optional closure to execute arbitrary setup steps before the
@@ -45,12 +49,14 @@ public struct Trace: Traceable {
     public init(name: String,
                 enforceOrder: Bool = true,
                 allowDuplicates: Bool = true,
+                assertOnFailure: Bool = false,
                 itemsToMatch: [TraceItem],
                 setupSteps: [String]? = nil,
                 setupBeforeStartingTrace: TracerSetupClosure? = nil) {
         self.name = name
         self.enforceOrder = enforceOrder
         self.allowDuplicates = allowDuplicates
+        self.assertOnFailure = assertOnFailure
         self.itemsToMatch = itemsToMatch
         self.setupSteps = setupSteps
         self.setupBeforeStartingTrace = setupBeforeStartingTrace
@@ -65,6 +71,9 @@ public struct Trace: Traceable {
     /// Whether or not to allow duplicates of the `itemsToMatch` to be ignored once they've been matched; defaults to `true`
     public let allowDuplicates: Bool
     
+    /// Whether or not to assert when the trace's state changes to `failed`
+    public let assertOnFailure: Bool
+    
     /// An array of `TraceItem`'s to match against during an active trace
     public let itemsToMatch: [TraceItem]
     
@@ -76,7 +85,7 @@ public struct Trace: Traceable {
         guard let setupSteps = setupSteps, setupSteps.isEmpty == false else { return nil }
         var numberedList = "Setup steps:\n\n"
         for (index, step) in setupSteps.enumerated() {
-            numberedList.append("    \(index). \(step)\n")
+            numberedList.append("    \(index + 1). \(step)\n")
         }
         return numberedList
     }
@@ -84,4 +93,18 @@ public struct Trace: Traceable {
     /// An optional closure to execute arbitrary setup steps before the
     /// trace is run such as setting up any application state
     public let setupBeforeStartingTrace: TracerSetupClosure?
+}
+
+// MARK: - Equatable
+
+extension Trace: Equatable {
+    public static func == (lhs: Trace, rhs: Trace) -> Bool {
+        return lhs.name == rhs.name
+    }
+}
+
+// MARK: - Hashable
+
+extension Trace: Hashable {
+    public var hashValue: Int { return name.hashValue }
 }
