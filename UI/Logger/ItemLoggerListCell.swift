@@ -33,7 +33,7 @@ final class ItemLoggerListCell: UITableViewCell, Viewing {
             
             itemLabel.text = String(describing: loggedItem.item)
             timestampLabel.text = TraceDateFormatter.default.string(from: loggedItem.timestamp)
-            propertiesLabel.text = loggedItem.properties?.loggerDescription
+            propertiesLabel.attributedText = loggedItem.properties?.attributedLoggerDescription(fontSize: propertiesFontSize)
         }
     }
     
@@ -55,16 +55,19 @@ final class ItemLoggerListCell: UITableViewCell, Viewing {
     private lazy var itemLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.font = .systemFont(ofSize: 14.0)
+        label.numberOfLines = 0
         return label
     }()
     
-    private lazy var propertiesLabel: UILabel = {
+    private lazy var propertiesLabel: UILabel = { [unowned self] in
         let label = UILabel(frame: .zero)
         label.textColor = .darkGray
         label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 12.0)
+        label.font = .systemFont(ofSize: propertiesFontSize)
         return label
     }()
+    
+    private let propertiesFontSize: CGFloat = 12
     
     // MARK: - Unsupported Initializers
     
@@ -91,7 +94,7 @@ private extension ItemLoggerListCell {
         NSLayoutConstraint.activate([itemLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 13),
                                      itemLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
                                      itemLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-                                     itemLabel.heightAnchor.constraint(equalToConstant: 16)])
+                                     itemLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 16)])
         
         NSLayoutConstraint.activate([timestampLabel.topAnchor.constraint(equalTo: itemLabel.bottomAnchor, constant: 4),
                                      timestampLabel.leadingAnchor.constraint(equalTo: itemLabel.leadingAnchor),

@@ -59,6 +59,7 @@
 		D418D10220AC6055006369C0 /* TraceUIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D418D10120AC6055006369C0 /* TraceUIContainer.swift */; };
 		D418D10420AC618A006369C0 /* TraceUIContainerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D418D10320AC618A006369C0 /* TraceUIContainerPresenter.swift */; };
 		D418D10620AC68B2006369C0 /* TraceAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D418D10520AC68B2006369C0 /* TraceAnimation.swift */; };
+		D418D12320ACDB76006369C0 /* Dictionary+AttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = D418D12220ACDB76006369C0 /* Dictionary+AttributedString.swift */; };
 		D45FEC65209345380084DF96 /* Trace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45FEC64209345380084DF96 /* Trace.swift */; };
 		D45FEC69209346220084DF96 /* TraceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45FEC68209346220084DF96 /* TraceItem.swift */; };
 		D463175D209232FD0008A1BC /* Tracer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4631753209232FD0008A1BC /* Tracer.framework */; };
@@ -140,6 +141,7 @@
 		D418D10120AC6055006369C0 /* TraceUIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIContainer.swift; sourceTree = "<group>"; };
 		D418D10320AC618A006369C0 /* TraceUIContainerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIContainerPresenter.swift; sourceTree = "<group>"; };
 		D418D10520AC68B2006369C0 /* TraceAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceAnimation.swift; sourceTree = "<group>"; };
+		D418D12220ACDB76006369C0 /* Dictionary+AttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+AttributedString.swift"; sourceTree = "<group>"; };
 		D45FEC64209345380084DF96 /* Trace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trace.swift; sourceTree = "<group>"; };
 		D45FEC68209346220084DF96 /* TraceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceItem.swift; sourceTree = "<group>"; };
 		D4631753209232FD0008A1BC /* Tracer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tracer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -285,6 +287,7 @@
 		D417C81A20A389E4000C1AE2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				D418D12220ACDB76006369C0 /* Dictionary+AttributedString.swift */,
 				D417C84D20A5D3C0000C1AE2 /* DispatchQueue+Tracer.swift */,
 				D4045CF120A62D8800BD8571 /* ItemLoggerReport+Export.swift */,
 				D4045CEF20A629BC00BD8571 /* TraceReport+Export.swift */,
@@ -538,6 +541,7 @@
 				D417C82620A396A2000C1AE2 /* LoggedItem.swift in Sources */,
 				D417C84E20A5D3C0000C1AE2 /* DispatchQueue+Tracer.swift in Sources */,
 				D417C7F520A1EF8C000C1AE2 /* TraceUIListItemCell.swift in Sources */,
+				D418D12320ACDB76006369C0 /* Dictionary+AttributedString.swift in Sources */,
 				D418D10220AC6055006369C0 /* TraceUIContainer.swift in Sources */,
 				D45FEC65209345380084DF96 /* Trace.swift in Sources */,
 				D417C84420A486B1000C1AE2 /* TraceUIStartStopButton.swift in Sources */,

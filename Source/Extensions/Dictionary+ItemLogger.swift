@@ -10,7 +10,7 @@ import Foundation
 
 /// Specifically, this is an extension of LoggedItemProperties which is typed as [String: AnyTraceEquatable]
 internal extension Dictionary where Key: ExpressibleByStringLiteral, Value: CustomStringConvertible {
-    
+
     var loggerDescription: String {
         var v = ""
         for (key, value) in self {
