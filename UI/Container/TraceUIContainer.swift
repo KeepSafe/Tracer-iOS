@@ -120,10 +120,17 @@ private extension TraceUIContainer {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.alpha = 0
         window.addSubview(view)
-        NSLayoutConstraint.activate([view.topAnchor.constraint(equalTo: window.topAnchor),
-                                     view.bottomAnchor.constraint(equalTo: window.bottomAnchor),
-                                     view.leadingAnchor.constraint(equalTo: window.leadingAnchor),
-                                     view.trailingAnchor.constraint(equalTo: window.trailingAnchor)])
+        if #available(iOS 11.0, *) {
+            NSLayoutConstraint.activate([view.topAnchor.constraint(equalTo: window.safeAreaLayoutGuide.topAnchor),
+                                         view.bottomAnchor.constraint(equalTo: window.safeAreaLayoutGuide.bottomAnchor),
+                                         view.leadingAnchor.constraint(equalTo: window.safeAreaLayoutGuide.leadingAnchor),
+                                         view.trailingAnchor.constraint(equalTo: window.safeAreaLayoutGuide.trailingAnchor)])
+        } else {
+            NSLayoutConstraint.activate([view.topAnchor.constraint(equalTo: window.topAnchor),
+                                         view.bottomAnchor.constraint(equalTo: window.bottomAnchor),
+                                         view.leadingAnchor.constraint(equalTo: window.leadingAnchor),
+                                         view.trailingAnchor.constraint(equalTo: window.trailingAnchor)])
+        }
     }
     
     func setupStatusButton() {

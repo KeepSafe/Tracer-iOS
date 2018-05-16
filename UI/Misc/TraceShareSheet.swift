@@ -15,6 +15,7 @@ struct TraceShareSheet: Viewing {
     static func present(with activityItems: [Any], in controller: UIViewController,
                         success: TraceShareSheetSuccess? = nil, failure: TraceShareSheetFailure? = nil) {
         let shareSheet = UIActivityViewController(activityItems: activityItems, applicationActivities: [])
+        shareSheet.popoverPresentationController?.sourceView = controller.view
         var excludeActivities: [UIActivityType] = [.assignToContact, .addToReadingList,
                                                    .postToFacebook, .postToVimeo,
                                                    .postToWeibo, .postToFlickr,

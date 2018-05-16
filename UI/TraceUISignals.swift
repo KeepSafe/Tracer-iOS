@@ -32,7 +32,7 @@ internal struct TraceUISignals {
         static let stopTrace = TraceActionSignal()
         static let closeTraceDetail = TraceActionSignal()
         static let settingsAdded = TraceSignal<[UIAlertAction]>()
-        static let showSettings = TraceActionSignal()
+        static let showSettings = TraceSignal<UIButton>() // the settings button, for iPad popovers
         static let exportLog = TraceActionSignal()
         static let clearLog = TraceActionSignal()
         static let exportTrace = TraceActionSignal()

@@ -30,9 +30,11 @@ final class TraceUIContainerPresenter: Presenting {
 private extension TraceUIContainerPresenter {
     
     func listenForRoutingActions() {
-        TraceUISignals.UI.showSettings.listen { _ in
+        TraceUISignals.UI.showSettings.listen { button in
             guard let rootVC = self.view.rootViewController else { return }
-            rootVC.present(self.view.traceUIView.settingsActionSheet, animated: true, completion: nil)
+            let actionSheet = self.view.traceUIView.settingsActionSheet
+            actionSheet.popoverPresentationController?.sourceView = button
+            rootVC.present(actionSheet, animated: true, completion: nil)
         }
         
         TraceUISignals.UI.collapseTool.listen { _ in

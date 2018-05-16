@@ -65,9 +65,9 @@ final class TraceUITabView: UIView, Viewing {
         return view
     }()
     
-    private lazy var settingsButton: TraceUIIconButton = {
+    private lazy var settingsButton: TraceUIIconButton = { [unowned self] in
         let button = TraceUIIconButton(icon: .inBundle(named: "SettingsIcon"), backgroundColor: .clear, tapped: {
-            TraceUISignals.UI.showSettings.fire(data: nil)
+            TraceUISignals.UI.showSettings.fire(data: self.settingsButton)
         })
         button.alpha = 0
         return button
