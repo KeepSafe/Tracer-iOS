@@ -133,6 +133,11 @@ public final class TraceUI: Listening {
         return logger.loggedItems
     }
     
+    /// The root view controller; this will be non-nil once `show()` is called for the first time
+    public var rootViewController: UIViewController? {
+        return container?.rootViewController
+    }
+    
     // MARK: - Private Properties
     
     private let logger: ItemLogger
