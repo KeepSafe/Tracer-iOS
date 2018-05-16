@@ -46,7 +46,7 @@ final class TraceUIWindow: UIWindow {
 private extension TraceUIWindow {
     
     func setupWindow() {
-        windowLevel = UIWindowLevelAlert + 1
+        windowLevel = CGFloat.greatestFiniteMagnitude
         backgroundColor = .clear
         isHidden = false
     }
@@ -56,7 +56,7 @@ private extension TraceUIWindow {
     }
     
     @objc func bringWindowToTop(_ notification: Notification) {
-        guard notification.object is TraceUIWindow == false else { return }
+        guard isHidden == false, notification.object is TraceUIWindow == false else { return }
     
         /// Bring this window to top when another window is being shown
         isHidden = true

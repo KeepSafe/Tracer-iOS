@@ -19,19 +19,26 @@ final class TraceUIContainer: Viewing {
         splitView = TraceUISplitView(resizableView: traceUIView)
         window = TraceUIWindow(rootViewController: splitView)
         
+        setupView()
         setupNotifications()
     }
     
     // MARK: - View Options
     
-    func setupFixedSize() {
-        setup(view: traceUIView)
+    func show() {
+        window.isHidden = false
+        UIView.animate(withDuration: TraceAnimation.duration, delay: 0, options: [.beginFromCurrentState], animations: {
+            self.window.alpha = 1
+        })
     }
     
-    func setupSplitView() {
-        setup(view: splitView.view)
-        splitView.view.alpha = 0
-        setupStatusButton()
+    func hide() {
+        window.isHidden = false
+        UIView.animate(withDuration: TraceAnimation.duration, delay: 0, options: [.beginFromCurrentState], animations: {
+            self.window.alpha = 0
+        }) { _ in
+            self.window.isHidden = true
+        }
     }
     
     // MARK: - Animations
@@ -115,6 +122,13 @@ final class TraceUIContainer: Viewing {
 private extension TraceUIContainer {
     
     // MARK: - View Setup
+    
+    func setupView() {
+        window.alpha = 0
+        setup(view: splitView.view)
+        splitView.view.alpha = 0
+        setupStatusButton()
+    }
     
     func setup(view: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false

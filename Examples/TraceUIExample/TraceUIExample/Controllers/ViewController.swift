@@ -23,10 +23,12 @@ final class ViewController: UIViewController {
     
     @IBAction func event1Tapped() {
         traceUI.log(traceItem: Event.one.toTraceItem)
+        traceUI.hide()
     }
     
     @IBAction func event2Tapped() {
         traceUI.log(traceItem: Event.two.toTraceItem)
+        traceUI.show()
     }
     
     @IBAction func event3Tapped() {
@@ -45,7 +47,7 @@ private extension ViewController {
     
     func runExamples() {
         // Show the UI tool in a window over top of the app
-        traceUI.showFloatingUI()
+        traceUI.show()
 
         // Adding some traces to the UI tool
         traceUI.add(traces: EventTrace.allTraces)

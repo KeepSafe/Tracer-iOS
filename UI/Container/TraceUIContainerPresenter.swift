@@ -45,8 +45,12 @@ private extension TraceUIContainerPresenter {
             self.view.expand()
         }
         
-        TraceUISignals.UI.showSplitView.listen { _ in
-            self.view.setupSplitView()
+        TraceUISignals.UI.show.listen { _ in
+            self.view.show()
+        }
+        
+        TraceUISignals.UI.hide.listen { _ in
+            self.view.hide()
         }
     }
     
