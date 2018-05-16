@@ -34,7 +34,7 @@ final class TraceUIListView: UIView, Viewing {
         table.register(TraceUIListItemCell.self, forCellReuseIdentifier: TraceUIListItemCell.identifier)
         table.delegate = self
         table.dataSource = self
-        table.estimatedRowHeight = 40
+        table.estimatedRowHeight = TraceUIListItemCell.height
         table.tableFooterView = UIView(frame: .zero)
         return table
     }()

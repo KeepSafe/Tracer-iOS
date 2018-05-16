@@ -9,15 +9,15 @@
 import Tracer
 
 enum Event: String {
-    case logicCheckpointOne
-    case logicCheckpointTwo
-    case logicCheckpointThree
+    case one
+    case two
+    case three
     
     var uxFlowHint: String {
         switch self {
-        case .logicCheckpointOne: return "Step one here"
-        case .logicCheckpointTwo: return "Step two here"
-        case .logicCheckpointThree: return "Step three here and then also do that other thing, you know what I'm talking about"
+        case .one: return "Press the 'Fire event 1' button"
+        case .two: return "Press the 'Fire event 2' button"
+        case .three: return "Press the 'Fire event 3' button"
         }
     }
     

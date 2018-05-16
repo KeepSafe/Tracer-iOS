@@ -10,13 +10,30 @@ import UIKit
 import Tracer
 
 final class ViewController: UIViewController {
+    
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupView()
         runExamples()
     }
+    
+    // MARK: - Actions
+    
+    @IBAction func event1Tapped() {
+        traceUI.log(traceItem: Event.one.toTraceItem)
+    }
+    
+    @IBAction func event2Tapped() {
+        traceUI.log(traceItem: Event.two.toTraceItem)
+    }
+    
+    @IBAction func event3Tapped() {
+        traceUI.log(traceItem: Event.three.toTraceItem)
+    }
+    
+    // MARK: - Private Properties
     
     private let traceUI = TraceUI()
     
@@ -44,48 +61,14 @@ private extension ViewController {
 
         // Example of adding extra actions to the settings
         let mooLikeACow = UIAlertAction(title: "Moo like a cow", style: .default) { _ in
-            self.mooLikeACow()
+            self.traceUI.log(genericItem: AnyTraceEquatable("Moooooooooo"), emojiToPrepend: "🐄")
         }
         traceUI.add(settings: [mooLikeACow])
-
-        // TODO: Remove after testing
-        for i in 10...17 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i)) {
-                if i == 10 {
-                    self.traceUI.log(traceItem: Event.logicCheckpointOne.toTraceItem)
-                }
-                if i == 13 {
-                    self.traceUI.log(traceItem: Event.logicCheckpointTwo.toTraceItem)
-                }
-                if i == 16 {
-                    self.traceUI.log(traceItem: Event.logicCheckpointThree.toTraceItem)
-                }
-            }
-        }
     }
 
     func mooLikeACow() {
         self.traceUI.log(genericItem: AnyTraceEquatable("Moooooooooo"), emojiToPrepend: "🐄")
     }
-
-    func setupView() {
-        view.backgroundColor = .white
-
-        let button = UIButton()
-        button.setTitleColor(view.tintColor, for: .normal)
-        button.setTitle("Tap me", for: .normal)
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addSubview(button)
-        NSLayoutConstraint.activate([button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                                     button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                     button.widthAnchor.constraint(equalToConstant: 100),
-                                     button.heightAnchor.constraint(equalToConstant: 44)])
-    }
-
-    @objc func buttonTapped() {
-        mooLikeACow()
-    }
+    
 }
 

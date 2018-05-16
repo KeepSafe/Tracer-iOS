@@ -24,15 +24,24 @@ final class TraceUIListItemCell: UITableViewCell, Viewing {
     // MARK: - Overrides
     
     public override func prepareForReuse() {
-        textLabel?.text = nil
+        nameLabel.text = nil
     }
     
     // MARK: - API
     
     func configure(with trace: Traceable) {
         accessoryType = .disclosureIndicator
-        textLabel?.text = trace.name
+        nameLabel.text = trace.name
     }
+    
+    // MARK: - Private Properties
+    
+    private lazy var nameLabel: UILabel = { [unowned self] in
+        let label = UILabel(frame: .zero)
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 16)
+        return label
+    }()
     
     // MARK: - Unsupported Initializers
     
@@ -45,7 +54,17 @@ final class TraceUIListItemCell: UITableViewCell, Viewing {
 private extension TraceUIListItemCell {
     
     func setupView() {
-        NSLayoutConstraint.activate([contentView.heightAnchor.constraint(equalToConstant: TraceUIListItemCell.height)])
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(nameLabel)
+        
+        NSLayoutConstraint.activate([contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: TraceUIListItemCell.height)])
+        
+        NSLayoutConstraint.activate([nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+                                     nameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20),
+                                     nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: separatorInset.left),
+                                     nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                                     nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)])
     }
     
 }
