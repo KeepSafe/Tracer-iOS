@@ -193,6 +193,12 @@ final class TraceResultTests: XCTestCase {
         XCTAssertTrue(r1.state == .passing)
         r1.handleFiring(of: i6)
         XCTAssertTrue(r1.state == .failed)
+        
+        // Verify we don't put extra item dictionaries in when updating prior order (a prior bug)
+        for itemDictionary in r1.statesForItemsToMatch {
+            XCTAssertTrue(itemDictionary.keys.count == 1, "Too many items found; should only have one item in each dictionary")
+        }
+        
         r1.handleFiring(of: i2)
         r1.handleFiring(of: i3)
         r1.handleFiring(of: i4)

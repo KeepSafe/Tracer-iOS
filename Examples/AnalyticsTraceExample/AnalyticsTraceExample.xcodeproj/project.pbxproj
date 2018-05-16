@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4037722209C8F9F0093E519 /* AssertControllerOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4037721209C8F9F0093E519 /* AssertControllerOne.swift */; };
 		D485F348209BB33400B89557 /* SecondController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D485F347209BB33400B89557 /* SecondController.swift */; };
 		D485F34A209BB34500B89557 /* ThirdController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D485F349209BB34500B89557 /* ThirdController.swift */; };
 		D485F34C209BB4BE00B89557 /* Tracers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D485F34B209BB4BE00B89557 /* Tracers.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D4037721209C8F9F0093E519 /* AssertControllerOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertControllerOne.swift; sourceTree = "<group>"; };
 		D485F347209BB33400B89557 /* SecondController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondController.swift; sourceTree = "<group>"; };
 		D485F349209BB34500B89557 /* ThirdController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdController.swift; sourceTree = "<group>"; };
 		D485F34B209BB4BE00B89557 /* Tracers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracers.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				D49A7201209BA50200AA084E /* FirstController.swift */,
 				D485F347209BB33400B89557 /* SecondController.swift */,
 				D485F349209BB34500B89557 /* ThirdController.swift */,
+				D4037721209C8F9F0093E519 /* AssertControllerOne.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 				D49A7202209BA50200AA084E /* FirstController.swift in Sources */,
 				D485F34A209BB34500B89557 /* ThirdController.swift in Sources */,
 				D49A721C209BAAB200AA084E /* AnalyticsTraces.swift in Sources */,
+				D4037722209C8F9F0093E519 /* AssertControllerOne.swift in Sources */,
 				D49A7200209BA50200AA084E /* AppDelegate.swift in Sources */,
 				D485F34C209BB4BE00B89557 /* Tracers.swift in Sources */,
 				D485F348209BB33400B89557 /* SecondController.swift in Sources */,

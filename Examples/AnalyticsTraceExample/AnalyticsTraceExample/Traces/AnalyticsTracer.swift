@@ -34,9 +34,11 @@ final class AnalyticsTracer {
         activeTracer = tracer
     }
     
+    @discardableResult
     func stop() -> TraceReport? {
         // FYI: signal listeners are automatically removed when stopped
         let report = activeTracer?.stop()
+        activeTracer = nil
         return report
     }
     
