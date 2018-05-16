@@ -54,7 +54,7 @@ public struct TraceReport {
     }()
     
     fileprivate lazy var legend: String = {
-        return TraceItemState.allReportableStates.map({ "--> '\($0.rawValue)': \($0.debugDescription)" }).joined(separator: "\n")
+        return TraceItemState.allReportableStates.map({ "--> \($0.debugDescription)" }).joined(separator: "\n")
     }()
 }
 

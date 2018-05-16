@@ -94,3 +94,17 @@ public struct Trace: Traceable {
     /// trace is run such as setting up any application state
     public let setupBeforeStartingTrace: TracerSetupClosure?
 }
+
+// MARK: - Equatable
+
+extension Trace: Equatable {
+    public static func == (lhs: Trace, rhs: Trace) -> Bool {
+        return lhs.name == rhs.name
+    }
+}
+
+// MARK: - Hashable
+
+extension Trace: Hashable {
+    public var hashValue: Int { return name.hashValue }
+}

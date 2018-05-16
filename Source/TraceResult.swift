@@ -71,6 +71,9 @@ public struct TraceResult {
             stateChanged.fire(data: state)
             
             if state == .failed && trace.assertOnFailure {
+                finalize()
+                // You can print the report on the console here
+                // (lldb) po TraceReport(result: self)
                 assertionFailure("Trace (\(trace.name)) failed.")
             }
         }
@@ -124,9 +127,11 @@ fileprivate extension TraceResult {
                     itemState = .outOfOrder
                     
                     // If this item is out-of-order, any waiting items before it are also out-of-order
-                    let previousWaitingItems = statesForItemsToMatch[0..<indexOfThisTypeWaitingToBeMatched].filter({ $0.values.first == .waitingToBeMatched }).map({ $0.keys }).flatMap({ $0 })
-                    for (index, waitingItem) in previousWaitingItems.enumerated() {
-                        statesForItemsToMatch[index][waitingItem] = .outOfOrder
+                    let previousItems = statesForItemsToMatch[0..<indexOfThisTypeWaitingToBeMatched]
+                    for (index, previousItem) in previousItems.enumerated() {
+                        guard previousItem.values.first == .waitingToBeMatched,
+                              let previousWaitingItem = previousItem.keys.first else { continue }
+                        statesForItemsToMatch[index][previousWaitingItem] = .outOfOrder
                     }
                 }
             }
