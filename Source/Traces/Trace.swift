@@ -28,7 +28,7 @@ public protocol Traceable {
     /// An optional array of setup steps rendered as a numbered list
     var setupSteps: [String]? { get }
     
-    /// Returns a numbered of list of the setup steps
+    /// Returns a numbered list of the setup steps
     var setupStepsAsList: String? { get }
     
     /// An optional closure to execute arbitrary setup steps before the

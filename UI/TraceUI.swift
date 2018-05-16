@@ -24,8 +24,13 @@ public final class TraceUI: Listening {
     // MARK: - API
     
     /// Shows the TraceUI tool as a standalone window that floats over top of the application window
-    public func showFloatingUI() {
-        TraceUISignals.UI.showSplitView.fire(data: nil)
+    public func show() {
+        TraceUISignals.UI.show.fire(data: nil)
+    }
+    
+    /// Hides the TraceUI tool from the view
+    public func hide() {
+        TraceUISignals.UI.hide.fire(data: nil)
     }
     
     /// Adds the traces to the list of executable traces
