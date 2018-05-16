@@ -11,7 +11,7 @@ import Foundation
 public typealias TraceItemStateDictionary = [TraceItem: TraceItemState]
 
 /// Collects and evaluates the results of the trace so they can be summarized later
-public struct TraceResult {
+public final class TraceResult {
     
     /// Orchestrates the logic behind the results of this trace.
     ///
@@ -32,13 +32,13 @@ public struct TraceResult {
     /// Collects and evaluates the given item to see how it impacts the active trace.
     ///
     /// - Parameter item: The `TraceItem` item that was fired
-    internal mutating func handleFiring(of item: TraceItem) {
+    internal func handleFiring(of item: TraceItem) {
         guard finalized == false else { return }
         categorize(firedItem: item)
     }
     
     /// Finalizes the trace by checking for any missing trace items
-    internal mutating func finalize() {
+    internal func finalize() {
         guard finalized == false else { return }
         while let index = statesForItemsToMatch.index(where: { $0.values.first == .waitingToBeMatched }) {
             guard let item = statesForItemsToMatch[index].keys.first else { continue }
@@ -70,7 +70,7 @@ public struct TraceResult {
         didSet {
             stateChanged.fire(data: state)
             
-            if state == .failed && trace.assertOnFailure {
+            if oldValue != .failed && (state == .failed && trace.assertOnFailure) {
                 finalize()
                 // You can print the report on the console here
                 // (lldb) po TraceReport(result: self)
@@ -95,7 +95,7 @@ public struct TraceResult {
 
 fileprivate extension TraceResult {
     
-    mutating func categorize(firedItem item: TraceItem) {
+    func categorize(firedItem item: TraceItem) {
         // Update the tailing log and trace state
         func updateLog(with newItem: TraceItem, state: TraceItemState) {
             statesForAllLoggedItems.append([newItem: state])
@@ -154,10 +154,13 @@ fileprivate extension TraceResult {
         }
     }
     
-    mutating func updateTraceState(finalizing: Bool = false) {
+    func updateTraceState(finalizing: Bool = false) {
         // Once a trace is deemed failing, nothing can change
         // that result without re-running the trace
-        guard state != .failed else { return }
+        guard state != .failed else {
+            state = .failed
+            return
+        }
         
         // Check for failing states first
         let failedItems: TraceItemStateDictionary?
@@ -189,6 +192,7 @@ fileprivate extension TraceResult {
         // Check if all items are waiting to be matched
         let allItemsWaitingToBeMatched = statesForItemsToMatch.first(where: { ($0.values.first != .waitingToBeMatched) }) == nil
         if allItemsWaitingToBeMatched {
+            state = .waiting
             return
         }
         

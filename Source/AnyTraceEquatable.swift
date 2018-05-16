@@ -11,10 +11,10 @@ import Foundation
 /// Type erased box for any value conforming to `Equatable`
 /// which allows for polymorphic non-homogeneity amongst items in collections.
 ///
-/// E.g. let itemsToMatch: = [AnyTraceEquatable("string"),
-///                           AnyTraceEquatable(["a", "b", "c"]),
-///                           AnyTraceEquatable(["key": "value"]),
-///                           AnyTraceEquatable(myCustomEquatableType)]
+/// E.g. let itemsToMatch = [AnyTraceEquatable("string"),
+///                          AnyTraceEquatable(["a", "b", "c"]),
+///                          AnyTraceEquatable(["key": "value"]),
+///                          AnyTraceEquatable(myCustomEquatableType)]
 ///
 /// Note: this boxed type erasure design pattern comes from `AnyHashable`
 /// via https://github.com/apple/swift/blob/master/stdlib/public/core/AnyHashable.swift

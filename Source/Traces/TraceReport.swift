@@ -37,20 +37,11 @@ public struct TraceReport {
     // MARK: - Private Properties
     
     fileprivate lazy var startTime: String = {
-        return dateFormatter.string(from: result.startTime)
+        return TraceDateFormatter.default.string(from: result.startTime)
     }()
     
     fileprivate lazy var endTime: String = {
-        return dateFormatter.string(from: result.endTime ?? Date())
-    }()
-    
-    // E.g. May 3, 2018 at 12:23:53 PM
-    fileprivate lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .medium
-        formatter.locale = Locale.current
-        return formatter
+        return TraceDateFormatter.default.string(from: result.endTime ?? Date())
     }()
     
     fileprivate lazy var legend: String = {

@@ -21,7 +21,7 @@ final class TraceReportTests: XCTestCase {
         let trace = Trace(name: "summaryLog",
                           itemsToMatch: [ia, ib, ic, id, ie])
         
-        var result = TraceResult(trace: trace)
+        let result = TraceResult(trace: trace)
         result.handleFiring(of: ia)
         result.handleFiring(of: ib)
         result.handleFiring(of: ic)
@@ -64,7 +64,7 @@ final class TraceReportTests: XCTestCase {
         let trace = Trace(name: "summaryLogMissing",
                           itemsToMatch: [ia, ib, ic, id, ie])
         
-        var result = TraceResult(trace: trace)
+        let result = TraceResult(trace: trace)
         result.handleFiring(of: ia)
         result.finalize()
         
@@ -79,7 +79,7 @@ final class TraceReportTests: XCTestCase {
         let trace = Trace(name: "summaryLogOrder",
                           itemsToMatch: [ia, ib, ic, id, ie])
         
-        var result = TraceResult(trace: trace)
+        let result = TraceResult(trace: trace)
         result.handleFiring(of: ie)
         result.finalize()
         
@@ -95,7 +95,7 @@ final class TraceReportTests: XCTestCase {
                           allowDuplicates: false,
                           itemsToMatch: [ia, ib, ic, id, ie])
         
-        var result = TraceResult(trace: trace)
+        let result = TraceResult(trace: trace)
         result.handleFiring(of: ia)
         result.handleFiring(of: ia)
         result.finalize()
@@ -111,7 +111,7 @@ final class TraceReportTests: XCTestCase {
         let trace = Trace(name: "summaryLogIgnored",
                           itemsToMatch: [ia, ib, ic, id, ie])
         
-        var result = TraceResult(trace: trace)
+        let result = TraceResult(trace: trace)
         result.handleFiring(of: ia)
         result.handleFiring(of: ia)
         result.handleFiring(of: ia)
@@ -130,7 +130,7 @@ final class TraceReportTests: XCTestCase {
         let trace = Trace(name: "rawLog",
                           itemsToMatch: [ia, ib, ic, id, ie])
         
-        var result = TraceResult(trace: trace)
+        let result = TraceResult(trace: trace)
         result.handleFiring(of: ia)
         result.handleFiring(of: ib)
         result.handleFiring(of: ic)

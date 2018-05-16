@@ -6,7 +6,6 @@
 [![Swift 3+](https://img.shields.io/badge/language-Swift-blue.svg)](https://swift.org)
 [![iOS](https://img.shields.io/badge/OS-iOS-orange.svg)](https://developer.apple.com/ios/)
 
-
 ## What it does
 
 Coming soon...
@@ -30,7 +29,6 @@ github "KeepSafe/Tracer-iOS"
 ```
 
 Or [manually install it](#manual-installation)
-
 
 ## Manual Installation
 

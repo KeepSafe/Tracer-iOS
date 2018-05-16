@@ -40,7 +40,7 @@ final class TraceResultTests: XCTestCase {
     }
     
     func testHandlingFiringOfItem() {
-        var result = testResult(for: "firingOfItem")
+        let result = testResult(for: "firingOfItem")
         
         // Ensure it logs the item and updates the state
         verifyMatchedItemState(in: result, item: ti1, state: .waitingToBeMatched)
@@ -55,7 +55,7 @@ final class TraceResultTests: XCTestCase {
     }
     
     func testFinalizing() {
-        var result = testResult(for: "finalize")
+        let result = testResult(for: "finalize")
         
         // Log an item so we have one matched
         result.handleFiring(of: ti1)
@@ -70,7 +70,7 @@ final class TraceResultTests: XCTestCase {
     }
     
     func testStatesForAllLoggedItems() {
-        var result = testResult(for: "finalize")
+        let result = testResult(for: "finalize")
         
         // Log an item that will match and one that will be ignored
         result.handleFiring(of: ti1)
@@ -84,7 +84,7 @@ final class TraceResultTests: XCTestCase {
     }
     
     func testStateChanges() {
-        var result = testResult(for: "stateChanges")
+        let result = testResult(for: "stateChanges")
         
         // Waiting
         XCTAssertTrue(result.state == .waiting)
@@ -100,7 +100,7 @@ final class TraceResultTests: XCTestCase {
         XCTAssertTrue(result.state == .passed)
         
         // Failed (nothing logged so items were all missing)
-        var failedResult = testResult(for: "failedStateChanges")
+        let failedResult = testResult(for: "failedStateChanges")
         XCTAssertTrue(failedResult.state == .waiting)
         failedResult.finalize()
         XCTAssertTrue(failedResult.state == .failed)
@@ -110,26 +110,26 @@ final class TraceResultTests: XCTestCase {
     
     func testItemFiringCategorization() {
         // Ignored, no match
-        var r1 = testResult(for: "ignored, no match")
+        let r1 = testResult(for: "ignored, no match")
         r1.handleFiring(of: ignoredItem)
         verifyLoggedItemState(in: r1, item: ignoredItem, state: .ignoredNoMatch)
 
         // Matched
-        var r2 = testResult(for: "matched")
+        let r2 = testResult(for: "matched")
         r2.handleFiring(of: ti1)
         r2.handleFiring(of: ti2)
         verifyLoggedItemState(in: r2, item: ti1, state: .matched)
         verifyLoggedItemState(in: r2, item: ti2, state: .matched)
         
         // Out-of-order
-        var r3 = testResult(for: "out-of-order")
+        let r3 = testResult(for: "out-of-order")
         r3.handleFiring(of: ti2)
         r3.handleFiring(of: ti1)
         verifyMatchedItemState(in: r3, item: ti2, state: .outOfOrder)
         verifyMatchedItemState(in: r3, item: ti1, state: .outOfOrder)
         
         // Ignored, but matched
-        var r4 = testResult(for: "ignored, but matched")
+        let r4 = testResult(for: "ignored, but matched")
         r4.handleFiring(of: ti1)
         verifyLoggedItemState(in: r4, item: ti1, state: .matched)
         // Fire it again and it should ignore it since all items
@@ -138,7 +138,7 @@ final class TraceResultTests: XCTestCase {
         verifyLoggedItemState(in: r4, item: ti1, state: .ignoredButMatched)
         
         // Duplicate, or Had duplicates
-        var r5 = testResult(for: "duplicates", allowDuplicates: false)
+        let r5 = testResult(for: "duplicates", allowDuplicates: false)
         r5.handleFiring(of: ti1)
         r5.handleFiring(of: ti1)
         verifyMatchedItemState(in: r5, item: ti1, state: .hadDuplicates)
@@ -148,7 +148,7 @@ final class TraceResultTests: XCTestCase {
     // MARK: - Order Logic
     
     func testCorrectOrderPasses() {
-        var result = testResult(for: "correctOrder")
+        let result = testResult(for: "correctOrder")
         result.handleFiring(of: ti1)
         result.handleFiring(of: ti2)
         XCTAssertTrue(result.state == .passing)
@@ -160,7 +160,7 @@ final class TraceResultTests: XCTestCase {
         let trace = Trace(name: "multipleTypeCorrectOrder",
                           itemsToMatch: [i1, i1, i2, i3, i3, i4, i5, i6])
         
-        var result = TraceResult(trace: trace)
+        let result = TraceResult(trace: trace)
         result.handleFiring(of: i1)
         result.handleFiring(of: i1)
         result.handleFiring(of: i2)
@@ -174,7 +174,7 @@ final class TraceResultTests: XCTestCase {
     }
     
     func testIncorrectOrderFails() {
-        var result = testResult(for: "incorrectOrder")
+        let result = testResult(for: "incorrectOrder")
         result.handleFiring(of: ti2)
         XCTAssertTrue(result.state == .failed)
         result.handleFiring(of: ti1)
@@ -188,7 +188,7 @@ final class TraceResultTests: XCTestCase {
                           itemsToMatch: [i1, i2, i3, i4, i5, i6])
         
         // Fire them in arbitrary orders
-        var r1 = TraceResult(trace: trace)
+        let r1 = TraceResult(trace: trace)
         r1.handleFiring(of: i1)
         XCTAssertTrue(r1.state == .passing)
         r1.handleFiring(of: i6)
@@ -206,7 +206,7 @@ final class TraceResultTests: XCTestCase {
         r1.handleFiring(of: i6)
         XCTAssertTrue(r1.state == .failed)
         
-        var r2 = TraceResult(trace: trace)
+        let r2 = TraceResult(trace: trace)
         r2.handleFiring(of: i1)
         r2.handleFiring(of: i1)
         r2.handleFiring(of: i2)
@@ -223,7 +223,7 @@ final class TraceResultTests: XCTestCase {
                           itemsToMatch: [i1, i2, i3, i4, i5, i6])
         
         // Fire them in arbitrary orders
-        var r1 = TraceResult(trace: trace)
+        let r1 = TraceResult(trace: trace)
         r1.handleFiring(of: i1)
         r1.handleFiring(of: i6)
         r1.handleFiring(of: i3)
@@ -244,7 +244,7 @@ final class TraceResultTests: XCTestCase {
                           itemsToMatch: [i1, i2, i3, i4, i5, i6])
         
         // Fire a passing state, but fail on duplicates
-        var r1 = TraceResult(trace: trace)
+        let r1 = TraceResult(trace: trace)
         r1.handleFiring(of: i1)
         r1.handleFiring(of: i2)
         r1.handleFiring(of: i3)
@@ -261,7 +261,7 @@ final class TraceResultTests: XCTestCase {
         verifyLoggedItemState(in: r1, item: i1, state: .duplicate)
         
         // Fail with duplicates early on
-        var r2 = TraceResult(trace: trace)
+        let r2 = TraceResult(trace: trace)
         r2.handleFiring(of: i1)
         XCTAssertTrue(r2.state == .passing)
         r2.handleFiring(of: i1)
@@ -285,7 +285,7 @@ final class TraceResultTests: XCTestCase {
                           itemsToMatch: [i1, i2, i3, i4, i5, i6])
         
         // Fire in random order, but only fail on duplicates
-        var r1 = TraceResult(trace: trace)
+        let r1 = TraceResult(trace: trace)
         r1.handleFiring(of: i3)
         r1.handleFiring(of: i2)
         r1.handleFiring(of: i1)
