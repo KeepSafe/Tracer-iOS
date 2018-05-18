@@ -17,6 +17,7 @@ final class TraceUIContainer: Viewing {
         traceUIView = TraceUIView()
         traceUIPresenter = TraceUIPresenter(view: traceUIView)
         splitView = TraceUISplitView(resizableView: traceUIView)
+        toastPresenter = TraceUIToastPresenter()
         window = TraceUIWindow(rootViewController: splitView)
         
         setupView()
@@ -44,13 +45,48 @@ final class TraceUIContainer: Viewing {
     // MARK: - Animations
     
     func collapse() {
+        isCollapsed = true
         let animator = TraceUIRevealAnimator(isExpanding: false, triggeringButton: statusButton, expandableView: splitView.view)
         animator.start()
     }
     
     func expand() {
+        isCollapsed = false
         let animator = TraceUIRevealAnimator(isExpanding: true, triggeringButton: statusButton, expandableView: splitView.view)
         animator.start()
+    }
+    
+    // MARK: - Toasts
+    
+    func show(toast: TraceUIToast) {
+        guard isCollapsed else { return }
+        
+        let toastView = toast.view
+        toastView.alpha = 0
+        toastView.translatesAutoresizingMaskIntoConstraints = false
+        
+        window.layoutIfNeeded()
+        window.addSubview(toastView)
+        NSLayoutConstraint.activate([toastView.bottomAnchor.constraint(equalTo: window.bottomAnchor, constant: -20),
+                                     toastView.centerXAnchor.constraint(equalTo: window.centerXAnchor)])
+        window.layoutIfNeeded()
+        
+        currentToast = toast
+        UIView.animate(withDuration: TraceAnimation.duration, delay: 0, options: [.beginFromCurrentState], animations: {
+            toastView.alpha = 1
+        }) { _ in
+            // Display it for a couple of seconds
+            UIView.animate(withDuration: 2, animations: {
+                toastView.alpha = 1.001
+            }, completion: { _ in
+                UIView.animate(withDuration: TraceAnimation.duration, animations: {
+                    toastView.alpha = 0
+                }, completion: { _ in
+                    self.currentToast = nil
+                    toast.finish()
+                })
+            })
+        }
     }
     
     // MARK: - Status Button
@@ -99,6 +135,7 @@ final class TraceUIContainer: Viewing {
     
     private let window: TraceUIWindow
     
+    private let toastPresenter: TraceUIToastPresenter
     private let splitView: TraceUISplitView
     private let traceUIPresenter: TraceUIPresenter
     private let statusButton: TraceStatusButton
@@ -106,6 +143,26 @@ final class TraceUIContainer: Viewing {
     private let statusButtonPadding: CGFloat = 5
     private var statusButtonLeftConstraint: NSLayoutConstraint?
     private var statusButtonTopConstraint: NSLayoutConstraint?
+    
+    private var currentToast: TraceUIToast?
+    
+    private var isCollapsed = true {
+        didSet {
+            if isCollapsed {
+                TraceUISignals.Toasts.enable.fire(data: nil)
+            } else {
+                TraceUISignals.Toasts.disable.fire(data: nil)
+                
+                currentToast?.view.layer.removeAllAnimations()
+                UIView.animate(withDuration: 0.1, delay: 0, options: [.beginFromCurrentState], animations: {
+                    self.currentToast?.view.alpha = 0
+                }, completion: { _ in
+                    self.currentToast?.finish()
+                    self.currentToast = nil
+                })
+            }
+        }
+    }
     
     private let defaultsStore = UserDefaults.standard
     private let lastStatusButtonDragPointKey = "traceUI.lastStatusButtonDragPointKey"

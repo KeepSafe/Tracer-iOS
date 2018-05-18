@@ -13,7 +13,10 @@ internal extension Dictionary where Key: ExpressibleByStringLiteral, Value: Cust
     
     func attributedLoggerDescription(fontSize: CGFloat) -> NSAttributedString {
         let v = NSMutableAttributedString(string: "")
-        let boldAttribute: [NSAttributedStringKey: Any] = [.font: UIFont.boldSystemFont(ofSize: fontSize)]
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .left
+        let boldAttribute: [NSAttributedStringKey: Any] = [.paragraphStyle: paragraph,
+                                                           .font: UIFont.boldSystemFont(ofSize: fontSize)]
         for (key, value) in self {
             let boldString = NSAttributedString(string: "\(key)", attributes: boldAttribute)
             v.append(boldString)

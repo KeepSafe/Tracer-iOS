@@ -119,6 +119,8 @@ public final class TraceUI: Listening {
         }
         logger.log(item: loggedItem)
         TraceUISignals.Logger.itemLogged.fire(data: loggedItem)
+        
+        TraceUISignals.Toasts.queue.fire(data: loggedItem)
     }
     
     /// Clears the tailing log

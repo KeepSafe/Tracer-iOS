@@ -46,5 +46,12 @@ internal struct TraceUISignals {
         static let statusButtonDragged = TraceSignal<(touchPoint: CGPoint, gestureState: UIGestureRecognizerState)>()
     }
     
+    internal struct Toasts {
+        static let enable = TraceActionSignal()
+        static let queue = TraceSignal<LoggedItem>()
+        static let show = TraceSignal<TraceUIToast>()
+        static let disable = TraceActionSignal()
+    }
+    
     private init() {}
 }

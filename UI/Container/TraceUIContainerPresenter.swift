@@ -70,6 +70,10 @@ private extension TraceUIContainerPresenter {
         TraceUISignals.UI.statusButtonDragged.listen { tuple in
             self.view.handleButtonDrag(with: tuple.touchPoint, gestureState: tuple.gestureState)
         }
+        
+        TraceUISignals.Toasts.show.listen { toast in
+            self.view.show(toast: toast)
+        }
     }
     
 }
