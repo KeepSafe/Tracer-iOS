@@ -67,6 +67,8 @@ private extension TraceUISplitView {
     // MARK: - View Setup
     
     func setupView() {
+        view.accessibilityLabel = "TraceUISplitView"
+        
         dragIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         resizableView.translatesAutoresizingMaskIntoConstraints = false
         

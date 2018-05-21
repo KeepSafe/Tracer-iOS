@@ -12,11 +12,13 @@
 		D417C7C620A1E6A4000C1AE2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D417C7C420A1E6A4000C1AE2 /* Main.storyboard */; };
 		D417C7C820A1E6A4000C1AE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D417C7C720A1E6A4000C1AE2 /* Assets.xcassets */; };
 		D417C7CB20A1E6A4000C1AE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D417C7C920A1E6A4000C1AE2 /* LaunchScreen.storyboard */; };
-		D417C7D620A1E6A5000C1AE2 /* TraceUIExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C7D520A1E6A5000C1AE2 /* TraceUIExampleUITests.swift */; };
+		D417C7D620A1E6A5000C1AE2 /* TraceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C7D520A1E6A5000C1AE2 /* TraceUITests.swift */; };
 		D417C7FE20A1FD34000C1AE2 /* EventTrace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C7FD20A1FD34000C1AE2 /* EventTrace.swift */; };
 		D417C80020A1FDF0000C1AE2 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417C7FF20A1FDF0000C1AE2 /* Event.swift */; };
 		D417C80220A20002000C1AE2 /* Tracer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D417C80120A20002000C1AE2 /* Tracer.framework */; };
 		D417C80320A20002000C1AE2 /* Tracer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D417C80120A20002000C1AE2 /* Tracer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D43ADBF720B31C1E007519F7 /* TraceUITests+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43ADBF620B31C1E007519F7 /* TraceUITests+Helpers.swift */; };
+		D4567B5F20B3326900FC96D5 /* TestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4567B5E20B3326900FC96D5 /* TestController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,11 +54,13 @@
 		D417C7CA20A1E6A4000C1AE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D417C7CC20A1E6A4000C1AE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D417C7D120A1E6A5000C1AE2 /* TraceUIExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TraceUIExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D417C7D520A1E6A5000C1AE2 /* TraceUIExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIExampleUITests.swift; sourceTree = "<group>"; };
+		D417C7D520A1E6A5000C1AE2 /* TraceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUITests.swift; sourceTree = "<group>"; };
 		D417C7D720A1E6A5000C1AE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D417C7FD20A1FD34000C1AE2 /* EventTrace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTrace.swift; sourceTree = "<group>"; };
 		D417C7FF20A1FDF0000C1AE2 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		D417C80120A20002000C1AE2 /* Tracer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Tracer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D43ADBF620B31C1E007519F7 /* TraceUITests+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TraceUITests+Helpers.swift"; sourceTree = "<group>"; };
+		D4567B5E20B3326900FC96D5 /* TestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,7 +118,8 @@
 		D417C7D420A1E6A5000C1AE2 /* TraceUIExampleUITests */ = {
 			isa = PBXGroup;
 			children = (
-				D417C7D520A1E6A5000C1AE2 /* TraceUIExampleUITests.swift */,
+				D43ADBF620B31C1E007519F7 /* TraceUITests+Helpers.swift */,
+				D417C7D520A1E6A5000C1AE2 /* TraceUITests.swift */,
 				D417C7D720A1E6A5000C1AE2 /* Info.plist */,
 			);
 			path = TraceUIExampleUITests;
@@ -124,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				D417C7C220A1E6A4000C1AE2 /* ViewController.swift */,
+				D4567B5E20B3326900FC96D5 /* TestController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -239,6 +245,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4567B5F20B3326900FC96D5 /* TestController.swift in Sources */,
 				D417C7FE20A1FD34000C1AE2 /* EventTrace.swift in Sources */,
 				D417C7C320A1E6A4000C1AE2 /* ViewController.swift in Sources */,
 				D417C80020A1FDF0000C1AE2 /* Event.swift in Sources */,
@@ -250,7 +257,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D417C7D620A1E6A5000C1AE2 /* TraceUIExampleUITests.swift in Sources */,
+				D43ADBF720B31C1E007519F7 /* TraceUITests+Helpers.swift in Sources */,
+				D417C7D620A1E6A5000C1AE2 /* TraceUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
