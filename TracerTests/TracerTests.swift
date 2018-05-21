@@ -53,6 +53,15 @@ final class TracerTests: XCTestCase {
         XCTAssertTrue(tracer.result.statesForAllLoggedItems.first?.keys.first == testTraceItem)
     }
     
+    func testStartTwiceIsANoOp() {
+        let trace = Trace(name: "startSignalsNoOp", itemsToMatch: [testTraceItem])
+        let tracer = Tracer(trace: trace)
+        let signals = tracer.start()
+        XCTAssertNotNil(signals)
+        let signals2 = tracer.start()
+        XCTAssertNotNil(signals2)
+    }
+    
     func testStopRemovesListener() {
         let trace = Trace(name: "stopSignals", itemsToMatch: [testTraceItem])
         let tracer = Tracer(trace: trace)

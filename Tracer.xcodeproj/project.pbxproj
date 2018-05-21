@@ -65,6 +65,8 @@
 		D43ADBDB20AF60F9007519F7 /* TraceUIToastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43ADBDA20AF60F9007519F7 /* TraceUIToastViewModel.swift */; };
 		D43ADBDD20AF6321007519F7 /* TraceUIToastQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43ADBDC20AF6321007519F7 /* TraceUIToastQueue.swift */; };
 		D43ADBDF20AF64A5007519F7 /* TraceUIToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43ADBDE20AF64A5007519F7 /* TraceUIToast.swift */; };
+		D43ADBF120B30C8F007519F7 /* DictionaryItemLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43ADBF020B30C8F007519F7 /* DictionaryItemLoggerTests.swift */; };
+		D43ADBF320B30DB3007519F7 /* ItemLoggerReportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43ADBF220B30DB3007519F7 /* ItemLoggerReportTests.swift */; };
 		D45FEC65209345380084DF96 /* Trace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45FEC64209345380084DF96 /* Trace.swift */; };
 		D45FEC69209346220084DF96 /* TraceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45FEC68209346220084DF96 /* TraceItem.swift */; };
 		D463175D209232FD0008A1BC /* Tracer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4631753209232FD0008A1BC /* Tracer.framework */; };
@@ -152,6 +154,8 @@
 		D43ADBDA20AF60F9007519F7 /* TraceUIToastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIToastViewModel.swift; sourceTree = "<group>"; };
 		D43ADBDC20AF6321007519F7 /* TraceUIToastQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIToastQueue.swift; sourceTree = "<group>"; };
 		D43ADBDE20AF64A5007519F7 /* TraceUIToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceUIToast.swift; sourceTree = "<group>"; };
+		D43ADBF020B30C8F007519F7 /* DictionaryItemLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryItemLoggerTests.swift; sourceTree = "<group>"; };
+		D43ADBF220B30DB3007519F7 /* ItemLoggerReportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemLoggerReportTests.swift; sourceTree = "<group>"; };
 		D45FEC64209345380084DF96 /* Trace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trace.swift; sourceTree = "<group>"; };
 		D45FEC68209346220084DF96 /* TraceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceItem.swift; sourceTree = "<group>"; };
 		D4631753209232FD0008A1BC /* Tracer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tracer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -380,7 +384,9 @@
 			isa = PBXGroup;
 			children = (
 				D4631761209232FD0008A1BC /* AnyTraceEquatableTests.swift */,
+				D43ADBF020B30C8F007519F7 /* DictionaryItemLoggerTests.swift */,
 				D417C82920A39883000C1AE2 /* ItemLoggerTests.swift */,
+				D43ADBF220B30DB3007519F7 /* ItemLoggerReportTests.swift */,
 				D417C82720A39878000C1AE2 /* LoggedItemTests.swift */,
 				D4111609209B4EFD00702064 /* TraceTests.swift */,
 				D411160B209B518300702064 /* TraceItemTests.swift */,
@@ -609,10 +615,12 @@
 			files = (
 				D4037728209CA8670093E519 /* TracerTests.swift in Sources */,
 				D411160C209B518300702064 /* TraceItemTests.swift in Sources */,
+				D43ADBF320B30DB3007519F7 /* ItemLoggerReportTests.swift in Sources */,
 				D411160A209B4EFD00702064 /* TraceTests.swift in Sources */,
 				D4631762209232FD0008A1BC /* AnyTraceEquatableTests.swift in Sources */,
 				D417C82A20A39883000C1AE2 /* ItemLoggerTests.swift in Sources */,
 				D417C82820A39878000C1AE2 /* LoggedItemTests.swift in Sources */,
+				D43ADBF120B30C8F007519F7 /* DictionaryItemLoggerTests.swift in Sources */,
 				D4111604209A300800702064 /* TraceResultTests.swift in Sources */,
 				D4111610209B578D00702064 /* TraceSignalTests.swift in Sources */,
 				D4111612209B666C00702064 /* TraceReportTests.swift in Sources */,
