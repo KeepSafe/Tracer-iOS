@@ -1,6 +1,6 @@
 # Tracer
 
-[![Build Status](https://travis-ci.com/KeepSafe/Tracer-iOS.svg)](https://travis-ci.com/KeepSafe/Tracer-iOS)
+[![Build Status](https://travis-ci.com/KeepSafe/Tracer-iOS.svg?token=FkPqyrwwnAY4pErzdxwy&branch=master)](https://travis-ci.com/KeepSafe/Tracer-iOS)
 [![Apache 2.0 licensed](https://img.shields.io/badge/license-Apache2-blue.svg)](https://github.com/KeepSafe/Tracer-iOS/blob/master/LICENSE)
 [![CocoaPods](https://img.shields.io/cocoapods/v/Tracer.svg?maxAge=10800)]()
 [![Swift 3+](https://img.shields.io/badge/language-Swift-blue.svg)](https://swift.org)
