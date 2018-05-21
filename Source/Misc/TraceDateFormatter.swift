@@ -16,6 +16,4 @@ struct TraceDateFormatter {
         formatter.locale = Locale.current
         return formatter
     }()
-    
-    private init() {}
 }

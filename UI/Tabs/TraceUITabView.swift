@@ -55,6 +55,7 @@ final class TraceUITabView: UIView, Viewing {
         let button = TraceUIIconButton(icon: .inBundle(named: "CloseIcon"), backgroundColor: .clear, tapped: {
             TraceUISignals.UI.closeTraceDetail.fire(data: nil)
         })
+        button.accessibilityLabel = "CloseTraceDetails"
         button.alpha = 0
         return button
     }()
@@ -69,6 +70,7 @@ final class TraceUITabView: UIView, Viewing {
         let button = TraceUIIconButton(icon: .inBundle(named: "SettingsIcon"), backgroundColor: .clear, tapped: {
             TraceUISignals.UI.showSettings.fire(data: self.settingsButton)
         })
+        button.accessibilityLabel = "ShowTraceSettings"
         button.alpha = 0
         return button
     }()
@@ -77,6 +79,7 @@ final class TraceUITabView: UIView, Viewing {
         let button = TraceUIIconButton(icon: .inBundle(named: "ExportIcon"), backgroundColor: .clear, tapped: {
             TraceUISignals.UI.exportTrace.fire(data: nil)
         })
+        button.accessibilityLabel = "ExportTraceReport"
         button.alpha = 0
         return button
     }()
@@ -85,6 +88,7 @@ final class TraceUITabView: UIView, Viewing {
         let button = TraceUIIconButton(icon: .inBundle(named: "DownArrow"), backgroundColor: UIColor.TraceUI.blueGray, tapped: {
             TraceUISignals.UI.collapseTool.fire(data: nil)
         })
+        button.accessibilityLabel = "CollapseTraceUI"
         button.alpha = 0
         return button
     }()

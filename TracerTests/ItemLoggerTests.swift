@@ -25,6 +25,15 @@ final class ItemLoggerTests: XCTestCase {
         XCTAssertTrue(logger.loggedItems.first?.item == AnyTraceEquatable(1))
     }
     
+    func testLoggingLoggedItem() {
+        let logger = ItemLogger()
+        logger.start()
+        let li = LoggedItem(item: AnyTraceEquatable("hai"))
+        logger.log(item: li)
+        XCTAssertTrue(logger.loggedItems.count == 1)
+        XCTAssertTrue(logger.loggedItems.first?.item == li.item)
+    }
+    
     func testStartingWhileRunningDoesNothing() {
         let logger = ItemLogger()
         logger.start()

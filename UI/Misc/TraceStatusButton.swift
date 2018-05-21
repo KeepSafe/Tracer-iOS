@@ -21,11 +21,14 @@ final class TraceStatusButton: TraceUIIconButton {
         })
         
         setupView()
+        setupAccessibilityLabel()
     }
     
     // MARK: - View Model
     
     func configure(with state: TraceState?) {
+        traceState = state
+        setupAccessibilityLabel()
         guard let state = state else {
             changeColor(to: UIColor.TraceUI.StatusButton.blueGray)
             return
@@ -42,6 +45,8 @@ final class TraceStatusButton: TraceUIIconButton {
         return gesture
     }()
     
+    private var traceState: TraceState?
+    
     // MARK: - Unsupported Initializers
     
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -50,6 +55,15 @@ final class TraceStatusButton: TraceUIIconButton {
 // MARK: - Private API
 
 private extension TraceStatusButton {
+    func setupAccessibilityLabel() {
+        accessibilityLabel = "ExpandTraceUI"
+        if let state = traceState {
+            accessibilityValue = "state = \(state)"
+        } else {
+            accessibilityValue = "state = inactive"
+        }
+    }
+    
     func setupView() {
         addGestureRecognizer(longPressGesture)
         

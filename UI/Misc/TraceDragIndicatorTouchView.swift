@@ -64,6 +64,8 @@ final class TraceDragIndicatorTouchView: UIView, Viewing {
 
 private extension TraceDragIndicatorTouchView {
     func setupView() {
+        accessibilityLabel = "TraceUIDragToResizeView"
+        
         backgroundColor = .clear
         
         dragIndicatorView.translatesAutoresizingMaskIntoConstraints = false

@@ -20,21 +20,25 @@ final class TraceUIStartStopButton: UIView, Viewing {
         super.init(frame: .zero)
         
         setupView()
+        setupAccessibility()
     }
     
     // MARK: - API
     
-    func configure(traceName: String, state: StartStopButtonState) {
+    func configure(traceName: String, state newState: StartStopButtonState) {
+        state = newState
+        setupAccessibility()
+        
         guard state != .hidden else { return }
         
         traceNameLabel.text = traceName
         UIView.animate(withDuration: TraceAnimation.duration) {
-            if state == .stopped {
+            if self.state == .stopped {
                 self.startTraceButton.alpha = 0
                 self.stopTraceButton.alpha = 0
             } else {
-                self.startTraceButton.alpha = state == .readyToStart ? 1 : 0
-                self.stopTraceButton.alpha = state == .started ? 1 : 0
+                self.startTraceButton.alpha = self.state == .readyToStart ? 1 : 0
+                self.stopTraceButton.alpha = self.state == .started ? 1 : 0
             }
         }
     }
@@ -51,6 +55,7 @@ final class TraceUIStartStopButton: UIView, Viewing {
         let button = TraceUIIconButton(icon: .inBundle(named: "StartTraceIcon"), backgroundColor: .clear, tapped: {
             TraceUISignals.UI.startTrace.fire(data: nil)
         })
+        button.accessibilityLabel = "StartTrace"
         return button
     }()
     
@@ -58,6 +63,7 @@ final class TraceUIStartStopButton: UIView, Viewing {
         let button = TraceUIIconButton(icon: .inBundle(named: "StopTraceIcon"), backgroundColor: .clear, tapped: {
             TraceUISignals.UI.stopTrace.fire(data: nil)
         })
+        button.accessibilityLabel = "StopTrace"
         button.alpha = 0
         return button
     }()
@@ -83,6 +89,10 @@ final class TraceUIStartStopButton: UIView, Viewing {
 // MARK: - Private API
 
 private extension TraceUIStartStopButton {
+    func setupAccessibility() {
+        accessibilityLabel = "\(TraceUIStartStopButton.self)"
+        accessibilityValue = "state = \(state)"
+    }
     
     func setupView() {
         traceNameLabel.translatesAutoresizingMaskIntoConstraints = false
