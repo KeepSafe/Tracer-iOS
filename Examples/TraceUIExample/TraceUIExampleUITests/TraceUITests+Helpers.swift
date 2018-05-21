@@ -23,6 +23,10 @@ extension TraceUITests {
         XCTAssertTrue(cell(containing: label).exists)
     }
     
+    func cellDoesNotExist(containing label: String) {
+        XCTAssertFalse(cell(containing: label).exists)
+    }
+    
     func otherElementExists(withIdentifier identifier: String) -> Bool {
         let query = app.windows.otherElements.matching(identifier: identifier)
         if query.count == 0 { return false }

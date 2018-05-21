@@ -27,13 +27,13 @@ enum EventTrace: String {
             return Trace(name: self.rawValue,
                          enforceOrder: false,
                          allowDuplicates: false,
-                         assertOnFailure: true,
+                         /*assertOnFailure: true,*/
                          itemsToMatch: Event.traceItems(from: [.one,
                                                                .two,
                                                                .three]),
                          setupSteps: ["Order doesn't matter for this trace",
                                       "But it can't include duplicate events",
-                                      "And it will assert when you fail"],
+                                      "And it can optionally assert when you fail"],
                          setupBeforeStartingTrace: {
                             print("STARTING ZE TRACE!")
                             // You can do other things here like setup the app
