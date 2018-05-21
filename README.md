@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.com/KeepSafe/Tracer-iOS.svg?token=FkPqyrwwnAY4pErzdxwy&branch=master)](https://travis-ci.com/KeepSafe/Tracer-iOS)
 [![Apache 2.0 licensed](https://img.shields.io/badge/license-Apache2-blue.svg)](https://github.com/KeepSafe/Tracer-iOS/blob/master/LICENSE)
 [![CocoaPods](https://img.shields.io/cocoapods/v/Tracer.svg?maxAge=10800)]()
-[![Swift 3+](https://img.shields.io/badge/language-Swift-blue.svg)](https://swift.org)
+[![Swift 4+](https://img.shields.io/badge/language-Swift-blue.svg)](https://swift.org)
 [![iOS](https://img.shields.io/badge/OS-iOS-orange.svg)](https://developer.apple.com/ios/)
 
 ## What it does
@@ -19,7 +19,9 @@ Coming soon...
 Quickly install using [CocoaPods](https://cocoapods.org): 
 
 ```ruby
-pod 'Tracer'
+pod 'Tracer/UI'
+# or don't include the UI component
+pod 'Tracer/Core'
 ```
 
 Or [Carthage](https://github.com/Carthage/Carthage):
@@ -50,7 +52,7 @@ Please use the [Github issue tracker](https://github.com/KeepSafe/Tracer-iOS/iss
 
 ## License
 
-Tracer for iOS / macOS is licensed under the [Apache Software License, 2.0 ("Apache 2.0")](https://github.com/KeepSafe/Tracer-iOS/blob/master/LICENSE)
+Tracer for iOS is licensed under the [Apache Software License, 2.0 ("Apache 2.0")](https://github.com/KeepSafe/Tracer-iOS/blob/master/LICENSE)
 
 ## Authors
 
