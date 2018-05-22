@@ -16,7 +16,13 @@ Anything that can be represented as `Equatable` can be logged and validated duri
 
 You can either run the traces manually, using the built-in UI that floats over top of your app, or have important traces run automatically during unit or UI tests.
 
+### Examples
+
 See [example gifs](#examples) below or see the [Examples folder](https://github.com/KeepSafe/Tracer-iOS/tree/master/Examples) for demonstrations of using it. 
+
+### API
+
+Or jump into the [API section](#api) below if you're ready to implement.
 
 ## Installation
 
@@ -91,6 +97,152 @@ Order doesn't matter for this trace, so passing it would look like:
 Optionally, you can also add your own custom settings to the trace tool (or even show custom emojis for a logged item):
 
 ![customsettings](https://user-images.githubusercontent.com/30269720/40362532-c42227a6-5d9a-11e8-8bed-a7358bbef5ea.gif)
+
+## API
+
+### UI
+
+If you're using the UI frontend, you'll be interacting directly through [TraceUI.swift](https://github.com/KeepSafe/Tracer-iOS/blob/master/UI/TraceUI.swift). See the [TraceUIExample](https://github.com/KeepSafe/Tracer-iOS/tree/master/Examples/TraceUIExample).
+
+```swift
+let traceUI = TraceUI()
+traceUI.show()
+```
+
+You can also toggle this to `.hide()` via a debug setting if you'd like.
+
+> **Note**: If you're starting this tool in your `AppDelegate`, you should lazily load it after your app window loads to ensure the tool starts properly. The best thing to do is listen for `.UIWindowDidBecomeKey` and only show it after that happens.
+
+#### Configuration
+
+Load traces into the UI using:
+
+```swift
+traceUI.add(traces: [MyTraces.all])
+```
+
+#### Logging & Validation
+
+If you're logging an item specifically to be validated against for a trace, use:
+
+```swift
+traceUI.log(traceItem: Event.three.toTraceItem)
+```
+
+Here we're just creating an `Event` enum with the events we're firing within the app and then using the `.toTraceItem` property to transform it:
+
+```swift
+enum Event: String {
+    case one
+    case two
+    case three
+    
+    var uxFlowHint: String {
+        switch self {
+        case .one: return "Press the 'Fire event 1' button"
+        case .two: return "Press the 'Fire event 2' button"
+        case .three: return "Press the 'Fire event 3' button"
+        }
+    }
+    
+    var toTraceItem: TraceItem {
+        return TraceItem(type: "event", itemToMatch: AnyTraceEquatable(self), uxFlowHint: uxFlowHint)
+    }
+}
+````
+
+Otherwise, you can also generically log (without it validating against an ongoing trace) by using:
+
+```swift
+traceUI.log(genericItem: AnyTraceEquatable("Moooooooooo"), emojiToPrepend: "🐄")
+```
+
+#### All Logging
+
+You can see all logging functions and their documentation in [TraceUI.swift]():
+
+```swift
+public func log(traceItem: TraceItem, verboseLog: AnyTraceEquatable? = nil, emojiToPrepend: String? = "⚡️") {}
+
+public func logVerbose(traceItem: TraceItem, emojiToPrepend: String? = "⚡️") { }
+
+public func log(genericItem: AnyTraceEquatable, properties: LoggedItemProperties? = nil, emojiToPrepend: String? = "⚡️") { }
+```
+
+### Programmatic API
+
+If you'd rather not use the built-in UI frontend, you can set up your traces to run manually, such as during unit or UI tests. See the [AnalyticsTraceExample](https://github.com/KeepSafe/Tracer-iOS/tree/master/Examples/AnalyticsTraceExample).
+
+Feel free to have a look through the [unit tests](https://github.com/KeepSafe/Tracer-iOS/tree/master/TracerTests) for examples.
+
+#### Creating and starting a trace
+
+```swift
+// This is an individual item to match and could be in multiple traces
+let answerTraceItem = TraceItem(type: "The answer to the universe", itemToMatch: AnyTraceEquatable(42))
+// This is a trace with an array of items it needs to match in order to pass
+let trace = Trace(name: "Find the answer", itemsToMatch: [answerTraceItem])
+// And this is the time-scoped tracer that handles logging and creating pass/fail results
+let tracer = Tracer(trace: trace)
+
+// Starting a trace returns a tuple with the current state and two signals to listen to
+let (currentState, stateChangedSignal, itemLoggedSignal) = tracer.start()
+
+print("\n\n---> TRACE STARTED: \(analyticsTrace.name)")
+print("---> Current trace state: \(currentState)")
+
+// Optionally, listen to changes in this trace (and you can remove the listener at any point)
+itemLoggedListener = itemLoggedSignal.listen { traceItem in
+    print("---> Trace item logged: \(traceItem)")
+}
+stateChangedListener = stateChangedSignal.listen { traceState in
+    print("---> Trace state updated to: \(traceState.rawValue)")
+    print("---> Trace state description: \(traceState)")
+}
+```
+
+#### Logging
+
+Logging during a trace is simple:
+
+```swift
+tracer.log(item: answerTraceItem)
+
+// After an item is logged, your trace will immediately either be passing or failing.
+// Optionally, you can set `assertOnFailure` to `true` on your `Trace` instance to stop 
+// app execution as soon as a trace fails so you can debug.
+```
+
+Or you can even hook it into your `Analytics` struct:
+
+```swift
+Analytics.log(event: .thirdViewSeen)
+
+/// See example app for this setup
+struct Analytics {
+    
+    static func log(event: AnalyticsEvent) {
+        print("\n\nANALYTICS: \(event.rawValue) logged")
+        
+        Tracers.analytics.activeTracer?.log(item: event.toTraceItem)
+    }
+    
+}
+```
+
+#### Stopping & Reporting
+
+Stopping a trace returns a `TraceReport` with raw or summary versions of the results
+
+```swift
+// FYI: signal listeners are automatically removed when stopped
+let report = tracer.stop()
+print(report.summary)
+print(report.rawLog)
+
+// Or manually parse the results yourself
+let results = report.result
+```
 
 ## Manual Installation
 
