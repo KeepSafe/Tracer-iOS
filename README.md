@@ -8,11 +8,13 @@
 
 ## What it does
 
-Coming soon...
+Tracer acts as an in-memory log which can run time-scoped traces to validate UX flows, analytic events, or any other kind of serial event bus.
 
-## Example Usage
+For example, if you're expecting `EventOne`, `EventTwo` and `EventThree` to be fired during a sign-up flow, Tracer can help your development or QA team validate those analytics don't break at some point. 
 
-Coming soon...
+You can either run the traces manually, using the built-in UI that floats over top of your app, or have important traces run automatically during unit or UI tests.
+
+See [example gifs](#examples) below or see the [Examples folder](https://github.com/KeepSafe/Tracer-iOS/tree/master/Examples) for demonstrations of using it. 
 
 ## Installation
 
@@ -20,7 +22,8 @@ Quickly install using [CocoaPods](https://cocoapods.org):
 
 ```ruby
 pod 'Tracer/UI'
-# or don't include the UI component
+
+# or optionally don't include the UI component
 pod 'Tracer/Core'
 ```
 
@@ -31,6 +34,10 @@ github "KeepSafe/Tracer-iOS"
 ```
 
 Or [manually install it](#manual-installation)
+
+## Example Usage
+
+Coming soon...
 
 ## Manual Installation
 
@@ -57,7 +64,3 @@ Tracer for iOS is licensed under the [Apache Software License, 2.0 ("Apache 2.0"
 ## Authors
 
 Tracer for iOS is brought to you by [Rob Phillips](https://github.com/iwasrobbed) and the rest of the [Keepsafe team](https://www.getkeepsafe.com/about.html). We'd love to have you contribute or [join us](https://www.getkeepsafe.com/careers.html).
-
-## Used by
-
-- Keepsafe (www.getkeepsafe.com)
