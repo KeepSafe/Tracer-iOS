@@ -118,7 +118,7 @@ You can also toggle this to `.hide()` via a debug setting if you'd like.
 Load traces into the UI using:
 
 ```swift
-traceUI.add(traces: [MyTraces.all])
+traceUI.add(traces: [MyTraces.traceOne, MyTraces.traceTwo])
 ```
 
 #### Logging & Validation
