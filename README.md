@@ -159,7 +159,7 @@ traceUI.log(genericItem: AnyTraceEquatable("Moooooooooo"), emojiToPrepend: "🐄
 
 #### All Logging
 
-You can see all logging functions and their documentation in [TraceUI.swift]():
+You can see all logging functions and their documentation in [TraceUI.swift](https://github.com/KeepSafe/Tracer-iOS/blob/master/UI/TraceUI.swift):
 
 ```swift
 public func log(traceItem: TraceItem, verboseLog: AnyTraceEquatable? = nil, emojiToPrepend: String? = "⚡️") {}
