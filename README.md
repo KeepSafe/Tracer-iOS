@@ -16,11 +16,11 @@ Anything that can be represented as `Equatable` can be logged and validated duri
 
 You can either run the traces manually, using the built-in UI that floats over top of your app, or have important traces run automatically during unit or UI tests.
 
-### Examples
+### Example UI Usage
 
 See [example gifs](#examples) below or see the [Examples folder](https://github.com/KeepSafe/Tracer-iOS/tree/master/Examples) for demonstrations of using it. 
 
-### API
+### API Usage
 
 Or jump into the [API section](#api) below if you're ready to implement.
 
