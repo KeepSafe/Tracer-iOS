@@ -72,8 +72,14 @@ public final class TraceResult {
             
             if oldValue != .failed && (state == .failed && trace.assertOnFailure) {
                 finalize()
-                // You can print the report on the console here
-                // (lldb) po TraceReport(result: self)
+
+                // Print the report to the debug console
+                #if DEBUG
+                    let report = TraceReport(result: self)
+                    print(report.summary)
+                    print(report.rawLog)
+                #endif
+
                 assertionFailure("Trace (\(trace.name)) failed.")
             }
         }

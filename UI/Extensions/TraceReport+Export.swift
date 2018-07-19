@@ -19,7 +19,7 @@ extension TraceReport {
         let summaryFilePath = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(summaryFilename)
         let rawLogFilePath = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(rawLogFilename)
         do {
-            var report = self
+            let report = self
             let summary = report.summary
             let rawLog = report.rawLog
             try summary.write(to: summaryFilePath, atomically: true, encoding: .utf8)

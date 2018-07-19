@@ -79,12 +79,12 @@ final class TracerTests: XCTestCase {
         tracer.start()
         tracer.log(item: testTraceItem)
         
-        var report = tracer.stop()
+        let report = tracer.stop()
         XCTAssertNotNil(report) // Generates a report
         XCTAssertTrue(report.result.state == .passed)
         
         // But will just return the same report again if called again
-        var report2 = tracer.stop()
+        let report2 = tracer.stop()
         XCTAssertTrue(report.summary == report2.summary)
     }
     
