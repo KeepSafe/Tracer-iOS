@@ -77,7 +77,9 @@ public final class TraceResult {
                 #if DEBUG
                     let report = TraceReport(result: self)
                     print(report.summary)
-                    print(report.rawLog)
+                    // Optionally, you can print the raw log
+                    // to see all events fired during the session
+//                    print(report.rawLog)
                 #endif
 
                 assertionFailure("Trace (\(trace.name)) failed.")

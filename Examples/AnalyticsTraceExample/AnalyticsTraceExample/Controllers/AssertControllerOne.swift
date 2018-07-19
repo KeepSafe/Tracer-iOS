@@ -15,7 +15,7 @@ class AssertControllerOne: UIViewController {
         
         // Fire the wrong event here (.secondViewSeen should be fired)
         // and it will assert because it caused the trace to fail
-        Analytics.log(event: .thirdViewSeen)
+        Analytics.log(event: .secondViewSeen)
     }
     
 }

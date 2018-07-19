@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Zw4-qx-ha5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Zw4-qx-ha5">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -65,13 +65,11 @@ Tap the button below to begin.</string>
                                     <segue destination="9ob-ly-Wxm" kind="show" id="SIk-RW-Rdv"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTl-8g-BTR">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or go through an assertion example where it asserts when the wrong event fires" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTl-8g-BTR">
                                 <rect key="frame" x="43" y="389" width="301" height="107"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="107" id="tod-qE-fdb"/>
                                 </constraints>
-                                <string key="text">Or go through an assertion example where it asserts for out-of-order
-events</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -96,18 +94,35 @@ events</string>
             </objects>
             <point key="canvasLocation" x="-359.19999999999999" y="124.58770614692655"/>
         </scene>
-        <!--Assert One-->
+        <!--Second View-->
         <scene sceneID="Qbq-t9-o6b">
             <objects>
-                <viewController title="Assert One" id="9ob-ly-Wxm" customClass="AssertControllerOne" customModule="AnalyticsTraceExample" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Second View" id="9ob-ly-Wxm" customClass="AssertControllerOne" customModule="AnalyticsTraceExample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HMH-Zd-QEq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="exe-uQ-lQn">
+                                <rect key="frame" x="108.5" y="371" width="158" height="101"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="158" id="OWI-DD-f9E"/>
+                                    <constraint firstAttribute="height" constant="101" id="Pd6-Bo-jKM"/>
+                                </constraints>
+                                <state key="normal" title="Throw an assertion --&gt;"/>
+                                <connections>
+                                    <action selector="startAssertFlow" destination="g2X-nE-DNj" eventType="touchUpInside" id="WK1-ye-K13"/>
+                                    <segue destination="her-C0-vI7" kind="show" id="VhS-6L-M3j"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="obb-6d-kYg">
-                                <rect key="frame" x="36" y="261" width="303" height="41"/>
-                                <string key="text">Trace failed and asserted because
-an out-of-order event fired on this view.</string>
+                                <rect key="frame" x="37" y="219" width="300" height="144"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="144" id="C87-fJ-Osa"/>
+                                    <constraint firstAttribute="width" constant="300" id="b0I-l7-5NA"/>
+                                </constraints>
+                                <string key="text">Tapping the button below will throw an assertion since it will fire an unexpected event.
+
+This mimics when someone breaks an analytics funnel and you want to catch it programmatically.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -115,15 +130,44 @@ an out-of-order event fired on this view.</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="obb-6d-kYg" firstAttribute="top" secondItem="IxR-NW-H0R" secondAttribute="top" constant="197" id="b0O-6K-k63"/>
-                            <constraint firstItem="obb-6d-kYg" firstAttribute="centerX" secondItem="HMH-Zd-QEq" secondAttribute="centerX" id="f9G-Cp-chM"/>
+                            <constraint firstItem="exe-uQ-lQn" firstAttribute="top" secondItem="obb-6d-kYg" secondAttribute="bottom" constant="8" id="AbH-n0-x2r"/>
+                            <constraint firstItem="obb-6d-kYg" firstAttribute="centerX" secondItem="HMH-Zd-QEq" secondAttribute="centerX" id="Zwl-L7-a6k"/>
+                            <constraint firstItem="obb-6d-kYg" firstAttribute="top" secondItem="IxR-NW-H0R" secondAttribute="top" constant="155" id="aPb-47-y7U"/>
+                            <constraint firstItem="exe-uQ-lQn" firstAttribute="centerX" secondItem="IxR-NW-H0R" secondAttribute="centerX" id="mcj-tr-AxD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IxR-NW-H0R"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Syu-e2-Tkh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-359" y="911"/>
+            <point key="canvasLocation" x="-359.19999999999999" y="909.89505247376314"/>
+        </scene>
+        <!--Third View-->
+        <scene sceneID="F1C-WJ-wvy">
+            <objects>
+                <viewController title="Third View" id="her-C0-vI7" customClass="AssertControllerTwo" customModule="AnalyticsTraceExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KSY-fc-kGX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JE1-0t-O39">
+                                <rect key="frame" x="56" y="261" width="263" height="61"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">Trace failed and asserted because
+a duplicate (out-of-order) event 
+fired on this view.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Ju8-xb-Y2e"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="42d-o6-Ijw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="398" y="911"/>
         </scene>
         <!--Second View-->
         <scene sceneID="yQ9-8V-myV">
