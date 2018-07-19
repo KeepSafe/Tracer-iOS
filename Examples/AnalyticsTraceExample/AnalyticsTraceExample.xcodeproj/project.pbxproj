@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D4037722209C8F9F0093E519 /* AssertControllerOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4037721209C8F9F0093E519 /* AssertControllerOne.swift */; };
+		D48261C22100D48800B40A21 /* AssertControllerTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48261C12100D48800B40A21 /* AssertControllerTwo.swift */; };
 		D485F348209BB33400B89557 /* SecondController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D485F347209BB33400B89557 /* SecondController.swift */; };
 		D485F34A209BB34500B89557 /* ThirdController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D485F349209BB34500B89557 /* ThirdController.swift */; };
 		D485F34C209BB4BE00B89557 /* Tracers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D485F34B209BB4BE00B89557 /* Tracers.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		D4037721209C8F9F0093E519 /* AssertControllerOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertControllerOne.swift; sourceTree = "<group>"; };
+		D48261C12100D48800B40A21 /* AssertControllerTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertControllerTwo.swift; sourceTree = "<group>"; };
 		D485F347209BB33400B89557 /* SecondController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondController.swift; sourceTree = "<group>"; };
 		D485F349209BB34500B89557 /* ThirdController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdController.swift; sourceTree = "<group>"; };
 		D485F34B209BB4BE00B89557 /* Tracers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracers.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 				D485F347209BB33400B89557 /* SecondController.swift */,
 				D485F349209BB34500B89557 /* ThirdController.swift */,
 				D4037721209C8F9F0093E519 /* AssertControllerOne.swift */,
+				D48261C12100D48800B40A21 /* AssertControllerTwo.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 			files = (
 				D49A7202209BA50200AA084E /* FirstController.swift in Sources */,
 				D485F34A209BB34500B89557 /* ThirdController.swift in Sources */,
+				D48261C22100D48800B40A21 /* AssertControllerTwo.swift in Sources */,
 				D49A721C209BAAB200AA084E /* AnalyticsTraces.swift in Sources */,
 				D4037722209C8F9F0093E519 /* AssertControllerOne.swift in Sources */,
 				D49A7200209BA50200AA084E /* AppDelegate.swift in Sources */,

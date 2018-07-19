@@ -9,7 +9,7 @@
 import Foundation
 
 /// A report of a trace's execution
-public struct TraceReport {
+public class TraceReport {
     
     /// Creates a report of the trace's execution.
     ///
@@ -20,15 +20,15 @@ public struct TraceReport {
     
     /// A multi-line summary of the trace execution which can
     /// be displayed or otherwise exported to share with others.
-    public lazy var summary: String = {
+    public var summary: String {
         return generateSummary()
-    }()
+    }
     
     /// Generates a multi-line string representation of all
     /// items logged during during this trace.
-    public lazy var rawLog: String = {
+    public var rawLog: String {
         return generateRawLog()
-    }()
+    }
     
     /// The original `TraceResult` from which this summary was generated
     /// in case you'd like to generate a custom report.
@@ -49,11 +49,25 @@ public struct TraceReport {
     }()
 }
 
+// MARK: - Printable
+
+extension TraceReport: CustomStringConvertible, CustomDebugStringConvertible {
+
+    public var description: String {
+        return rawLog
+    }
+
+    public var debugDescription: String {
+        return summary
+    }
+
+}
+
 // MARK: - Private API
 
 fileprivate extension TraceReport {
     
-    mutating func generateSummary() -> String {
+    func generateSummary() -> String {
         let itemsToMatch = result.statesForItemsToMatch.compactMap({ stateDictionary -> String? in
             guard let item = stateDictionary.keys.first,
                 let state = stateDictionary.values.first else { return nil }
@@ -128,7 +142,7 @@ fileprivate extension TraceReport {
         """
     }
     
-    mutating func generateRawLog() -> String {
+    func generateRawLog() -> String {
         let loggedItems = result.statesForAllLoggedItems.compactMap({ stateDictionary -> String? in
             guard let item = stateDictionary.keys.first,
                   let state = stateDictionary.values.first else { return nil }

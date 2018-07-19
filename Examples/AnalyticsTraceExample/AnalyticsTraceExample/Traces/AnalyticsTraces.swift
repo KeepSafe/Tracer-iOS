@@ -20,6 +20,7 @@ enum AnalyticsTrace: String {
                                                                                       .thirdViewSeen]))
         case .assertFlow: return Trace(name: self.rawValue,
                                        enforceOrder: true, // this is the default, but just being explicit here
+                                       allowDuplicates: false,
                                        assertOnFailure: true,
                                        itemsToMatch: AnalyticsEvent.traceItems(from: [.firstViewSeen,
                                                                                       .secondViewSeen,

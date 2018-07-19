@@ -29,7 +29,7 @@ final class TraceReportTests: XCTestCase {
         result.handleFiring(of: ie)
         result.finalize()
         
-        var report = TraceReport(result: result)
+        let report = TraceReport(result: result)
         let summaryLog = report.summary
         
         XCTAssertTrue(summaryLog.contains("Begin Trace Report"))
@@ -68,7 +68,7 @@ final class TraceReportTests: XCTestCase {
         result.handleFiring(of: ia)
         result.finalize()
         
-        var report = TraceReport(result: result)
+        let report = TraceReport(result: result)
         let summaryLog = report.summary
         
         XCTAssertTrue(summaryLog.contains("Result: failed"))
@@ -83,7 +83,7 @@ final class TraceReportTests: XCTestCase {
         result.handleFiring(of: ie)
         result.finalize()
         
-        var report = TraceReport(result: result)
+        let report = TraceReport(result: result)
         let summaryLog = report.summary
         
         XCTAssertTrue(summaryLog.contains("Result: failed"))
@@ -100,7 +100,7 @@ final class TraceReportTests: XCTestCase {
         result.handleFiring(of: ia)
         result.finalize()
         
-        var report = TraceReport(result: result)
+        let report = TraceReport(result: result)
         let summaryLog = report.summary
         
         XCTAssertTrue(summaryLog.contains("Result: failed"))
@@ -118,7 +118,7 @@ final class TraceReportTests: XCTestCase {
         result.handleFiring(of: TraceItem(type: "ignoreMe", itemToMatch: AnyTraceEquatable("ignored")))
         result.finalize()
         
-        var report = TraceReport(result: result)
+        let report = TraceReport(result: result)
         let summaryLog = report.summary
         
         XCTAssertTrue(summaryLog.contains("Result: failed"))
@@ -140,7 +140,7 @@ final class TraceReportTests: XCTestCase {
         result.handleFiring(of: ib)
         result.finalize()
         
-        var report = TraceReport(result: result)
+        let report = TraceReport(result: result)
         let rawLog = report.rawLog
         
         XCTAssertTrue(rawLog.contains("Begin Trace Raw Log"))
