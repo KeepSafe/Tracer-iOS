@@ -27,7 +27,7 @@ enum EventTrace: String {
             return Trace(name: self.rawValue,
                          enforceOrder: false,
                          allowDuplicates: false,
-                         /*assertOnFailure: true,*/
+                         assertOnFailure: true, // this gets ignored for the UI tool, but you can override this in `TraceUI`
                          itemsToMatch: Event.traceItems(from: [.one,
                                                                .two,
                                                                .three]),

@@ -129,6 +129,11 @@ public final class TraceUI: Listening {
     }
     
     // MARK: - Properties
+
+    /// Whether or not the UI tool should assert during traces; this defaults to `false` since it often
+    /// doesn't make sense to assert and abort the app during normal usage, whereas it makes sense for
+    /// unit tests that don't use the UI tool to throw assertions
+    public static var canThrowAssertions = false
     
     /// The items logged to the generic tailing log
     public var loggedItems: [LoggedItem] {

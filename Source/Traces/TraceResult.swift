@@ -70,7 +70,7 @@ public final class TraceResult {
         didSet {
             stateChanged.fire(data: state)
             
-            if oldValue != .failed && (state == .failed && trace.assertOnFailure) {
+            if oldValue != .failed && (state == .failed && canThrowAssertions && trace.assertOnFailure) {
                 finalize()
 
                 // Print the report to the debug console
@@ -92,6 +92,11 @@ public final class TraceResult {
     
     /// The date and time at which this trace ended
     public fileprivate(set) var endTime: Date?
+
+    /// An override point where the app won't assert on failure; useful for enabling different
+    /// behaviors for unit tests versus running the same trace in the UI tool where you may
+    /// not want to throw assertions
+    public internal(set) var canThrowAssertions = true
     
     // MARK: - Private Properties
     

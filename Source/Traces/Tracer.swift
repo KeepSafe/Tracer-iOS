@@ -40,9 +40,13 @@ public final class Tracer {
     /// Executes any setup steps, then starts listening to items being fired and appends them
     /// appropriately into a `TraceResult` that can be displayed at the end of the trace.
     ///
+    /// - Parameter canThrowAssertions: An override point where the app won't assert on failure; useful for enabling
+    ///                                 different behaviors for unit tests versus running the same trace in the UI tool
+    ///                                 (Default value is `true`).
     /// - Returns: A tuple `TraceStarted` with signals that can be listened to for trace changes
     @discardableResult
-    public func start() -> TraceStarted {
+    public func start(canThrowAssertions: Bool = true) -> TraceStarted {
+        result.canThrowAssertions = canThrowAssertions
         guard isRunning == false else {
             // Trace is already active, so just return signals
             return TraceStarted(currentState: result.state, stateChanged: result.stateChanged, itemLogged: itemLogged)

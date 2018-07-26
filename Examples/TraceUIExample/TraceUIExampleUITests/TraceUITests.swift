@@ -191,6 +191,27 @@ final class TraceUITests: XCTestCase {
         XCTAssertTrue(cell(containing: "Event: two").staticTexts["⏳"].exists)
         XCTAssertTrue(cell(containing: "Event: three").staticTexts["❌"].exists)
     }
+
+    func testIgnoringAssertionsDuringUIToolUsage() {
+        // Note: example 2 has assertions turned on for failures, but the UI tool should ignore this
+        expandTraceUI()
+        showTracesList()
+        tapCell(containing: "Example 2")
+        startTrace()
+        ensureExampleInitialState()
+
+        // Pass the test by firing out-of-order
+        collapseTraceUI()
+        verifyStatusButton(state: .waiting)
+        app.buttons["Fire event 3"].tap()
+        verifyStatusButton(state: .passing)
+        app.buttons["Fire event 3"].tap()
+        verifyStatusButton(state: .failed)
+        expandTraceUI()
+        XCTAssertTrue(cell(containing: "Event: one").staticTexts["⏳"].exists)
+        XCTAssertTrue(cell(containing: "Event: two").staticTexts["⏳"].exists)
+        XCTAssertTrue(cell(containing: "Event: three").staticTexts["❌"].exists)
+    }
     
     // MARK: - Toasts
     
