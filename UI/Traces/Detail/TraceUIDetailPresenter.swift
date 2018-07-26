@@ -38,7 +38,9 @@ private extension TraceUIDetailPresenter {
             self.view.configure(with: viewModel)
         }
         TraceUISignals.UI.startTrace.listen { _ in
-            guard self.tracer?.isRunning == false, let trace = self.trace, let started = self.tracer?.start() else { return }
+            guard self.tracer?.isRunning == false,
+                  let trace = self.trace,
+                  let started = self.tracer?.start(canThrowAssertions: TraceUI.canThrowAssertions) else { return }
             TraceUISignals.Traces.started.fire(data: (trace: trace, started: started))
             self.updateTraceState()
         }
