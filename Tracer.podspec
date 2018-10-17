@@ -8,6 +8,7 @@ Pod::Spec.new do |spec|
   spec.source       = { :git => 'https://github.com/KeepSafe/Tracer-iOS.git', :tag => "v" + spec.version.to_s }
   spec.ios.deployment_target = '10.0'
   spec.requires_arc = true
+  spec.swift_version = '4.2'
   
   spec.subspec 'Core' do |subspec|
     subspec.source_files = 'Source/**/*.{h,swift}'
