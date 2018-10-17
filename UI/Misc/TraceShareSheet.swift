@@ -16,7 +16,7 @@ struct TraceShareSheet: Viewing {
                         success: TraceShareSheetSuccess? = nil, failure: TraceShareSheetFailure? = nil) {
         let shareSheet = UIActivityViewController(activityItems: activityItems, applicationActivities: [])
         shareSheet.popoverPresentationController?.sourceView = controller.view
-        var excludeActivities: [UIActivityType] = [.assignToContact, .addToReadingList,
+        var excludeActivities: [UIActivity.ActivityType] = [.assignToContact, .addToReadingList,
                                                    .postToFacebook, .postToVimeo,
                                                    .postToWeibo, .postToFlickr,
                                                    .postToTwitter, .openInIBooks,
@@ -25,7 +25,7 @@ struct TraceShareSheet: Viewing {
             excludeActivities.append(.markupAsPDF)
         }
         shareSheet.excludedActivityTypes = excludeActivities
-        shareSheet.completionWithItemsHandler = { (activityType: UIActivityType?, completed: Bool, returnedItems: [Any]?, activityError: Error?) in
+        shareSheet.completionWithItemsHandler = { (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, activityError: Error?) in
             if completed {
                 if let error = activityError {
                     failure?(error)

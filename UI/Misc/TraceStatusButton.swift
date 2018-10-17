@@ -84,7 +84,7 @@ private extension TraceStatusButton {
     @objc func handleLongPress(gesture: UILongPressGestureRecognizer) {
         let touchPoint = gesture.location(in: self) // touch point in this view coordinate space
         
-        func broadcastTouchPoint(state: UIGestureRecognizerState) {
+        func broadcastTouchPoint(state: UIGestureRecognizer.State) {
             TraceUISignals.UI.statusButtonDragged.fire(data: (touchPoint: touchPoint, gestureState: state))
         }
         

@@ -46,13 +46,13 @@ final class TraceUIWindow: UIWindow {
 private extension TraceUIWindow {
     
     func setupWindow() {
-        windowLevel = CGFloat.greatestFiniteMagnitude
+        windowLevel = UIWindow.Level(rawValue: CGFloat.greatestFiniteMagnitude)
         backgroundColor = .clear
         isHidden = false
     }
     
     func registerNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(bringWindowToTop), name: .UIWindowDidBecomeVisible, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(bringWindowToTop), name: UIWindow.didBecomeVisibleNotification, object: nil)
     }
     
     @objc func bringWindowToTop(_ notification: Notification) {

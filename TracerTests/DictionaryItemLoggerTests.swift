@@ -14,13 +14,11 @@ final class DictionaryItemLoggerTests: XCTestCase {
     let loggedItemProperties: [String: AnyTraceEquatable] = ["test": AnyTraceEquatable("hello"), "test2": AnyTraceEquatable("goodbye")]
     
     func testDictionaryToDescriptionString() {
-        let string = loggedItemProperties.loggerDescription
-        XCTAssertTrue(string == "test: hello\ntest2: goodbye\n")
+        XCTAssertTrue(loggedItemProperties.loggerDescription == "test: hello\ntest2: goodbye\n")
     }
     
     func testDictionaryToCSVString() {
-        let csvString = loggedItemProperties.csvDescription
-        XCTAssertTrue(csvString == "test: hello; test2: goodbye")
+        XCTAssertTrue(loggedItemProperties.csvDescription == "test: hello; test2: goodbye")
     }
 
 }

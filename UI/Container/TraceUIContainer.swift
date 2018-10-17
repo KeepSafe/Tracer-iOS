@@ -95,7 +95,7 @@ final class TraceUIContainer: Viewing {
         statusButton.configure(with: state)
     }
     
-    func handleButtonDrag(with buttonDragTouchPoint: CGPoint, gestureState: UIGestureRecognizerState? = nil) {
+    func handleButtonDrag(with buttonDragTouchPoint: CGPoint, gestureState: UIGestureRecognizer.State? = nil) {
         let touchPoint = window.convert(buttonDragTouchPoint, from: self.statusButton)
         
         // Can't go off left or right edge
@@ -119,7 +119,7 @@ final class TraceUIContainer: Viewing {
         }, completion: nil)
         
         if gestureState == .ended {
-            defaultsStore.set(NSStringFromCGPoint(newPoint), forKey: lastStatusButtonDragPointKey)
+            defaultsStore.set(NSCoder.string(for: newPoint), forKey: lastStatusButtonDragPointKey)
         }
     }
     
@@ -169,7 +169,7 @@ final class TraceUIContainer: Viewing {
     
     private var savedStatusButtonPoint: CGPoint? {
         guard let pointString = defaultsStore.value(forKey: lastStatusButtonDragPointKey) as? String else { return nil }
-        return CGPointFromString(pointString)
+        return NSCoder.cgPoint(for: pointString)
     }
     
 }
@@ -229,8 +229,8 @@ private extension TraceUIContainer {
     }
     
     func setupNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(statusBarOrientationDidChange), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: .UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(statusBarOrientationDidChange), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     @objc func statusBarOrientationDidChange() {
@@ -258,7 +258,7 @@ private extension TraceUIContainer {
                 self.statusButtonTopConstraint?.constant = y
                 self.window.layoutIfNeeded()
             }
-            defaultsStore.set(NSStringFromCGPoint(CGPoint(x: x, y: y)), forKey: lastStatusButtonDragPointKey)
+            defaultsStore.set(NSCoder.string(for: CGPoint(x: x, y: y)), forKey: lastStatusButtonDragPointKey)
         }
     }
     
