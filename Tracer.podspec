@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
   spec.name         = 'Tracer'
   spec.summary      = 'Use traces to validate UX flows, analytics, or event buses.'
-  spec.version      = '0.1.1'
+  spec.version      = '0.1.2'
   spec.homepage     = 'https://github.com/KeepSafe/Tracer-iOS'
   spec.license      = { :type => 'Apache 2.0', :file => 'LICENSE' }
   spec.authors      = { 'Keepsafe' => 'rob@getkeepsafe.com' }
