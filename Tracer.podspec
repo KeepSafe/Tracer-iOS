@@ -10,7 +10,7 @@ Pod::Spec.new do |spec|
   spec.requires_arc = true
   
   spec.subspec 'Core' do |subspec|
-    subspec.source_files = 'Source/**/*'
+    subspec.source_files = 'Source/**/*.{h,swift}'
   end
   
   spec.subspec 'UI' do |subspec|
