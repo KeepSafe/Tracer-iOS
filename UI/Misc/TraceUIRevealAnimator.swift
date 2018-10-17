@@ -37,7 +37,7 @@ final class TraceUIRevealAnimator: NSObject {
     
     private lazy var expandCollapseAnimation: CABasicAnimation = { [unowned self] in
         let animation = CABasicAnimation(keyPath: "path") // animate the mask's path
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
         animation.duration = self.animationDuration
         animation.delegate = self
         return animation

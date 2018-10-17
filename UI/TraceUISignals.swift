@@ -43,7 +43,7 @@ internal struct TraceUISignals {
         static let hide = TraceActionSignal()
         
         /// Broadcasts the touch point in the button's coordinate space
-        static let statusButtonDragged = TraceSignal<(touchPoint: CGPoint, gestureState: UIGestureRecognizerState)>()
+        static let statusButtonDragged = TraceSignal<(touchPoint: CGPoint, gestureState: UIGestureRecognizer.State)>()
     }
     
     internal struct Toasts {

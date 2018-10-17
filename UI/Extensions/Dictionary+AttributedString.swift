@@ -15,7 +15,7 @@ internal extension Dictionary where Key: ExpressibleByStringLiteral, Value: Cust
         let v = NSMutableAttributedString(string: "")
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .left
-        let boldAttribute: [NSAttributedStringKey: Any] = [.paragraphStyle: paragraph,
+        let boldAttribute: [NSAttributedString.Key: Any] = [.paragraphStyle: paragraph,
                                                            .font: UIFont.boldSystemFont(ofSize: fontSize)]
         for (key, value) in self {
             let boldString = NSAttributedString(string: "\(key)", attributes: boldAttribute)

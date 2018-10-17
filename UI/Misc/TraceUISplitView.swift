@@ -95,7 +95,7 @@ private extension TraceUISplitView {
     // MARK: - Orientations
     
     func setupNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(statusBarOrientationDidChange), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(statusBarOrientationDidChange), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
     }
     
     @objc func statusBarOrientationDidChange() {
