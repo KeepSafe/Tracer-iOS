@@ -71,9 +71,4 @@ final class TraceTests: XCTestCase {
         XCTAssertTrue(t0 == t2)
     }
     
-    func testHashable() {
-        let ti0 = TraceItem(type: "ti0", itemToMatch: AnyTraceEquatable(true))
-        XCTAssertTrue(ti0.hashValue != 0)
-    }
-    
 }

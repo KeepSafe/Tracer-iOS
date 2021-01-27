@@ -52,15 +52,10 @@ final class TraceUITests: XCTestCase {
         tapSettings()
         tapCancel()
         
-        // Exporting
-        tapSettings()
-        let actionSheet = app.sheets["Settings"]
-        actionSheet.buttons["Export log"].tap()
-        tapCancel()
-        
         // Clearing log
         cellExists(containing: "⚡️ Logged a number! It was 1")
         tapSettings()
+        let actionSheet = app.sheets["Settings"]
         actionSheet.buttons["Clear log"].tap()
         cellDoesNotExist(containing: "⚡️ Logged a number! It was 1")
         
@@ -126,10 +121,6 @@ final class TraceUITests: XCTestCase {
         stopTrace()
         XCTAssertFalse(app.buttons["StartTrace"].exists)
         XCTAssertTrue(app.buttons["CloseTraceDetails"].exists)
-
-        // Exporting
-        app.buttons["ExportTraceReport"].tap()
-        tapCancel()
     }
     
     func testFailingOrderMattersTrace() {

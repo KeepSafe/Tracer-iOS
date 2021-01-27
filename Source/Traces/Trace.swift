@@ -114,5 +114,7 @@ extension Trace: Equatable {
 // MARK: - Hashable
 
 extension Trace: Hashable {
-    public var hashValue: Int { return name.hashValue }
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+    }
 }

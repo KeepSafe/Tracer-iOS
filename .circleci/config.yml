@@ -2,20 +2,20 @@ version: 2
 jobs:
   build:
     macos:
-      xcode: "10.0.0"
+      xcode: "12.3.0"
     steps:
       - checkout
       - run:
           name: Build and run unit tests
           command: fastlane scan
           environment:
-            SCAN_DEVICE: iPhone 7
+            SCAN_DEVICE: iPhone 8
             SCAN_SCHEME: Tracer
       - run:
           name: Build and run UI tests
           command: fastlane scan --workspace "Examples/TraceUIExample/TraceUIExample.xcworkspace"
           environment:
-            SCAN_DEVICE: iPhone 7
+            SCAN_DEVICE: iPhone 8
             SCAN_SCHEME: TraceUIExample
       - run:
           name: Lint the pod

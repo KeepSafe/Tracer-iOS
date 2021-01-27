@@ -212,12 +212,12 @@ private extension TraceUIContainer {
         if let savedButtonPoint = savedStatusButtonPoint {
             buttonPoint = savedButtonPoint
         } else {
-            let topOffset = UIScreen.main.bounds.size.height - TraceStatusButton.sizeLength - statusButtonPadding * 2
+            let topOffset = window.safeAreaInsets.top + TraceStatusButton.sizeLength + statusButtonPadding * 2
             let leftOffset = statusButtonPadding * 2
             buttonPoint = CGPoint(x: leftOffset, y: topOffset)
         }
         
-        let topConstraint = statusButton.topAnchor.constraint(equalTo: window.topAnchor, constant: buttonPoint.y)
+        let topConstraint = statusButton.topAnchor.constraint(equalTo: window.safeAreaLayoutGuide.topAnchor, constant: buttonPoint.y)
         statusButtonTopConstraint = topConstraint
         let leftConstraint = statusButton.leftAnchor.constraint(equalTo: window.leftAnchor, constant: buttonPoint.x)
         statusButtonLeftConstraint = leftConstraint
