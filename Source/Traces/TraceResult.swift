@@ -40,7 +40,7 @@ public final class TraceResult {
     /// Finalizes the trace by checking for any missing trace items
     internal func finalize() {
         guard finalized == false else { return }
-        while let index = statesForItemsToMatch.index(where: { $0.values.first == .waitingToBeMatched }) {
+        while let index = statesForItemsToMatch.firstIndex(where: { $0.values.first == .waitingToBeMatched }) {
             guard let item = statesForItemsToMatch[index].keys.first else { continue }
             statesForItemsToMatch[index][item] = .missing
         }
@@ -124,8 +124,8 @@ fileprivate extension TraceResult {
         // Otherwise, check the item can be matched by finding the first generic
         // item that's still waiting to be matched and see if it matches
         // the first item of the passed in type that's waiting to be matched
-        if let firstGenericIndexWaitingToBeMatched = statesForItemsToMatch.index(where: { $0.values.first == .waitingToBeMatched }),
-           let indexOfThisTypeWaitingToBeMatched = statesForItemsToMatch.index(where: { $0[item] == .waitingToBeMatched }) {
+        if let firstGenericIndexWaitingToBeMatched = statesForItemsToMatch.firstIndex(where: { $0.values.first == .waitingToBeMatched }),
+           let indexOfThisTypeWaitingToBeMatched = statesForItemsToMatch.firstIndex(where: { $0[item] == .waitingToBeMatched }) {
             let itemState: TraceItemState
             if trace.enforceOrder == false {
                 itemState = .matched
@@ -157,7 +157,7 @@ fileprivate extension TraceResult {
                 // The item matches one found in items to match, but we've already matched all of its
                 // type that we were supposed to, so just log it as ignored
                 updateLog(with: item, state: .ignoredButMatched)
-            } else if let indexOfThisType = statesForItemsToMatch.index(where: { $0.keys.first == item }) {
+            } else if let indexOfThisType = statesForItemsToMatch.firstIndex(where: { $0.keys.first == item }) {
                 // Fail the overall trace by marking the type it duplicated
                 statesForItemsToMatch[indexOfThisType][item] = .hadDuplicates
                 

@@ -41,8 +41,13 @@ extension TraceItem: Equatable {
 }
 
 extension TraceItem: Hashable {
-    public var hashValue: Int {
-        if itemToMatch is TextOutputStreamable { return type.hashValue }
-        return type.hashValue ^ String(describing: itemToMatch).hashValue
+    public func hash(into hasher: inout Hasher) {
+        if itemToMatch is TextOutputStreamable {
+            hasher.combine(type)
+            return
+        }
+
+        hasher.combine(type)
+        hasher.combine(String(describing: itemToMatch))
     }
 }
